@@ -1489,7 +1489,7 @@
         <li><span class="modal-step-n">4</span><span data-i18n="ms4">Open <strong>LinguaKey</strong> and complete the 2-step keyboard activation.</span></li>
       </ol>
       <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">
-        <button class="btn btn-secondary btn-sm" id="retryDownloadBtn" data-i18n="mod_retry">Download again</button>
+        <a class="btn btn-secondary btn-sm" id="retryDownloadBtn" href="https://github.com/moza333mo-commits/linguakey/releases/latest/download/LinguaKey-v1.2.2.apk" data-i18n="mod_retry">Direct Download Link</a>
         <button class="btn btn-primary btn-sm" id="doneModalBtn" data-i18n="mod_done">Got it</button>
       </div>
     </div>
@@ -1602,7 +1602,7 @@
         ms2: "If prompted, tap <strong>Settings</strong> and toggle <strong>Allow from this source</strong>.",
         ms3: "Tap <strong>Install</strong> and wait a few seconds.",
         ms4: "Open <strong>LinguaKey</strong> and complete the 2-step keyboard activation.",
-        mod_retry: "Download again", mod_done: "Got it",
+        mod_retry: "Tap here if download didn't start", mod_done: "Got it",
         toast_copied: "SHA-256 copied to clipboard", toast_starting: "Starting LinguaKey v1.2.2 APK download..."
       },
       ar: {
@@ -1692,7 +1692,7 @@
         ms2: "إذا طُلب منك، اضغط <strong>الإعدادات</strong> ثم فعّل <strong>السماح من هذا المصدر</strong>.",
         ms3: "اضغط <strong>تثبيت (Install)</strong> وانتظر ثوانٍ قليلة.",
         ms4: "افتح تطبيق <strong>LinguaKey</strong> وأكمل خطوتي تفعيل لوحة المفاتيح.",
-        mod_retry: "إعادة التحميل", mod_done: "حسناً، فهمت",
+        mod_retry: "اضغط هنا للتحميل المباشر", mod_done: "حسناً، فهمت",
         toast_copied: "تم نسخ بصمة SHA-256 بنجاح", toast_starting: "جارٍ بدء تحميل LinguaKey v1.2.2..."
       },
       es: {
@@ -1782,7 +1782,7 @@
         ms2: "Si se solicita, pulsa <strong>Ajustes</strong> y activa <strong>Permitir desde esta fuente</strong>.",
         ms3: "Pulsa <strong>Instalar</strong> y espera unos segundos.",
         ms4: "Abre <strong>LinguaKey</strong> y completa la activación en 2 pasos.",
-        mod_retry: "Descargar de nuevo", mod_done: "Entendido",
+        mod_retry: "Pulsa aquí si no inicia", mod_done: "Entendido",
         toast_copied: "SHA-256 copiado al portapapeles", toast_starting: "Iniciando descarga de LinguaKey v1.2.2..."
       }
     };
@@ -2032,21 +2032,14 @@
     function triggerDownload() {
       const modal = document.getElementById("downloadModal");
       const modalSub = document.getElementById("modalSub");
-      const isPlaceholder = LINGUAKEY_CONFIG.apkDownloadUrl.includes("YOUR_USERNAME");
-
-      if (isPlaceholder) {
-        modalSub.textContent = I18N[currentLang].mod_preview_note;
-      } else {
-        modalSub.textContent = I18N[currentLang].mod_sub;
-        showToast(I18N[currentLang].toast_starting);
-        const a = document.createElement("a");
-        a.href = LINGUAKEY_CONFIG.apkDownloadUrl;
-        a.download = "LinguaKey-v" + LINGUAKEY_CONFIG.version + ".apk";
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-      }
+      const retryLink = document.getElementById("retryDownloadBtn");
+      if (retryLink) retryLink.href = LINGUAKEY_CONFIG.apkDownloadUrl;
+      modalSub.textContent = I18N[currentLang].mod_sub;
+      showToast(I18N[currentLang].toast_starting);
       modal.classList.add("open");
+      setTimeout(() => {
+        window.location.href = LINGUAKEY_CONFIG.apkDownloadUrl;
+      }, 250);
     }
 
     document.querySelectorAll(".lang-btn").forEach(btn => {
@@ -2063,7 +2056,6 @@
     document.querySelectorAll(".js-download-trigger").forEach(btn => {
       btn.addEventListener("click", triggerDownload);
     });
-    document.getElementById("retryDownloadBtn").addEventListener("click", triggerDownload);
     document.getElementById("closeModalBtn").addEventListener("click", () => document.getElementById("downloadModal").classList.remove("open"));
     document.getElementById("doneModalBtn").addEventListener("click", () => document.getElementById("downloadModal").classList.remove("open"));
     document.getElementById("downloadModal").addEventListener("click", e => {
