@@ -1,0 +1,2084 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>LinguaKey — Smart Translation Keyboard for Android</title>
+  <meta name="description" content="Translate chats directly on screen, type in your language and send in theirs, and access AI writing tools in one sleek Android keyboard." />
+  <meta name="theme-color" content="#0D0B14" />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://moza333mo-commits.github.io/linguakey/" />
+  <meta property="og:url" content="https://moza333mo-commits.github.io/linguakey/" />
+  <meta property="og:title" content="LinguaKey — Smart Translation Keyboard for Android" />
+  <meta property="og:description" content="On-screen chat translation with emoji preservation, live typing translation, AI copilot, and quick shortcuts for Android." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230D0B14'/%3E%3Cstop offset='0.5' stop-color='%231E1B38'/%3E%3Cstop offset='1' stop-color='%233B1F7A'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='120' height='120' rx='28' fill='url(%23g)'/%3E%3Crect x='22' y='28' width='76' height='22' rx='7' fill='%235695FD'/%3E%3Crect x='38' y='90' width='44' height='9' rx='4.5' fill='%238AB4F8'/%3E%3C/svg%3E" />
+
+  <style>
+    :root {
+      --bg: #FAFAFC;
+      --surface: #FFFFFF;
+      --surface-subtle: #F3F5F9;
+      --ink: #0B0D12;
+      --ink-secondary: #4B5563;
+      --ink-muted: #6B7280;
+      --border: rgba(15, 23, 42, 0.08);
+      --border-strong: rgba(15, 23, 42, 0.14);
+      --accent: #1A73E8;
+      --accent-soft: rgba(26, 115, 232, 0.10);
+      --success: #10B981;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 14px 34px -14px rgba(15, 23, 42, 0.12), 0 2px 6px rgba(15, 23, 42, 0.04);
+      --shadow-phone: 0 32px 72px -22px rgba(11, 13, 18, 0.34), 0 10px 24px -10px rgba(11, 13, 18, 0.14);
+      --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-ar: "Segoe UI", Tahoma, "Noto Sans Arabic", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    html[dir="rtl"] body { font-family: var(--font-ar); }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+    .container {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .hero-backdrop {
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 760px;
+      background:
+        radial-gradient(58% 48% at 50% 0%, rgba(26, 115, 232, 0.12) 0%, rgba(59, 31, 122, 0.06) 44%, rgba(250, 250, 252, 0) 100%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* Sticky Glass Navigation */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(250, 250, 252, 0.84);
+      backdrop-filter: saturate(180%) blur(18px);
+      -webkit-backdrop-filter: saturate(180%) blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 16px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 700;
+      font-size: 1.06rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      box-shadow: 0 4px 12px rgba(59, 31, 122, 0.25);
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: var(--ink-secondary);
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .lang-btn {
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      transition: all 0.18s ease;
+    }
+    .lang-btn.active {
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.10);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: transform 0.16s ease, box-shadow 0.18s ease, background 0.18s ease;
+      white-space: nowrap;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary {
+      background: var(--ink);
+      color: #FFFFFF;
+      padding: 13px 26px;
+      font-size: 0.96rem;
+      box-shadow: 0 10px 24px -10px rgba(11, 13, 18, 0.55);
+    }
+    .btn-primary:hover {
+      background: #1B202C;
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--ink);
+      border: 1px solid var(--border-strong);
+      padding: 12px 22px;
+      font-size: 0.94rem;
+    }
+    .btn-secondary:hover { background: var(--surface-subtle); }
+    .btn-sm { padding: 8px 16px; font-size: 0.84rem; }
+
+    /* Hero */
+    .hero {
+      padding: 68px 0 64px;
+      position: relative;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 52px;
+      align-items: center;
+    }
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 22px;
+    }
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.16);
+    }
+    .hero h1 {
+      font-size: clamp(2.25rem, 4.3vw, 3.45rem);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+    html[dir="rtl"] .hero h1 { letter-spacing: 0; line-height: 1.24; }
+    .hero-lead {
+      font-size: 1.08rem;
+      color: var(--ink-secondary);
+      max-width: 520px;
+      margin-bottom: 28px;
+    }
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 26px;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 0.84rem;
+      color: var(--ink-muted);
+    }
+
+    /* ============================================================
+       REAL-SPEC ANDROID PHONE & LINGUAKEY v1.2.2 UI REPLICA
+       Modeled directly from actual LinguaKey Android screenshots
+       ============================================================ */
+    .phone-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .showcase-tabs {
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 5px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 5px;
+      border-radius: 999px;
+      box-shadow: var(--shadow-sm);
+    }
+    .showcase-tab {
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      transition: all 0.18s ease;
+    }
+    .showcase-tab.active {
+      background: var(--ink);
+      color: #FFFFFF;
+    }
+
+    .phone-frame {
+      width: 330px;
+      background: #08090C;
+      border-radius: 42px;
+      padding: 10px;
+      box-shadow: var(--shadow-phone), inset 0 0 0 1.5px rgba(255, 255, 255, 0.14);
+      direction: ltr;
+      user-select: none;
+    }
+    .phone-screen {
+      background: #111215;
+      border-radius: 32px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      color: #F3F4F6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .ph-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 18px 5px;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #E5E7EB;
+      background: #111215;
+    }
+    .ph-camera {
+      width: 11px;
+      height: 11px;
+      background: #000;
+      border-radius: 50%;
+      box-shadow: inset 0 0 2px rgba(255,255,255,0.2);
+    }
+    .ph-chat-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 12px 9px;
+      background: #111215;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      gap: 6px;
+    }
+    .ph-user {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ph-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366F1, #3B82F6);
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .ph-avatar-flag {
+      position: absolute;
+      right: -2px;
+      bottom: -2px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #111215;
+      display: grid;
+      place-items: center;
+      font-size: 8px;
+    }
+    .ph-uname { font-size: 12.5px; font-weight: 700; line-height: 1.1; }
+    .ph-usub { font-size: 9.5px; color: #9CA3AF; }
+
+    /* Floating Screen Translation Overlay Pill (exact LinguaKey style) */
+    .lk-float-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #181A20;
+      border: 1px solid #2D313B;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #E5E7EB;
+    }
+    .lk-float-badge {
+      background: #1A3A63;
+      color: #8AB4F8;
+      border-radius: 999px;
+      padding: 2px 7px;
+      font-size: 9.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .lk-float-badge:hover { background: #234D82; }
+
+    .ph-chat-body {
+      padding: 10px 12px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      min-height: 214px;
+      justify-content: flex-end;
+    }
+    .ph-time {
+      text-align: center;
+      font-size: 9.5px;
+      color: #7D8491;
+      margin: 1px 0;
+    }
+    .ph-msg-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+    }
+    .ph-msg-row.out { justify-content: flex-start; }
+    .ph-msg-row.in { justify-content: flex-end; }
+    .ph-bubble {
+      max-width: 78%;
+      padding: 8px 13px;
+      border-radius: 20px;
+      font-size: 11.8px;
+      line-height: 1.38;
+      letter-spacing: -0.005em;
+      transition: all 0.22s ease;
+    }
+    .ph-bubble.in {
+      background: #23252A;
+      color: #F3F4F6;
+    }
+    .ph-bubble.out {
+      background: #2E2268;
+      color: #FFFFFF;
+    }
+    .ph-bubble.rtl {
+      direction: rtl;
+      text-align: right;
+    }
+    .ph-mini-av {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366F1, #3B82F6);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .ph-seen {
+      font-size: 9px;
+      color: #818CF8;
+      padding-left: 6px;
+      margin-top: -3px;
+    }
+
+    /* App Message Composer Bar */
+    .ph-composer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px 7px;
+      background: #111215;
+    }
+    .ph-input-pill {
+      flex: 1;
+      background: #1E2025;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 10.5px;
+      color: #9CA3AF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ph-input-pill.typing { color: #F3F4F6; }
+
+    /* EXACT LinguaKey Top Smart Bar (matches real screenshots!) */
+    .lk-topbar {
+      background: #000000;
+      padding: 6px 8px 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #15171C;
+    }
+    .lk-side-pill {
+      width: 34px;
+      height: 28px;
+      border-radius: 8px;
+      background: #1B1D22;
+      color: #E5E7EB;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .lk-side-pill.active {
+      background: #1A73E8;
+      color: #FFFFFF;
+    }
+    .lk-center-icons {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      flex: 1;
+      padding: 0 8px;
+      color: #E5E7EB;
+    }
+    .lk-icon-btn {
+      width: 28px;
+      height: 26px;
+      border-radius: 7px;
+      display: grid;
+      place-items: center;
+      color: #E5E7EB;
+    }
+    .lk-icon-btn.active {
+      color: #8AB4F8;
+      background: rgba(138, 180, 248, 0.14);
+    }
+
+    /* Live Translation Strip */
+    .lk-live-bar {
+      background: #0B0D11;
+      border-top: 1px solid #1B1F27;
+      border-bottom: 1px solid #1B1F27;
+      padding: 6px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .lk-live-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 9.5px;
+    }
+    .lk-pair {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .lk-chip {
+      background: #1C1E21;
+      border: 1px solid #32363B;
+      color: #E8EAED;
+      border-radius: 999px;
+      padding: 1.5px 8px;
+      font-size: 9px;
+      font-weight: 700;
+    }
+    .lk-chip.tgt { border-color: #8AB4F8; color: #8AB4F8; }
+    .lk-alts {
+      display: flex;
+      gap: 5px;
+      overflow: hidden;
+    }
+    .lk-alt {
+      background: #161922;
+      border: 1px solid #282F3E;
+      color: #D1D5DB;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 9px;
+      white-space: nowrap;
+    }
+
+    /* EXACT LinguaKey AMOLED Keyboard with Number Row + Sky-Blue Enter */
+    .lk-kbd {
+      background: #000000;
+      padding: 4px 4px 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .lk-row {
+      display: flex;
+      gap: 3.5px;
+      justify-content: center;
+    }
+    .lk-k {
+      flex: 1;
+      height: 29px;
+      background: #1D1F23;
+      border-radius: 6px;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 500;
+      color: #F3F4F6;
+    }
+    .lk-k.num { height: 24px; font-size: 10.5px; background: #191B1F; }
+    .lk-k.fn { background: #131518; color: #D1D5DB; flex: 1.3; font-size: 9.5px; }
+    .lk-k.space { flex: 4.1; background: #262930; color: #9CA3AF; font-size: 9.5px; }
+    .lk-k.enter { flex: 1.65; background: #8AB4F8; color: #0B0D12; border-radius: 14px; font-weight: 700; }
+
+    /* EXACT LinguaKey v1.2.2 In-Place Tools & Languages Hub */
+    .lk-panel {
+      background: #000000;
+      padding: 7px 8px 8px;
+      height: 184px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .lk-p-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lk-p-back {
+      background: #222427;
+      border: 1px solid #333840;
+      color: #E8EAED;
+      border-radius: 8px;
+      padding: 4px 9px;
+      font-size: 9.5px;
+      font-weight: 700;
+    }
+    .lk-p-title {
+      flex: 1;
+      text-align: center;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #BDC1C6;
+    }
+    .lk-lang-box {
+      background: #13161B;
+      border: 1px solid #272C36;
+      border-radius: 10px;
+      padding: 5px 7px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .lk-l-from {
+      flex: 1;
+      background: #1D222B;
+      border: 1px solid #333A46;
+      color: #E8EAED;
+      border-radius: 7px;
+      text-align: center;
+      padding: 4px;
+      font-size: 9.5px;
+      font-weight: 700;
+    }
+    .lk-l-swap {
+      width: 28px;
+      background: #1A2230;
+      border: 1px solid #2D3E5A;
+      color: #8AB4F8;
+      border-radius: 7px;
+      text-align: center;
+      padding: 4px 0;
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .lk-l-to {
+      flex: 1;
+      background: #17253B;
+      border: 1px solid #3A5B8C;
+      color: #8AB4F8;
+      border-radius: 7px;
+      text-align: center;
+      padding: 4px;
+      font-size: 9.5px;
+      font-weight: 700;
+    }
+    .lk-grid-3x2 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      flex: 1;
+    }
+    .lk-tile {
+      background: #15181E;
+      border: 1px solid #282D37;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+    .lk-tile-lbl { font-size: 9px; font-weight: 700; color: #E8EAED; }
+
+    /* EXACT LinguaKey v1.2.2 Scrollable Quick Shortcuts Panel */
+    .lk-sc-wrap {
+      display: flex;
+      gap: 6px;
+      flex: 1;
+      min-height: 0;
+    }
+    .lk-sc-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+    }
+    .lk-sc-item {
+      background: #15181E;
+      border: 1px solid #282D37;
+      border-radius: 9px;
+      padding: 6px 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+    }
+    .lk-sc-k { font-size: 9px; font-weight: 700; color: #FDD663; }
+    .lk-sc-v { font-size: 8.5px; color: #CBD5E1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .lk-sc-bar {
+      width: 5px;
+      background: #181B22;
+      border-radius: 99px;
+    }
+    .lk-sc-thumb {
+      width: 5px;
+      height: 46px;
+      background: #8AB4F8;
+      border-radius: 99px;
+      margin-top: 8px;
+    }
+
+    /* Android Bottom Nav Bar */
+    .ph-android-nav {
+      background: #000000;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 38px;
+      color: #D1D5DB;
+    }
+    .nav-sq { width: 9px; height: 9px; border-radius: 2px; background: #D1D5DB; }
+    .nav-ci { width: 11px; height: 11px; border-radius: 50%; border: 1.5px solid #D1D5DB; }
+    .nav-dn {
+      width: 28px; height: 16px; border-radius: 99px; background: #262930;
+      display: grid; place-items: center; font-size: 8px; color: #E5E7EB;
+    }
+
+    .showcase-caption {
+      font-size: 0.84rem;
+      color: var(--ink-muted);
+      text-align: center;
+      max-width: 330px;
+    }
+
+    /* Visual Gallery Strip (3 Real-Style Interface Cards) */
+    .gallery-section {
+      padding: 72px 0;
+      background: linear-gradient(180deg, rgba(243, 245, 249, 0.5) 0%, rgba(250, 250, 252, 1) 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .gallery-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .gallery-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .mini-device {
+      background: #090A0D;
+      border-radius: 20px;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #F3F4F6;
+      direction: ltr;
+      min-height: 210px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .gallery-card h3 { font-size: 1.04rem; font-weight: 700; }
+    .gallery-card p { font-size: 0.89rem; color: var(--ink-secondary); }
+
+    /* Sections */
+    section { padding: 80px 0; }
+    .section-head {
+      max-width: 640px;
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+    .section-eyebrow {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    html[dir="rtl"] .section-eyebrow { letter-spacing: 0; text-transform: none; }
+    .section-head h2 {
+      font-size: clamp(1.75rem, 3.2vw, 2.45rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    html[dir="rtl"] .section-head h2 { letter-spacing: 0; line-height: 1.3; }
+    .section-head p { color: var(--ink-secondary); font-size: 1.02rem; }
+
+    /* Features */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--border-strong);
+    }
+    .feature-ico {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      color: var(--ink);
+    }
+    .feature-card h3 { font-size: 1.06rem; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { font-size: 0.92rem; color: var(--ink-secondary); line-height: 1.62; }
+
+    /* Download Section */
+    .download-wrap {
+      background: linear-gradient(145deg, #0D0B14 0%, #161529 52%, #1E1B38 100%);
+      color: #F9FAFB;
+      border-radius: 32px;
+      padding: 52px 48px;
+      box-shadow: var(--shadow-phone);
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .download-wrap::after {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      right: -80px;
+      top: -120px;
+      background: radial-gradient(circle, rgba(86, 149, 253, 0.28), transparent 70%);
+      pointer-events: none;
+    }
+    .download-wrap h2 {
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+      line-height: 1.18;
+    }
+    .download-wrap p {
+      color: #CBD5E1;
+      font-size: 0.98rem;
+      margin-bottom: 26px;
+      max-width: 500px;
+    }
+    .btn-download-light {
+      background: #FFFFFF;
+      color: #0B0D12;
+      padding: 15px 30px;
+      font-size: 1rem;
+      font-weight: 700;
+      box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+    .btn-download-light:hover { background: #F1F5F9; transform: translateY(-1px); }
+    .apk-specs {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .spec-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .spec-label { color: #94A3B8; }
+    .spec-val { font-weight: 600; color: #FFFFFF; }
+    .sha-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 10px;
+      padding: 8px 11px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.74rem;
+      color: #93C5FD;
+      direction: ltr;
+    }
+    .sha-copy {
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      padding: 4px 10px;
+      border-radius: 7px;
+      font-family: var(--font-sans);
+      font-size: 0.74rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    /* Install Steps */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px 22px;
+      box-shadow: var(--shadow-sm);
+    }
+    .step-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.92rem;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+    }
+    .step-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .step-card p { font-size: 0.88rem; color: var(--ink-secondary); }
+
+    /* FAQ */
+    .faq-list {
+      max-width: 780px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .faq-q {
+      width: 100%;
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-weight: 600;
+      font-size: 0.98rem;
+      text-align: start;
+    }
+    .faq-icon { font-size: 1.2rem; color: var(--ink-muted); transition: transform 0.2s ease; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      display: none;
+      padding: 0 22px 20px;
+      color: var(--ink-secondary);
+      font-size: 0.93rem;
+      line-height: 1.65;
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* Support */
+    .support-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow-sm);
+    }
+    .support-card h3 { font-size: 1.28rem; font-weight: 700; margin-bottom: 6px; }
+    .support-card p { color: var(--ink-secondary); max-width: 560px; font-size: 0.95rem; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 34px 0 42px;
+      color: var(--ink-muted);
+      font-size: 0.86rem;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Post-Download Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 13, 18, 0.56);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: var(--surface);
+      border-radius: 24px;
+      max-width: 480px;
+      width: 100%;
+      padding: 28px;
+      box-shadow: var(--shadow-phone);
+    }
+    .modal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .modal-head h3 { font-size: 1.18rem; font-weight: 800; }
+    .modal-close { width: 32px; height: 32px; border-radius: 50%; background: var(--surface-subtle); display: grid; place-items: center; }
+    .modal-sub { color: var(--ink-secondary); font-size: 0.92rem; margin-bottom: 18px; }
+    .modal-steps { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 20px; }
+    .modal-steps li {
+      display: flex; gap: 11px; font-size: 0.9rem; color: var(--ink);
+      background: var(--surface-subtle); padding: 11px 13px; border-radius: 12px;
+    }
+    .modal-step-n {
+      width: 22px; height: 22px; border-radius: 50%; background: var(--ink); color: #fff;
+      font-size: 0.75rem; font-weight: 700; display: grid; place-items: center; flex-shrink: 0;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--ink);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.22s ease;
+      z-index: 120;
+      box-shadow: var(--shadow-md);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 980px) {
+      .hero-grid, .download-wrap, .gallery-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+      .download-wrap { padding: 36px 26px; }
+    }
+    @media (max-width: 600px) {
+      section, .gallery-section { padding: 56px 0; }
+      .hero { padding: 38px 0 46px; }
+      .features-grid, .steps-grid { grid-template-columns: 1fr; }
+      .phone-frame { width: 100%; max-width: 330px; }
+      .nav-cta-desktop { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-backdrop" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="brand">
+        <svg class="brand-icon" viewBox="0 0 120 120" aria-hidden="true">
+          <defs>
+            <linearGradient id="navBg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0D0B14"/>
+              <stop offset="50%" stop-color="#1E1B38"/>
+              <stop offset="100%" stop-color="#3B1F7A"/>
+            </linearGradient>
+          </defs>
+          <rect width="120" height="120" rx="28" fill="url(#navBg)"/>
+          <rect x="22" y="28" width="76" height="22" rx="7" fill="#5695FD"/>
+          <g fill="#D1D5DB" opacity="0.92">
+            <rect x="22" y="58" width="11" height="11" rx="3"/><rect x="38.25" y="58" width="11" height="11" rx="3"/>
+            <rect x="54.5" y="58" width="11" height="11" rx="3"/><rect x="70.75" y="58" width="11" height="11" rx="3"/>
+            <rect x="87" y="58" width="11" height="11" rx="3"/>
+            <rect x="22" y="74" width="11" height="11" rx="3"/><rect x="38.25" y="74" width="11" height="11" rx="3"/>
+            <rect x="54.5" y="74" width="11" height="11" rx="3"/><rect x="70.75" y="74" width="11" height="11" rx="3"/>
+            <rect x="87" y="74" width="11" height="11" rx="3"/>
+            <rect x="38" y="90" width="44" height="9" rx="4.5" fill="#8AB4F8"/>
+          </g>
+        </svg>
+        <span>LinguaKey</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#preview" data-i18n="nav_preview">Screens</a>
+        <a href="#features" data-i18n="nav_features">Features</a>
+        <a href="#download" data-i18n="nav_download">Download</a>
+        <a href="#install" data-i18n="nav_install">Install Guide</a>
+        <a href="#faq" data-i18n="nav_faq">FAQ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="ar">العربية</button>
+          <button class="lang-btn" data-lang="es">ES</button>
+        </div>
+        <a href="#download" class="btn btn-primary btn-sm nav-cta-desktop" data-i18n="nav_cta">Download APK</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="badge-pill">
+            <span class="badge-dot"></span>
+            <span data-i18n="hero_badge">Version 1.2.2 for Android • Ready to Download</span>
+          </div>
+          <h1 data-i18n="hero_title">Type in your language. Chat across the world.</h1>
+          <p class="hero-lead" data-i18n="hero_lead">
+            LinguaKey is a sleek AMOLED Android keyboard with native on-screen chat translation, live typing translation, an in-place Tools & Languages Hub, and built-in AI assistance.
+          </p>
+          <div class="hero-cta">
+            <button class="btn btn-primary js-download-trigger">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span data-i18n="cta_download">Download APK (v1.2.2)</span>
+            </button>
+            <a href="#install" class="btn btn-secondary" data-i18n="cta_install">How to install</a>
+          </div>
+          <div class="hero-meta">
+            <span>✓ <span data-i18n="meta_android">Android 7.0+</span></span>
+            <span>✓ <span data-i18n="meta_size">81.87 MB (ML Kit Edition)</span></span>
+            <span>✓ <span data-i18n="meta_offline">On-device translation support</span></span>
+          </div>
+        </div>
+
+        <!-- Pixel-Accurate Interactive LinguaKey v1.2.2 Phone -->
+        <div class="phone-stage">
+          <div class="showcase-tabs" role="tablist">
+            <button class="showcase-tab active" data-screen="screen" data-i18n="tab_screen">Screen Translate</button>
+            <button class="showcase-tab" data-screen="live" data-i18n="tab_live">Live Typing</button>
+            <button class="showcase-tab" data-screen="tools" data-i18n="tab_tools">Tools Hub</button>
+            <button class="showcase-tab" data-screen="shortcuts" data-i18n="tab_shortcuts">Shortcuts</button>
+          </div>
+
+          <div class="phone-frame" aria-label="LinguaKey App Interface Preview">
+            <div class="phone-screen" id="phoneScreen"></div>
+          </div>
+
+          <p class="showcase-caption" id="showcaseCaption" data-i18n="cap_screen">
+            Tap the top pill inside the preview to switch between Original and Translated chat bubbles with preserved emojis.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3-Screen Visual Showcase Strip -->
+    <section id="preview" class="gallery-section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow" data-i18n="gal_eyebrow">Real Interface Design</div>
+          <h2 data-i18n="gal_title">Crafted for pure AMOLED clarity.</h2>
+          <p data-i18n="gal_sub">Every toolbar, bubble overlay, and panel is designed to blend naturally into your Android phone without clutter.</p>
+        </div>
+
+        <div class="gallery-grid">
+          <!-- Card 1: Screen Translation -->
+          <div class="gallery-card">
+            <div class="mini-device">
+              <div style="display:flex;justify-content:center;">
+                <span class="lk-float-pill">
+                  <span data-i18n="gal_pill_done">Translated</span>
+                  <span style="background:#1A3A63;color:#8AB4F8;padding:1px 6px;border-radius:99px;">→ EN</span>
+                  <span style="color:#9CA3AF;">↻</span>
+                  <span style="color:#EF4444;">✕</span>
+                </span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <div class="ph-bubble in" style="align-self:flex-end;font-size:11px;" data-i18n="gal_m1">My day just started 😅, almost 11am</div>
+                <div class="ph-bubble out" style="align-self:flex-start;font-size:11px;" data-i18n="gal_m2">Sweet dreams 🫶</div>
+              </div>
+              <div class="lk-topbar" style="border-radius:12px;padding:5px 6px;">
+                <div class="lk-side-pill active" style="width:28px;height:24px;font-size:10px;font-weight:700;">文A</div>
+                <div class="lk-center-icons" style="font-size:11px;">⚙ &nbsp; 🖼 &nbsp; ☺ &nbsp; 📋</div>
+                <div class="lk-side-pill" style="width:28px;height:24px;font-size:9px;font-weight:700;">A+</div>
+              </div>
+            </div>
+            <h3 data-i18n="gal_c1_t">Zero-Clutter Bubble Translation</h3>
+            <p data-i18n="gal_c1_d">Matches original dark and light bubble colors, rounded pill corners, and keeps every emoji intact.</p>
+          </div>
+
+          <!-- Card 2: In-Place Tools Hub -->
+          <div class="gallery-card">
+            <div class="mini-device">
+              <div class="lk-lang-box">
+                <div class="lk-l-from" data-i18n="gal_from">From: EN</div>
+                <div class="lk-l-swap">⇄</div>
+                <div class="lk-l-to" data-i18n="gal_to">To: ES</div>
+              </div>
+              <div class="lk-grid-3x2" style="gap:6px;">
+                <div class="lk-tile" style="padding:8px 4px;"><span style="color:#8AB4F8;font-size:12px;">📋</span><span class="lk-tile-lbl" data-i18n="t_clip">Clipboard</span></div>
+                <div class="lk-tile" style="padding:8px 4px;"><span style="color:#81C995;font-size:12px;">🌐</span><span class="lk-tile-lbl" data-i18n="t_tr">Translate</span></div>
+                <div class="lk-tile" style="padding:8px 4px;"><span style="color:#C58AF9;font-size:12px;">✨</span><span class="lk-tile-lbl" data-i18n="t_ai">AI Assistant</span></div>
+                <div class="lk-tile" style="padding:8px 4px;"><span style="color:#FDD663;font-size:12px;">⚡</span><span class="lk-tile-lbl" data-i18n="t_sc">Shortcuts</span></div>
+                <div class="lk-tile" style="padding:8px 4px;"><span style="color:#FF8BCB;font-size:11px;font-weight:800;">GIF</span><span class="lk-tile-lbl" data-i18n="t_gif">GIFs</span></div>
+                <div class="lk-tile" style="padding:8px 4px;"><span style="color:#78D9EC;font-size:12px;">⚙</span><span class="lk-tile-lbl" data-i18n="t_set">Settings</span></div>
+              </div>
+            </div>
+            <h3 data-i18n="gal_c2_t">In-Place Tools & Languages Hub</h3>
+            <p data-i18n="gal_c2_d">Replaces the keyboard cleanly in its exact height — switch languages or launch tools with accidental-tap protection.</p>
+          </div>
+
+          <!-- Card 3: Quick Shortcuts -->
+          <div class="gallery-card">
+            <div class="mini-device">
+              <div class="lk-p-head">
+                <span class="lk-p-back" data-i18n="gal_back">⌨ Keyboard</span>
+                <span class="lk-p-title" data-i18n="gal_sc_t">Quick Shortcuts</span>
+              </div>
+              <div class="lk-sc-wrap" style="min-height:132px;">
+                <div class="lk-sc-grid">
+                  <div class="lk-sc-item"><span class="lk-sc-k">/addr</span><span class="lk-sc-v">42 Oak St</span></div>
+                  <div class="lk-sc-item"><span class="lk-sc-k">/meet</span><span class="lk-sc-v">Free at 5pm</span></div>
+                  <div class="lk-sc-item"><span class="lk-sc-k">/thanks</span><span class="lk-sc-v">Thank you!</span></div>
+                  <div class="lk-sc-item"><span class="lk-sc-k">/link</span><span class="lk-sc-v">linguakey</span></div>
+                  <div class="lk-sc-item"><span class="lk-sc-k">/brb</span><span class="lk-sc-v">Right back</span></div>
+                  <div class="lk-sc-item"><span class="lk-sc-k">/ok</span><span class="lk-sc-v">Got it 👍</span></div>
+                </div>
+                <div class="lk-sc-bar"><div class="lk-sc-thumb"></div></div>
+              </div>
+            </div>
+            <h3 data-i18n="gal_c3_t">Scrollable 3-Column Shortcuts</h3>
+            <p data-i18n="gal_c3_d">Insert saved phrases, addresses, and frequent replies in one tap with a responsive side scrollbar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow" data-i18n="feat_eyebrow">Built for Real Conversations</div>
+          <h2 data-i18n="feat_title">Everything you need, right inside your keyboard.</h2>
+          <p data-i18n="feat_sub">Designed for speed, clarity, and everyday messaging across WhatsApp, Telegram, Instagram, and any Android app.</p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <h3 data-i18n="f1_t">Native Screen Translation</h3>
+            <p data-i18n="f1_d">Translate incoming messages directly over chat bubbles with matched bubble colors, rounded contours, and crisp preserved emojis.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
+            </div>
+            <h3 data-i18n="f2_t">Live Typing Translation</h3>
+            <p data-i18n="f2_d">Write naturally in English, Arabic, Spanish, Korean, or Portuguese and watch your message translate in real time with instant phrasing alternatives.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+            </div>
+            <h3 data-i18n="f3_t">In-Place Tools & Languages Hub</h3>
+            <p data-i18n="f3_d">Open Clipboard, Translate, AI Assistant, Shortcuts, GIFs, Settings, and Source ⇄ Target languages directly in the keyboard footprint with zero layout jump.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.9 5.8L20 10.7l-5.1 3.7 1.9 5.9L12 16.6l-4.8 3.7 1.9-5.9L4 10.7l6.1-1.9z"/></svg>
+            </div>
+            <h3 data-i18n="f4_t">Built-in AI Copilot</h3>
+            <p data-i18n="f4_d">Draft smarter replies and adjust your writing tone right from the keyboard without copying and pasting between apps.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <h3 data-i18n="f5_t">Quick Shortcuts & Clipboard</h3>
+            <p data-i18n="f5_d">Save frequently used replies, links, and phrases in a scrollable 3-column grid protected against accidental taps, alongside a smart clipboard manager.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <h3 data-i18n="f6_t">On-Device ML Kit Engine</h3>
+            <p data-i18n="f6_d">Includes on-device text recognition, language detection, and offline translation models for fast, private, everyday use.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download">
+      <div class="container">
+        <div class="download-wrap">
+          <div>
+            <h2 data-i18n="dl_title">Download LinguaKey for Android</h2>
+            <p data-i18n="dl_desc">
+              Get the official full ML Kit release directly. Safe, clean, and ready to install on any Android 7.0+ device.
+            </p>
+            <button class="btn btn-download-light js-download-trigger">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span data-i18n="dl_btn">Download APK — 81.87 MB</span>
+            </button>
+          </div>
+
+          <div class="apk-specs">
+            <div class="spec-row">
+              <span class="spec-label" data-i18n="spec_ver_l">Version</span>
+              <span class="spec-val">1.2.2 (ML Kit Full)</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label" data-i18n="spec_size_l">File Size</span>
+              <span class="spec-val">81.87 MB</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label" data-i18n="spec_date_l">Last Updated</span>
+              <span class="spec-val" data-i18n="spec_date_v">November 25, 2026</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label" data-i18n="spec_req_l">Compatibility</span>
+              <span class="spec-val">Android 7.0+ (ARM64 / ARMv7 / x86_64)</span>
+            </div>
+            <div>
+              <div class="spec-label" style="font-size:0.8rem;margin-bottom:6px;" data-i18n="spec_sha_l">Verified SHA-256 Checksum</div>
+              <div class="sha-box">
+                <span>c0bf4bf6df240e19...81bc358c066c5</span>
+                <button class="sha-copy" id="copyShaBtn" data-i18n="btn_copy">Copy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Installation Guide -->
+    <section id="install">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow" data-i18n="inst_eyebrow">Simple 1-Minute Setup</div>
+          <h2 data-i18n="inst_title">How to install LinguaKey on Android</h2>
+          <p data-i18n="inst_sub">Because you are installing directly from the official website, Android will ask once for permission to install the file.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <h3 data-i18n="s1_t">Download the APK</h3>
+            <p data-i18n="s1_d">Tap the Download APK button above and wait until the 81.87 MB file finishes downloading.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <h3 data-i18n="s2_t">Open the file</h3>
+            <p data-i18n="s2_d">Tap the downloaded file in your browser notifications or inside your phone's Downloads folder.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <h3 data-i18n="s3_t">Allow & Install</h3>
+            <p data-i18n="s3_d">If Android asks, tap Settings, enable "Allow from this source" for your browser, then tap Install.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <h3 data-i18n="s4_t">Enable LinguaKey</h3>
+            <p data-i18n="s4_d">Open the LinguaKey app, choose your preferred language, and follow the 2-tap activation screen.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow" data-i18n="faq_eyebrow">Questions & Answers</div>
+          <h2 data-i18n="faq_title">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item open">
+            <button class="faq-q">
+              <span data-i18n="q1">Why does Android show a warning when installing an APK?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a" data-i18n="a1">
+              Android always displays a standard security prompt for apps installed outside Google Play. Simply allow installation from your browser once, and verify the SHA-256 checksum shown on this page if you wish.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q">
+              <span data-i18n="q2">Which languages does LinguaKey support?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a" data-i18n="a2">
+              LinguaKey supports live translation and keyboard layouts for English, Arabic, Spanish, Korean, and Portuguese, automatically syncing your keyboard and translation pair with your chosen app language.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q">
+              <span data-i18n="q3">Why is the download size 81.87 MB?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a" data-i18n="a3">
+              This full ML Kit edition bundles on-device text recognition, language identification, and offline translation libraries so screen translation works fast and reliably on your phone.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q">
+              <span data-i18n="q4">How do I update LinguaKey when a new version is released?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a" data-i18n="a4">
+              Just return to this page, download the latest APK, and install it directly over your current version — your settings and saved shortcuts will stay intact.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Support -->
+    <section id="support">
+      <div class="container">
+        <div class="support-card">
+          <div>
+            <h3 data-i18n="sup_title">Need help getting started?</h3>
+            <p data-i18n="sup_desc">
+              Review the 4-step installation guide or open LinguaKey Settings on your phone to customize keyboard languages, screen translation, soundpacks, and quick shortcuts.
+            </p>
+          </div>
+          <a href="#install" class="btn btn-secondary" data-i18n="sup_btn">View Setup Guide</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="brand" style="font-size:0.94rem;"><span>LinguaKey</span></div>
+      <div data-i18n="footer_copy">© 2026 LinguaKey. Official Android Distribution Page.</div>
+    </div>
+  </footer>
+
+  <!-- Post-Download Modal -->
+  <div class="modal-backdrop" id="downloadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="modalTitle" data-i18n="mod_title">Your download is starting</h3>
+        <button class="modal-close" id="closeModalBtn" aria-label="Close">✕</button>
+      </div>
+      <p class="modal-sub" id="modalSub" data-i18n="mod_sub">
+        Follow these quick steps on your Android phone once the APK finishes downloading:
+      </p>
+      <ol class="modal-steps">
+        <li><span class="modal-step-n">1</span><span data-i18n="ms1">Open <strong>LinguaKey-v1.2.2.apk</strong> from your notification bar or Downloads folder.</span></li>
+        <li><span class="modal-step-n">2</span><span data-i18n="ms2">If prompted, tap <strong>Settings</strong> and toggle <strong>Allow from this source</strong>.</span></li>
+        <li><span class="modal-step-n">3</span><span data-i18n="ms3">Tap <strong>Install</strong> and wait a few seconds.</span></li>
+        <li><span class="modal-step-n">4</span><span data-i18n="ms4">Open <strong>LinguaKey</strong> and complete the 2-step keyboard activation.</span></li>
+      </ol>
+      <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">
+        <button class="btn btn-secondary btn-sm" id="retryDownloadBtn" data-i18n="mod_retry">Download again</button>
+        <button class="btn btn-primary btn-sm" id="doneModalBtn" data-i18n="mod_done">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const LINGUAKEY_CONFIG = {
+      version: "1.2.2",
+      fileSize: "81.87 MB",
+      sha256: "c0bf4bf6df240e1969cb0afa53f2e5574f6866d50f620a4c4bd81bc358c066c5",
+      apkDownloadUrl: "https://github.com/moza333mo-commits/linguakey/releases/latest/download/LinguaKey-v1.2.2.apk"
+    };
+
+    const SVG = {
+      gear: `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.1 7.1 0 0 0-1.62-.94l-.36-2.54a.48.48 0 0 0-.48-.41h-3.84a.48.48 0 0 0-.48.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96a.5.5 0 0 0-.6.22L2.71 8.84a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.13.22.39.31.6.22l2.39-.96c.49.38 1.03.7 1.62.94l.36 2.54c.04.24.25.41.48.41h3.84c.24 0 .44-.17.48-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.09.47 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"/></svg>`,
+      img: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><path d="M21 15l-5-5L5 21"/></svg>`,
+      emoji: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5s1.3 2 3.5 2 3.5-2 3.5-2"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="10" r="1" fill="currentColor"/></svg>`,
+      clip: `<svg width="13" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2"/></svg>`,
+      globe: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a13 13 0 0 1 0 18M12 3a13 13 0 0 0 0 18"/></svg>`,
+      bksp: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>`
+    };
+
+    const I18N = {
+      en: {
+        page_title: "LinguaKey — Smart Translation Keyboard for Android",
+        nav_preview: "Screens",
+        nav_features: "Features",
+        nav_download: "Download",
+        nav_install: "Install Guide",
+        nav_faq: "FAQ",
+        nav_cta: "Download APK",
+        hero_badge: "Version 1.2.2 for Android • Ready to Download",
+        hero_title: "Type in your language. Chat across the world.",
+        hero_lead: "LinguaKey is a sleek AMOLED Android keyboard with native on-screen chat translation, live typing translation, an in-place Tools & Languages Hub, and built-in AI assistance.",
+        cta_download: "Download APK (v1.2.2)",
+        cta_install: "How to install",
+        meta_android: "Android 7.0+",
+        meta_size: "81.87 MB (ML Kit Edition)",
+        meta_offline: "On-device translation support",
+        tab_screen: "Screen Translate",
+        tab_live: "Live Typing",
+        tab_tools: "Tools Hub",
+        tab_shortcuts: "Shortcuts",
+        cap_screen: "Tap the top pill inside the preview to switch between Original and Translated chat bubbles with preserved emojis.",
+        cap_live: "Type naturally in your language while LinguaKey translates live above the AMOLED keyboard with alternative phrasings.",
+        cap_tools: "Tap the gear icon to open the in-place Tools & Languages Hub right inside the keyboard footprint.",
+        cap_shortcuts: "Access saved replies and phrases in a smooth 3-column scrollable grid with accidental-tap protection.",
+        gal_eyebrow: "Real Interface Design",
+        gal_title: "Crafted for pure AMOLED clarity.",
+        gal_sub: "Every toolbar, bubble overlay, and panel is designed to blend naturally into your Android phone without clutter.",
+        gal_pill_done: "Translated",
+        gal_m1: "My day just started 😅, almost 11am",
+        gal_m2: "Sweet dreams 🫶",
+        gal_c1_t: "Zero-Clutter Bubble Translation",
+        gal_c1_d: "Matches original dark and light bubble colors, rounded pill corners, and keeps every emoji intact.",
+        gal_from: "From: EN",
+        gal_to: "To: ES",
+        t_clip: "Clipboard", t_tr: "Translate", t_ai: "AI Assistant", t_sc: "Shortcuts", t_gif: "GIFs", t_set: "Settings",
+        gal_c2_t: "In-Place Tools & Languages Hub",
+        gal_c2_d: "Replaces the keyboard cleanly in its exact height — switch languages or launch tools with accidental-tap protection.",
+        gal_back: "⌨ Keyboard",
+        gal_sc_t: "Quick Shortcuts",
+        gal_c3_t: "Scrollable 3-Column Shortcuts",
+        gal_c3_d: "Insert saved phrases, addresses, and frequent replies in one tap with a responsive side scrollbar.",
+        feat_eyebrow: "Built for Real Conversations",
+        feat_title: "Everything you need, right inside your keyboard.",
+        feat_sub: "Designed for speed, clarity, and everyday messaging across WhatsApp, Telegram, Instagram, and any Android app.",
+        f1_t: "Native Screen Translation",
+        f1_d: "Translate incoming messages directly over chat bubbles with matched bubble colors, rounded contours, and crisp preserved emojis.",
+        f2_t: "Live Typing Translation",
+        f2_d: "Write naturally in English, Arabic, Spanish, Korean, or Portuguese and watch your message translate in real time with instant phrasing alternatives.",
+        f3_t: "In-Place Tools & Languages Hub",
+        f3_d: "Open Clipboard, Translate, AI Assistant, Shortcuts, GIFs, Settings, and Source ⇄ Target languages directly in the keyboard footprint with zero layout jump.",
+        f4_t: "Built-in AI Copilot",
+        f4_d: "Draft smarter replies and adjust your writing tone right from the keyboard without copying and pasting between apps.",
+        f5_t: "Quick Shortcuts & Clipboard",
+        f5_d: "Save frequently used replies, links, and phrases in a scrollable 3-column grid protected against accidental taps, alongside a smart clipboard manager.",
+        f6_t: "On-Device ML Kit Engine",
+        f6_d: "Includes on-device text recognition, language detection, and offline translation models for fast, private, everyday use.",
+        dl_title: "Download LinguaKey for Android",
+        dl_desc: "Get the official full ML Kit release directly. Safe, clean, and ready to install on any Android 7.0+ device.",
+        dl_btn: "Download APK — 81.87 MB",
+        spec_ver_l: "Version", spec_size_l: "File Size", spec_date_l: "Last Updated", spec_date_v: "November 25, 2026", spec_req_l: "Compatibility", spec_sha_l: "Verified SHA-256 Checksum", btn_copy: "Copy",
+        inst_eyebrow: "Simple 1-Minute Setup",
+        inst_title: "How to install LinguaKey on Android",
+        inst_sub: "Because you are installing directly from the official website, Android will ask once for permission to install the file.",
+        s1_t: "Download the APK", s1_d: "Tap the Download APK button above and wait until the 81.87 MB file finishes downloading.",
+        s2_t: "Open the file", s2_d: "Tap the downloaded file in your browser notifications or inside your phone's Downloads folder.",
+        s3_t: "Allow & Install", s3_d: "If Android asks, tap Settings, enable \"Allow from this source\" for your browser, then tap Install.",
+        s4_t: "Enable LinguaKey", s4_d: "Open the LinguaKey app, choose your preferred language, and follow the 2-tap activation screen.",
+        faq_eyebrow: "Questions & Answers", faq_title: "Frequently Asked Questions",
+        q1: "Why does Android show a warning when installing an APK?",
+        a1: "Android always displays a standard security prompt for apps installed outside Google Play. Simply allow installation from your browser once, and verify the SHA-256 checksum shown on this page if you wish.",
+        q2: "Which languages does LinguaKey support?",
+        a2: "LinguaKey supports live translation and keyboard layouts for English, Arabic, Spanish, Korean, and Portuguese, automatically syncing your keyboard and translation pair with your chosen app language.",
+        q3: "Why is the download size 81.87 MB?",
+        a3: "This full ML Kit edition bundles on-device text recognition, language identification, and offline translation libraries so screen translation works fast and reliably on your phone.",
+        q4: "How do I update LinguaKey when a new version is released?",
+        a4: "Just return to this page, download the latest APK, and install it directly over your current version — your settings and saved shortcuts will stay intact.",
+        sup_title: "Need help getting started?",
+        sup_desc: "Review the 4-step installation guide or open LinguaKey Settings on your phone to customize keyboard languages, screen translation, soundpacks, and quick shortcuts.",
+        sup_btn: "View Setup Guide",
+        footer_copy: "© 2026 LinguaKey. Official Android Distribution Page.",
+        mod_title: "Your download is starting",
+        mod_sub: "Follow these quick steps on your Android phone once the APK finishes downloading:",
+        mod_preview_note: "Preview Mode: Once you connect your GitHub Release link in the next step, this button will start downloading LinguaKey-v1.2.2.apk automatically.",
+        ms1: "Open <strong>LinguaKey-v1.2.2.apk</strong> from your notification bar or Downloads folder.",
+        ms2: "If prompted, tap <strong>Settings</strong> and toggle <strong>Allow from this source</strong>.",
+        ms3: "Tap <strong>Install</strong> and wait a few seconds.",
+        ms4: "Open <strong>LinguaKey</strong> and complete the 2-step keyboard activation.",
+        mod_retry: "Download again", mod_done: "Got it",
+        toast_copied: "SHA-256 copied to clipboard", toast_starting: "Starting LinguaKey v1.2.2 APK download..."
+      },
+      ar: {
+        page_title: "LinguaKey — لوحة مفاتيح الترجمة الذكية لأندرويد",
+        nav_preview: "الواجهات",
+        nav_features: "الميزات",
+        nav_download: "التحميل",
+        nav_install: "طريقة التثبيت",
+        nav_faq: "الأسئلة الشائعة",
+        nav_cta: "تحميل APK",
+        hero_badge: "الإصدار 1.2.2 لأندرويد • جاهز للتحميل",
+        hero_title: "اكتب بلغتك. وتواصل مع العالم بلا حواجز.",
+        hero_lead: "LinguaKey لوحة مفاتيح AMOLED أنيقة لأندرويد تجمع ترجمة الشاشة الفورية، الترجمة المباشرة أثناء الكتابة، لوحة الأدوات واللغات المدمجة، والمساعد الذكي.",
+        cta_download: "تحميل التطبيق APK (v1.2.2)",
+        cta_install: "طريقة التثبيت",
+        meta_android: "أندرويد 7.0 فما فوق",
+        meta_size: "81.87 MB (نسخة ML Kit الكاملة)",
+        meta_offline: "دعم الترجمة على الجهاز",
+        tab_screen: "ترجمة الشاشة",
+        tab_live: "الترجمة الفورية",
+        tab_tools: "لوحة الأدوات",
+        tab_shortcuts: "الاختصارات",
+        cap_screen: "اضغط على الشريط العلوي داخل المعاينة للتبديل بين الأصل والترجمة ومشاهدة دقة الحفاظ على الفقاعات والإيموجي.",
+        cap_live: "اكتب بالعربية أو الإنجليزية بشكل طبيعي ليقوم LinguaKey بترجمة رسالتك فوراً فوق لوحة المفاتيح.",
+        cap_tools: "اضغط على أيقونة الترس لفتح لوحة الأدوات واللغات مكان المفاتيح مباشرة بدون أي تغيّر في ارتفاع الشاشة.",
+        cap_shortcuts: "وصول سريع لعباراتك وردودك المحفوظة في شبكة منظّمة من 3 أعمدة مع حماية من اللمس العشوائي.",
+        gal_eyebrow: "تصميم الواجهات الحقيقي",
+        gal_title: "مصمّم لوضوح وأناقة شاشات AMOLED.",
+        gal_sub: "كل شريط أدوات وفقاعة مترجمة ولوحة تحكم مصمّمة لتندمج بسلاسة طبيعية داخل هاتفك دون ازدحام.",
+        gal_pill_done: "تمت الترجمة",
+        gal_m1: "يومي بدأ للتو 😅، قرابة 11 صباحاً",
+        gal_m2: "أحلام سعيدة 🫶",
+        gal_c1_t: "ترجمة فقاعات نظيفة تماماً",
+        gal_c1_d: "تطابق لون الفقاعة الأصلية وزواياها المحدّبة وتحافظ على الإيموجي بوضوح تام.",
+        gal_from: "من: AR",
+        gal_to: "إلى: EN",
+        t_clip: "الحافظة", t_tr: "الترجمة", t_ai: "المساعد الذكي", t_sc: "الاختصارات", t_gif: "صور GIF", t_set: "الإعدادات",
+        gal_c2_t: "لوحة الأدوات واللغات المدمجة",
+        gal_c2_d: "تحل محل المفاتيح بنفس الارتفاع تماماً — بدّل اللغات أو افتح أدواتك مع حماية من اللمس العشوائي.",
+        gal_back: "⌨ العودة للوحة",
+        gal_sc_t: "الاختصارات السريعة",
+        gal_c3_t: "شبكة اختصارات من 3 أعمدة",
+        gal_c3_d: "أدرج ردودك وعباراتك المتكررة بضغطة واحدة مع شريط تمرير جانبي سلس.",
+        feat_eyebrow: "مصمّم للمحادثات الحقيقية",
+        feat_title: "كل ما تحتاجه مدمج داخل لوحة المفاتيح.",
+        feat_sub: "سريع، أنيق، ومصمّم للاستخدام اليومي في واتساب، تيليغرام، إنستغرام، وجميع تطبيقات أندرويد.",
+        f1_t: "ترجمة الشاشة بشكل أصيل",
+        f1_d: "ترجم الرسائل الواردة مباشرة فوق فقاعات الدردشة بنفس لون وشكل الفقاعة مع الحفاظ على الإيموجي بوضوح تام.",
+        f2_t: "ترجمة فورية أثناء الكتابة",
+        f2_d: "اكتب بطبيعتك بالعربية أو الإنجليزية أو الإسبانية أو الكورية أو البرتغالية واحصل على ترجمة فورية مع خيارات بديلة.",
+        f3_t: "لوحة الأدوات واللغات المدمجة",
+        f3_d: "افتح الحافظة والترجمة والمساعد الذكي والاختصارات وGIF والإعدادات وتبديل اللغات مكان المفاتيح مباشرة بسلاسة تامة.",
+        f4_t: "مساعد كتابة بالذكاء الاصطناعي",
+        f4_d: "اكتب ردوداً احترافية وعدّل أسلوب رسائلك مباشرة من داخل الكيبورد دون النسخ واللصق بين التطبيقات.",
+        f5_t: "اختصارات سريعة وحافظة ذكية",
+        f5_d: "احفظ ردودك وروابطك المتكررة في شبكة قابلة للتمرير من 3 أعمدة مع حماية من اللمس العشوائي وحافظة متكاملة.",
+        f6_t: "محرك ML Kit على الجهاز",
+        f6_d: "يضم نماذج التعرف على النصوص وتحديد اللغة والترجمة على الجهاز لأداء سريع وخصوصية أعلى.",
+        dl_title: "حمّل LinguaKey لهواتف أندرويد",
+        dl_desc: "احصل على النسخة الرسمية الكاملة مباشرة. ملف نظيف وآمن وجاهز للتثبيت على جميع هواتف Android 7.0 فما فوق.",
+        dl_btn: "تحميل APK — 81.87 MB",
+        spec_ver_l: "رقم الإصدار", spec_size_l: "حجم الملف", spec_date_l: "آخر تحديث", spec_date_v: "25 نوفمبر 2026", spec_req_l: "التوافق", spec_sha_l: "بصمة التحقق الأمني SHA-256", btn_copy: "نسخ",
+        inst_eyebrow: "إعداد سريع خلال دقيقة",
+        inst_title: "طريقة تثبيت LinguaKey على أندرويد",
+        inst_sub: "لأنك تثبّت التطبيق مباشرة من الموقع الرسمي، سيطلب منك أندرويد الإذن لمرة واحدة فقط.",
+        s1_t: "حمّل ملف APK", s1_d: "اضغط على زر التحميل بالأعلى وانتظر حتى يكتمل تنزيل الملف (81.87 MB).",
+        s2_t: "افتح الملف", s2_d: "اضغط على الملف من شريط الإشعارات أو من مجلد التنزيلات (Downloads) في هاتفك.",
+        s3_t: "اسمح بالتثبيت", s3_d: "إذا ظهرت رسالة أمان، اضغط الإعدادات ثم فعّل «السماح من هذا المصدر» للمتصفح، ثم اضغط تثبيت.",
+        s4_t: "فعّل LinguaKey", s4_d: "افتح التطبيق، اختر لغتك المفضلة، واتبع خطوتين سريعتين لتفعيل لوحة المفاتيح.",
+        faq_eyebrow: "إجابات سريعة", faq_title: "الأسئلة الشائعة",
+        q1: "لماذا يعرض أندرويد تنبيهاً عند تثبيت ملف APK؟",
+        a1: "يعرض نظام أندرويد هذا التنبيه تلقائياً لأي تطبيق يُثبّت من خارج متجر Google Play. يكفي تفعيل السماح لمرة واحدة فقط، ويمكنك التحقق من بصمة SHA-256 المعروضة في هذه الصفحة.",
+        q2: "ما هي اللغات التي يدعمها LinguaKey؟",
+        a2: "يدعم LinguaKey لوحات المفاتيح والترجمة الفورية للعربية والإنجليزية والإسبانية والكورية والبرتغالية، مع مزامنة تلقائية للغات اللوحة والترجمة حسب لغة التطبيق المختارة.",
+        q3: "لماذا يبلغ حجم التطبيق 81.87 MB؟",
+        a3: "لأن هذه النسخة الكاملة تضم محرك ML Kit للتعرف الذكي على النصوص وتحديد اللغة والترجمة على الجهاز لضمان سرعة واستقرار ترجمة الشاشة.",
+        q4: "كيف أحدّث التطبيق عند صدور إصدار جديد؟",
+        a4: "فقط عد إلى هذه الصفحة وحمّل الإصدار الأحدث وثبّته فوق النسخة الحالية دون حذفها، وستبقى جميع إعداداتك واختصاراتك محفوظة.",
+        sup_title: "تحتاج مساعدة في البدء؟",
+        sup_desc: "راجع خطوات التثبيت الأربع بالأعلى أو افتح إعدادات LinguaKey من داخل هاتفك لتخصيص اللغات وترجمة الشاشة والأصوات والاختصارات.",
+        sup_btn: "عرض دليل التثبيت",
+        footer_copy: "© 2026 LinguaKey. الصفحة الرسمية لتحميل التطبيق لأندرويد.",
+        mod_title: "بدأ تحميل التطبيق الآن",
+        mod_sub: "اتبع هذه الخطوات البسيطة على هاتفك بمجرد اكتمال التنزيل:",
+        mod_preview_note: "وضع المعاينة: بمجرد ربط رابط التحميل المباشر في الخطوة القادمة، سيبدأ هذا الزر بتنزيل LinguaKey-v1.2.2.apk تلقائياً.",
+        ms1: "افتح ملف <strong>LinguaKey-v1.2.2.apk</strong> من شريط الإشعارات أو مجلد التنزيلات.",
+        ms2: "إذا طُلب منك، اضغط <strong>الإعدادات</strong> ثم فعّل <strong>السماح من هذا المصدر</strong>.",
+        ms3: "اضغط <strong>تثبيت (Install)</strong> وانتظر ثوانٍ قليلة.",
+        ms4: "افتح تطبيق <strong>LinguaKey</strong> وأكمل خطوتي تفعيل لوحة المفاتيح.",
+        mod_retry: "إعادة التحميل", mod_done: "حسناً، فهمت",
+        toast_copied: "تم نسخ بصمة SHA-256 بنجاح", toast_starting: "جارٍ بدء تحميل LinguaKey v1.2.2..."
+      },
+      es: {
+        page_title: "LinguaKey — Teclado Inteligente de Traducción para Android",
+        nav_preview: "Pantallas",
+        nav_features: "Funciones",
+        nav_download: "Descargar",
+        nav_install: "Instalación",
+        nav_faq: "Preguntas",
+        nav_cta: "Descargar APK",
+        hero_badge: "Versión 1.2.2 para Android • Listo para descargar",
+        hero_title: "Escribe en tu idioma. Chatea con todo el mundo.",
+        hero_lead: "LinguaKey es un teclado AMOLED para Android con traducción nativa en pantalla, traducción en vivo al escribir, panel integrado de herramientas y asistente de IA.",
+        cta_download: "Descargar APK (v1.2.2)",
+        cta_install: "Cómo instalar",
+        meta_android: "Android 7.0+",
+        meta_size: "81.87 MB (Edición ML Kit)",
+        meta_offline: "Traducción en el dispositivo",
+        tab_screen: "Traducir Pantalla",
+        tab_live: "En Vivo",
+        tab_tools: "Herramientas",
+        tab_shortcuts: "Atajos",
+        cap_screen: "Pulsa la barra superior de la vista previa para alternar entre Original y Traducido conservando cada emoji.",
+        cap_live: "Escribe naturalmente en tu idioma mientras LinguaKey traduce en vivo sobre el teclado AMOLED.",
+        cap_tools: "Pulsa el icono de ajustes para abrir el panel de Herramientas e Idiomas en el mismo espacio del teclado.",
+        cap_shortcuts: "Accede a respuestas rápidas en una cuadrícula desplazable de 3 columnas con protección contra toques accidentales.",
+        gal_eyebrow: "Diseño de Interfaz Real",
+        gal_title: "Diseñado para pureza AMOLED.",
+        gal_sub: "Cada barra, burbuja traducida y panel se integra con naturalidad en tu Android sin saturación visual.",
+        gal_pill_done: "Traducido",
+        gal_m1: "Mi día acaba de empezar 😅, casi las 11am",
+        gal_m2: "Dulces sueños 🫶",
+        gal_c1_t: "Traducción limpia sobre burbujas",
+        gal_c1_d: "Iguala colores, bordes redondeados y mantiene todos los emojis intactos.",
+        gal_from: "De: ES",
+        gal_to: "A: EN",
+        t_clip: "Portapapeles", t_tr: "Traducir", t_ai: "Asistente IA", t_sc: "Atajos", t_gif: "GIFs", t_set: "Ajustes",
+        gal_c2_t: "Panel integrado de herramientas",
+        gal_c2_d: "Reemplaza el teclado en su altura exacta — cambia idiomas o abre herramientas sin toques accidentales.",
+        gal_back: "⌨ Teclado",
+        gal_sc_t: "Atajos Rápidos",
+        gal_c3_t: "Atajos en 3 columnas",
+        gal_c3_d: "Inserta respuestas y frases frecuentes con un toque y barra lateral fluida.",
+        feat_eyebrow: "Hecho para conversaciones reales",
+        feat_title: "Todo lo que necesitas, directo en tu teclado.",
+        feat_sub: "Diseñado para velocidad y claridad diaria en WhatsApp, Telegram, Instagram y cualquier app de Android.",
+        f1_t: "Traducción nativa en pantalla",
+        f1_d: "Traduce mensajes entrantes sobre cada burbuja manteniendo colores, bordes redondeados y emojis nítidos.",
+        f2_t: "Traducción en vivo al escribir",
+        f2_d: "Escribe en inglés, árabe, español, coreano o portugués y traduce en tiempo real con alternativas instantáneas.",
+        f3_t: "Panel integrado de herramientas",
+        f3_d: "Abre Portapapeles, Traductor, Asistente IA, Atajos, GIFs, Ajustes e idiomas sin alterar el tamaño del chat.",
+        f4_t: "Asistente de IA integrado",
+        f4_d: "Redacta respuestas más claras y ajusta el tono directamente desde el teclado sin copiar ni pegar.",
+        f5_t: "Atajos rápidos y portapapeles",
+        f5_d: "Guarda respuestas y enlaces frecuentes en una cuadrícula de 3 columnas con protección contra toques accidentales.",
+        f6_t: "Motor ML Kit en el dispositivo",
+        f6_d: "Incluye reconocimiento de texto, detección de idioma y modelos offline para un uso rápido y privado.",
+        dl_title: "Descarga LinguaKey para Android",
+        dl_desc: "Obtén la edición oficial completa de ML Kit directamente. Segura, limpia y lista para Android 7.0+.",
+        dl_btn: "Descargar APK — 81.87 MB",
+        spec_ver_l: "Versión", spec_size_l: "Tamaño", spec_date_l: "Última actualización", spec_date_v: "25 de noviembre de 2026", spec_req_l: "Compatibilidad", spec_sha_l: "Suma de verificación SHA-256", btn_copy: "Copiar",
+        inst_eyebrow: "Configuración en 1 minuto",
+        inst_title: "Cómo instalar LinguaKey en Android",
+        inst_sub: "Al instalar directamente desde el sitio oficial, Android te pedirá permiso una sola vez.",
+        s1_t: "Descarga el APK", s1_d: "Pulsa el botón Descargar APK arriba y espera a que finalice el archivo de 81.87 MB.",
+        s2_t: "Abre el archivo", s2_d: "Toca el archivo descargado en tus notificaciones o en la carpeta Descargas de tu teléfono.",
+        s3_t: "Permite e instala", s3_d: "Si Android lo solicita, pulsa Ajustes, activa «Permitir desde esta fuente» y luego pulsa Instalar.",
+        s4_t: "Activa LinguaKey", s4_d: "Abre LinguaKey, elige tu idioma y completa la activación del teclado en 2 pasos.",
+        faq_eyebrow: "Preguntas y respuestas", faq_title: "Preguntas Frecuentes",
+        q1: "¿Por qué Android muestra un aviso al instalar un APK?",
+        a1: "Android muestra un aviso estándar para cualquier app fuera de Google Play. Solo permite la instalación una vez y verifica el SHA-256 si lo deseas.",
+        q2: "¿Qué idiomas admite LinguaKey?",
+        a2: "LinguaKey admite teclados y traducción en vivo para inglés, árabe, español, coreano y portugués, sincronizando automáticamente los idiomas con tu configuración.",
+        q3: "¿Por qué pesa 81.87 MB el archivo?",
+        a3: "Esta edición completa incluye modelos ML Kit de reconocimiento de texto, detección de idioma y traducción en el dispositivo.",
+        q4: "¿Cómo actualizo LinguaKey cuando salga una nueva versión?",
+        a4: "Vuelve a esta página, descarga el nuevo APK e instálalo sobre la versión actual; tus ajustes y atajos se mantendrán.",
+        sup_title: "¿Necesitas ayuda para empezar?",
+        sup_desc: "Consulta la guía de 4 pasos o abre Ajustes de LinguaKey en tu teléfono para personalizar idiomas, sonidos y atajos.",
+        sup_btn: "Ver guía de instalación",
+        footer_copy: "© 2026 LinguaKey. Página oficial de distribución para Android.",
+        mod_title: "Tu descarga está comenzando",
+        mod_sub: "Sigue estos sencillos pasos en tu teléfono Android cuando termine la descarga:",
+        mod_preview_note: "Modo vista previa: Al conectar el enlace directo en el siguiente paso, este botón descargará LinguaKey-v1.2.2.apk automáticamente.",
+        ms1: "Abre <strong>LinguaKey-v1.2.2.apk</strong> desde notificaciones o la carpeta Descargas.",
+        ms2: "Si se solicita, pulsa <strong>Ajustes</strong> y activa <strong>Permitir desde esta fuente</strong>.",
+        ms3: "Pulsa <strong>Instalar</strong> y espera unos segundos.",
+        ms4: "Abre <strong>LinguaKey</strong> y completa la activación en 2 pasos.",
+        mod_retry: "Descargar de nuevo", mod_done: "Entendido",
+        toast_copied: "SHA-256 copiado al portapapeles", toast_starting: "Iniciando descarga de LinguaKey v1.2.2..."
+      }
+    };
+
+    let currentLang = "en";
+    let currentScreen = "screen";
+    let screenTranslated = true;
+
+    function renderKeyboard(lang) {
+      const nums = ["1","2","3","4","5","6","7","8","9","0"];
+      const rows = lang === "ar"
+        ? [
+            ["ض","ص","ث","ق","ف","غ","ع","ه","خ","ح","ج"],
+            ["ش","س","ي","ب","ل","ا","ت","ن","م","ك","ط"],
+            ["ذ","ء","ؤ","ر","ى","ة","و","ز","ظ","د"]
+          ]
+        : [
+            ["Q","W","E","R","T","Y","U","I","O","P"],
+            ["A","S","D","F","G","H","J","K","L"],
+            ["Z","X","C","V","B","N","M"]
+          ];
+      const spaceLbl = lang === "ar" ? "العربية" : lang === "es" ? "Español" : "English";
+      return `
+        <div class="lk-kbd">
+          <div class="lk-row">${nums.map(n => `<div class="lk-k num">${n}</div>`).join("")}</div>
+          <div class="lk-row">${rows[0].map(k => `<div class="lk-k">${k}</div>`).join("")}</div>
+          <div class="lk-row">${rows[1].map(k => `<div class="lk-k">${k}</div>`).join("")}</div>
+          <div class="lk-row">
+            ${lang !== "ar" ? `<div class="lk-k fn">⇧</div>` : ""}
+            ${rows[2].map(k => `<div class="lk-k">${k}</div>`).join("")}
+            <div class="lk-k fn">${SVG.bksp}</div>
+          </div>
+          <div class="lk-row">
+            <div class="lk-k fn">?123</div>
+            <div class="lk-k fn">${lang === "ar" ? "،" : ","}</div>
+            <div class="lk-k fn">${SVG.emoji}</div>
+            <div class="lk-k fn">${SVG.globe}</div>
+            <div class="lk-k space">${spaceLbl}</div>
+            <div class="lk-k fn">.</div>
+            <div class="lk-k enter">↵</div>
+          </div>
+        </div>`;
+    }
+
+    function renderPhone() {
+      const el = document.getElementById("phoneScreen");
+      const isAr = currentLang === "ar";
+      const isEs = currentLang === "es";
+
+      const m1 = screenTranslated
+        ? (isAr ? "يومي بدأ للتو 😅، الساعة قرابة 11 صباحاً" : isEs ? "Mi día acaba de empezar 😅, casi las 11am" : "My day has just started 😅, it's almost 11am")
+        : "My day has just started 😅, it's almost 11am";
+      const m2 = screenTranslated
+        ? (isAr ? "رائع! هل نلتقي للقهوة؟ ☕" : isEs ? "¡Genial! ¿Nos vemos para un café? ☕" : "Nice! Coffee later today? ☕")
+        : "Nice! Coffee later today? ☕";
+      const m3 = screenTranslated
+        ? (isAr ? "أحلام سعيدة 🫶" : isEs ? "Dulces sueños 🫶" : "Sweet dreams 🫶")
+        : "Sweet dreams 🫶";
+
+      const rtlCls = (screenTranslated && isAr) ? "rtl" : "";
+      const pillTarget = isAr ? "→ AR" : isEs ? "→ ES" : "→ EN";
+      const pillState = screenTranslated
+        ? (isAr ? "تمت الترجمة" : isEs ? "Traducido" : "Translated")
+        : (isAr ? "النص الأصلي" : isEs ? "Original" : "Original");
+
+      const topBar = `
+        <div class="lk-topbar">
+          <div class="lk-side-pill ${currentScreen === "live" ? "active" : ""}" style="font-size:11px;font-weight:700;">文A</div>
+          <div class="lk-center-icons">
+            <div class="lk-icon-btn ${currentScreen === "tools" ? "active" : ""}">${SVG.gear}</div>
+            <div class="lk-icon-btn">${SVG.img}</div>
+            <div class="lk-icon-btn">${SVG.emoji}</div>
+            <div class="lk-icon-btn">${SVG.clip}</div>
+          </div>
+          <div class="lk-side-pill ${currentScreen === "screen" ? "active" : ""}" style="font-size:10px;font-weight:800;">A+</div>
+        </div>`;
+
+      let lower = "";
+      if (currentScreen === "screen") {
+        lower = topBar + renderKeyboard(currentLang);
+      } else if (currentScreen === "live") {
+        lower = `
+          ${topBar}
+          <div class="lk-live-bar">
+            <div class="lk-live-top">
+              <div class="lk-pair">
+                <span class="lk-chip">${isAr ? "AR" : isEs ? "ES" : "EN"}</span>
+                <span style="color:#8AB4F8;">⇄</span>
+                <span class="lk-chip tgt">${isAr ? "EN" : isEs ? "EN" : "ES"}</span>
+              </div>
+              <span style="color:#81C995;font-weight:700;">● Live</span>
+            </div>
+            <div class="lk-alts">
+              <span class="lk-alt">${isAr ? "I'll be there in 10 mins" : isEs ? "I'll be there in 10 mins" : "Llego en 10 minutos"}</span>
+              <span class="lk-alt">${isAr ? "On my way!" : isEs ? "On my way!" : "¡Ya voy saliendo!"}</span>
+            </div>
+          </div>
+          ${renderKeyboard(currentLang)}`;
+      } else if (currentScreen === "tools") {
+        const backLbl = isAr ? "العودة للوحة" : isEs ? "Teclado" : "Keyboard";
+        const hubTitle = isAr ? "الأدوات واللغات" : isEs ? "Herramientas" : "Tools & Languages";
+        const tiles = isAr
+          ? [["📋","الحافظة","#8AB4F8"],["🌐","الترجمة","#81C995"],["✨","المساعد الذكي","#C58AF9"],["⚡","الاختصارات","#FDD663"],["GIF","صور GIF","#FF8BCB"],["⚙","الإعدادات","#78D9EC"]]
+          : isEs
+          ? [["📋","Portapapeles","#8AB4F8"],["🌐","Traducir","#81C995"],["✨","Asistente IA","#C58AF9"],["⚡","Atajos","#FDD663"],["GIF","GIFs","#FF8BCB"],["⚙","Ajustes","#78D9EC"]]
+          : [["📋","Clipboard","#8AB4F8"],["🌐","Translate","#81C995"],["✨","AI Assistant","#C58AF9"],["⚡","Shortcuts","#FDD663"],["GIF","GIFs","#FF8BCB"],["⚙","Settings","#78D9EC"]];
+        lower = `
+          ${topBar}
+          <div class="lk-panel">
+            <div class="lk-p-head">
+              <div class="lk-p-back">⌨ ${backLbl}</div>
+              <div class="lk-p-title">${hubTitle}</div>
+            </div>
+            <div class="lk-lang-box">
+              <div class="lk-l-from">${isAr ? "من: AR" : isEs ? "De: ES" : "From: EN"}</div>
+              <div class="lk-l-swap">⇄</div>
+              <div class="lk-l-to">${isAr ? "إلى: EN" : isEs ? "A: EN" : "To: ES"}</div>
+            </div>
+            <div class="lk-grid-3x2">
+              ${tiles.map(t => `<div class="lk-tile"><div style="color:${t[2]};font-size:13px;font-weight:800;">${t[0]}</div><div class="lk-tile-lbl">${t[1]}</div></div>`).join("")}
+            </div>
+          </div>`;
+      } else {
+        const backLbl = isAr ? "العودة للوحة" : isEs ? "Teclado" : "Keyboard";
+        const scTitle = isAr ? "الاختصارات السريعة" : isEs ? "Atajos Rápidos" : "Quick Shortcuts";
+        const items = isAr
+          ? [["/عنوان","شارع الروضة، دمشق"],["/وقت","متاح الساعة 5 مساءً"],["/شكر","شكراً جزيلاً لك!"],["/رابط","linguakey.app"],["/رد","سأتواصل معك قريباً"],["/أوك","تمام، تم الاستلام 👍"]]
+          : isEs
+          ? [["/dir","Av. Central 42"],["/hora","Libre a las 5pm"],["/gracias","¡Muchas gracias!"],["/link","linguakey.app"],["/luego","Te escribo pronto"],["/ok","Recibido 👍"]]
+          : [["/addr","42 Oak Street, Apt 4"],["/meet","Free at 5:00 PM"],["/ty","Thanks so much!"],["/link","linguakey.app"],["/brb","One sec, right back"],["/ok","Sounds great 👍"]];
+        lower = `
+          ${topBar}
+          <div class="lk-panel">
+            <div class="lk-p-head">
+              <div class="lk-p-back">⌨ ${backLbl}</div>
+              <div class="lk-p-title">${scTitle}</div>
+            </div>
+            <div class="lk-sc-wrap">
+              <div class="lk-sc-grid">
+                ${items.map(it => `<div class="lk-sc-item"><div class="lk-sc-k">${it[0]}</div><div class="lk-sc-v">${it[1]}</div></div>`).join("")}
+              </div>
+              <div class="lk-sc-bar"><div class="lk-sc-thumb"></div></div>
+            </div>
+          </div>`;
+      }
+
+      const composerText = currentScreen === "live"
+        ? (isAr ? "أنا في الطريق إليك..." : isEs ? "Voy en camino..." : "On my way there...")
+        : (isAr ? "إدخال الرسالة" : isEs ? "Escribir mensaje" : "Message...");
+
+      el.innerHTML = `
+        <div class="ph-status">
+          <span>3:41</span>
+          <div class="ph-camera"></div>
+          <span>5G • 74%</span>
+        </div>
+        <div class="ph-chat-top">
+          <div class="ph-user">
+            <div class="ph-avatar">S<span class="ph-avatar-flag">🇪🇸</span></div>
+            <div>
+              <div class="ph-uname">Sofia</div>
+              <div class="ph-usub">15:30</div>
+            </div>
+          </div>
+          <div class="lk-float-pill">
+            <span>${pillState}</span>
+            <button class="lk-float-badge" id="toggleTransBtn">${pillTarget} ⇄</button>
+          </div>
+        </div>
+        <div class="ph-chat-body">
+          <div class="ph-time">10:25</div>
+          <div class="ph-msg-row in">
+            <div class="ph-bubble in ${rtlCls}">${m1}</div>
+            <div class="ph-mini-av">S</div>
+          </div>
+          <div class="ph-time">10:27</div>
+          <div class="ph-msg-row out">
+            <div class="ph-bubble out ${rtlCls}">${m2}</div>
+          </div>
+          <div class="ph-seen">✓✓</div>
+          <div class="ph-msg-row in">
+            <div class="ph-bubble in ${rtlCls}">${m3}</div>
+            <div class="ph-mini-av">S</div>
+          </div>
+        </div>
+        <div class="ph-composer">
+          <div class="ph-input-pill ${currentScreen === "live" ? "typing" : ""}">
+            <span>${composerText}</span>
+            <span style="opacity:0.65;">🎤</span>
+          </div>
+        </div>
+        ${lower}
+        <div class="ph-android-nav">
+          <div class="nav-sq"></div>
+          <div class="nav-ci"></div>
+          <div class="nav-dn">▼</div>
+        </div>
+      `;
+
+      const tBtn = document.getElementById("toggleTransBtn");
+      if (tBtn) {
+        tBtn.addEventListener("click", () => {
+          screenTranslated = !screenTranslated;
+          renderPhone();
+        });
+      }
+    }
+
+    function applyLanguage(lang) {
+      currentLang = I18N[lang] ? lang : "en";
+      localStorage.setItem("linguakey_site_lang", currentLang);
+      const dict = I18N[currentLang];
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+      document.title = dict.page_title;
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key] !== undefined) {
+          if (key.startsWith("ms")) el.innerHTML = dict[key];
+          else el.textContent = dict[key];
+        }
+      });
+
+      document.querySelectorAll(".lang-btn").forEach(b => {
+        b.classList.toggle("active", b.dataset.lang === currentLang);
+      });
+
+      updateShowcaseCaption();
+      renderPhone();
+    }
+
+    function updateShowcaseCaption() {
+      const cap = document.getElementById("showcaseCaption");
+      const keyMap = { screen: "cap_screen", live: "cap_live", tools: "cap_tools", shortcuts: "cap_shortcuts" };
+      cap.textContent = I18N[currentLang][keyMap[currentScreen]];
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+    }
+
+    function triggerDownload() {
+      const modal = document.getElementById("downloadModal");
+      const modalSub = document.getElementById("modalSub");
+      const isPlaceholder = LINGUAKEY_CONFIG.apkDownloadUrl.includes("YOUR_USERNAME");
+
+      if (isPlaceholder) {
+        modalSub.textContent = I18N[currentLang].mod_preview_note;
+      } else {
+        modalSub.textContent = I18N[currentLang].mod_sub;
+        showToast(I18N[currentLang].toast_starting);
+        const a = document.createElement("a");
+        a.href = LINGUAKEY_CONFIG.apkDownloadUrl;
+        a.download = "LinguaKey-v" + LINGUAKEY_CONFIG.version + ".apk";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
+      modal.classList.add("open");
+    }
+
+    document.querySelectorAll(".lang-btn").forEach(btn => {
+      btn.addEventListener("click", () => applyLanguage(btn.dataset.lang));
+    });
+    document.querySelectorAll(".showcase-tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        currentScreen = tab.dataset.screen;
+        document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t === tab));
+        updateShowcaseCaption();
+        renderPhone();
+      });
+    });
+    document.querySelectorAll(".js-download-trigger").forEach(btn => {
+      btn.addEventListener("click", triggerDownload);
+    });
+    document.getElementById("retryDownloadBtn").addEventListener("click", triggerDownload);
+    document.getElementById("closeModalBtn").addEventListener("click", () => document.getElementById("downloadModal").classList.remove("open"));
+    document.getElementById("doneModalBtn").addEventListener("click", () => document.getElementById("downloadModal").classList.remove("open"));
+    document.getElementById("downloadModal").addEventListener("click", e => {
+      if (e.target.id === "downloadModal") e.target.classList.remove("open");
+    });
+    document.getElementById("copyShaBtn").addEventListener("click", () => {
+      if (navigator.clipboard) navigator.clipboard.writeText(LINGUAKEY_CONFIG.sha256);
+      showToast(I18N[currentLang].toast_copied);
+    });
+    document.querySelectorAll(".faq-q").forEach(btn => {
+      btn.addEventListener("click", () => btn.parentElement.classList.toggle("open"));
+    });
+
+    const saved = localStorage.getItem("linguakey_site_lang");
+    applyLanguage(saved && I18N[saved] ? saved : "en");
+  </script>
+</body>
+</html>
