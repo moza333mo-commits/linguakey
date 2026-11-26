@@ -1078,6 +1078,103 @@
       .phone-frame { width: 100%; max-width: 330px; }
       .nav-cta-desktop { display: none; }
     }
+
+    /* 48-Hour Free Trial & License Activation Section */
+    .trial-card {
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 28px;
+      padding: 40px 38px;
+      box-shadow: var(--shadow-md);
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 36px;
+      align-items: center;
+      margin-top: 28px;
+    }
+    .trial-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 5px 13px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .trial-card h3 {
+      font-size: clamp(1.45rem, 2.5vw, 1.9rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 12px;
+      line-height: 1.22;
+    }
+    .trial-card p {
+      color: var(--ink-secondary);
+      font-size: 0.96rem;
+      margin-bottom: 10px;
+      line-height: 1.65;
+    }
+    .activation-box {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .act-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--ink-secondary);
+    }
+    .act-input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: var(--ink);
+      direction: ltr;
+      text-align: center;
+      letter-spacing: 0.06em;
+      outline: none;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease;
+    }
+    .act-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.14);
+    }
+    .btn-telegram {
+      background: #229ED9;
+      color: #FFFFFF;
+      padding: 12px 20px;
+      font-size: 0.92rem;
+      width: 100%;
+    }
+    .btn-telegram:hover {
+      background: #1B8BC2;
+      transform: translateY(-1px);
+    }
+    .act-result {
+      display: none;
+      font-size: 0.86rem;
+      font-weight: 600;
+      padding: 11px 13px;
+      border-radius: 12px;
+      line-height: 1.5;
+    }
+    .act-result.ok { display: block; background: rgba(16, 185, 129, 0.12); color: #047857; border: 1px solid rgba(16, 185, 129, 0.28); }
+    .act-result.err { display: block; background: rgba(239, 68, 68, 0.10); color: #B91C1C; border: 1px solid rgba(239, 68, 68, 0.24); }
+    .act-result.info { display: block; background: rgba(26, 115, 232, 0.10); color: #1D4ED8; border: 1px solid rgba(26, 115, 232, 0.24); }
+    @media (max-width: 980px) {
+      .trial-card { grid-template-columns: 1fr; padding: 28px 22px; }
+    }
   </style>
 </head>
 <body>
@@ -1360,6 +1457,34 @@
             </div>
           </div>
         </div>
+
+        <!-- 48-Hour Free Trial & Real License Activation Section -->
+        <div class="trial-card" id="trial-activation">
+          <div>
+            <div class="trial-badge">⏱ <span data-i18n="tr_badge">48-Hour Full Access</span></div>
+            <h3 data-i18n="tr_title">48-Hour Free Trial</h3>
+            <p data-i18n="tr_p1">Enjoy all LinguaKey features free for 48 hours from your first launch of the app.</p>
+            <p data-i18n="tr_p2">After the trial period ends, you will need an activation key to continue using the app.</p>
+            <p data-i18n="tr_p3">To get an activation key, contact us via our Telegram bot.</p>
+          </div>
+
+          <div class="activation-box">
+            <label class="act-label" for="licenseKeyInput" data-i18n="tr_key_label">Activation Key</label>
+            <input id="licenseKeyInput" class="act-input" type="text" maxlength="24" placeholder="LK-XXXX-XXXX-XXXX-XXXX" autocomplete="off" />
+
+            <label class="act-label" for="deviceIdInput" data-i18n="tr_dev_label">Device ID (Optional — from LinguaKey app)</label>
+            <input id="deviceIdInput" class="act-input" type="text" maxlength="19" placeholder="LK-XXXX-XXXX-XXXX" autocomplete="off" style="font-size:0.86rem;padding:10px 12px;" />
+
+            <button class="btn btn-primary" id="activateKeyBtn" style="width:100%;" data-i18n="tr_btn_activate">Activate App</button>
+
+            <a class="btn btn-telegram" id="telegramSupportBtn" href="https://t.me/LinguaKeySupportBot" target="_blank" rel="noopener noreferrer">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+              <span data-i18n="tr_btn_tg">Get Activation Key via Telegram</span>
+            </a>
+
+            <div class="act-result" id="activationResult" role="status" aria-live="polite"></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1502,7 +1627,10 @@
       version: "1.2.2",
       fileSize: "81.87 MB",
       sha256: "c0bf4bf6df240e1969cb0afa53f2e5574f6866d50f620a4c4bd81bc358c066c5",
-      apkDownloadUrl: "https://huggingface.co/datasets/linguakey-app/linguakey-apk/resolve/main/LinguaKey-v1.2.2.apk?download=true"
+      apkDownloadUrl: "https://huggingface.co/datasets/linguakey-app/linguakey-apk/resolve/main/LinguaKey-v1.2.2.apk?download=true",
+      telegramBotUrl: "https://t.me/LinguaKeySupportBot",
+      // Public Cloudflare Worker API URL (no secrets here!)
+      apiBaseUrl: "https://summer-wildflower-efddlinguakey-api.moza333mo.workers.dev"
     };
 
     const SVG = {
@@ -1603,7 +1731,26 @@
         ms3: "Tap <strong>Install</strong> and wait a few seconds.",
         ms4: "Open <strong>LinguaKey</strong> and complete the 2-step keyboard activation.",
         mod_retry: "Tap here if download didn't start", mod_done: "Got it",
-        toast_copied: "SHA-256 copied to clipboard", toast_starting: "Starting LinguaKey v1.2.2 APK download..."
+        toast_copied: "SHA-256 copied to clipboard", toast_starting: "Starting LinguaKey v1.2.2 APK download...",
+        tr_badge: "48-Hour Full Access",
+        tr_title: "48-Hour Free Trial",
+        tr_p1: "Enjoy all LinguaKey features free for 48 hours from your first launch of the app.",
+        tr_p2: "After the trial period ends, you will need an activation key to continue using the app.",
+        tr_p3: "To get an activation key, contact us via our Telegram bot.",
+        tr_key_label: "Activation Key",
+        tr_dev_label: "Device ID (Optional — from LinguaKey app)",
+        tr_btn_activate: "Activate App",
+        tr_btn_tg: "Get Activation Key via Telegram",
+        tr_checking: "Verifying activation key with server...",
+        tr_err_empty: "Please enter your activation key first.",
+        tr_err_format: "Invalid key format. Example: LK-XXXX-XXXX-XXXX-XXXX",
+        tr_err_not_found: "Activation key not found. Please check your key or contact support on Telegram.",
+        tr_err_expired: "This activation key has expired.",
+        tr_err_revoked: "This activation key has been revoked.",
+        tr_err_limit: "This key has reached its maximum device limit.",
+        tr_err_net: "Could not reach the activation server. Please check your connection and try again.",
+        tr_ok_verified: "Valid activation key! Open LinguaKey on your Android phone and enter this key to complete activation.",
+        tr_ok_bound: "Device activated successfully! Reopen LinguaKey on your phone to enjoy full access." 
       },
       ar: {
         page_title: "LinguaKey — لوحة مفاتيح الترجمة الذكية لأندرويد",
@@ -1693,7 +1840,26 @@
         ms3: "اضغط <strong>تثبيت (Install)</strong> وانتظر ثوانٍ قليلة.",
         ms4: "افتح تطبيق <strong>LinguaKey</strong> وأكمل خطوتي تفعيل لوحة المفاتيح.",
         mod_retry: "اضغط هنا للتحميل المباشر", mod_done: "حسناً، فهمت",
-        toast_copied: "تم نسخ بصمة SHA-256 بنجاح", toast_starting: "جارٍ بدء تحميل LinguaKey v1.2.2..."
+        toast_copied: "تم نسخ بصمة SHA-256 بنجاح", toast_starting: "جارٍ بدء تحميل LinguaKey v1.2.2...",
+        tr_badge: "تجربة كاملة لمدة 48 ساعة",
+        tr_title: "التجربة المجانية لمدة 48 ساعة",
+        tr_p1: "استمتع بجميع ميزات LinguaKey مجاناً لمدة 48 ساعة من أول تشغيل للتطبيق.",
+        tr_p2: "بعد انتهاء الفترة التجريبية، ستحتاج إلى مفتاح تفعيل لمتابعة استخدام التطبيق.",
+        tr_p3: "للحصول على مفتاح التفعيل، تواصل معنا عبر بوت Telegram.",
+        tr_key_label: "مفتاح التفعيل",
+        tr_dev_label: "معرّف الجهاز (اختياري — من داخل تطبيق LinguaKey)",
+        tr_btn_activate: "تفعيل التطبيق",
+        tr_btn_tg: "الحصول على مفتاح التفعيل عبر Telegram",
+        tr_checking: "جارٍ التحقق من مفتاح التفعيل عبر الخادم...",
+        tr_err_empty: "يرجى إدخال مفتاح التفعيل أولاً.",
+        tr_err_format: "صيغة المفتاح غير صحيحة. مثال: LK-XXXX-XXXX-XXXX-XXXX",
+        tr_err_not_found: "مفتاح التفعيل غير موجود. تأكد من المفتاح أو تواصل معنا عبر بوت Telegram.",
+        tr_err_expired: "مفتاح التفعيل هذا منتهي الصلاحية.",
+        tr_err_revoked: "تم إلغاء مفتاح التفعيل هذا.",
+        tr_err_limit: "تم استخدام هذا المفتاح على الحد الأقصى المسموح من الأجهزة.",
+        tr_err_net: "تعذّر الاتصال بخادم التفعيل حالياً. تأكد من اتصالك وحاول مجدداً.",
+        tr_ok_verified: "مفتاح التفعيل صحيح وفعال! افتح تطبيق LinguaKey على هاتفك وأدخل هذا المفتاح لإتمام التفعيل.",
+        tr_ok_bound: "تم تفعيل جهازك بنجاح! أعد فتح تطبيق LinguaKey على هاتفك للاستمتاع بجميع الميزات." 
       },
       es: {
         page_title: "LinguaKey — Teclado Inteligente de Traducción para Android",
@@ -1783,7 +1949,26 @@
         ms3: "Pulsa <strong>Instalar</strong> y espera unos segundos.",
         ms4: "Abre <strong>LinguaKey</strong> y completa la activación en 2 pasos.",
         mod_retry: "Pulsa aquí si no inicia", mod_done: "Entendido",
-        toast_copied: "SHA-256 copiado al portapapeles", toast_starting: "Iniciando descarga de LinguaKey v1.2.2..."
+        toast_copied: "SHA-256 copiado al portapapeles", toast_starting: "Iniciando descarga de LinguaKey v1.2.2...",
+        tr_badge: "Acceso completo por 48 horas",
+        tr_title: "Prueba Gratuita de 48 Horas",
+        tr_p1: "Disfruta de todas las funciones de LinguaKey gratis durante 48 horas desde el primer inicio.",
+        tr_p2: "Después del período de prueba, necesitarás una clave de activación para continuar usando la app.",
+        tr_p3: "Para obtener una clave de activación, contáctanos a través de nuestro bot de Telegram.",
+        tr_key_label: "Clave de Activación",
+        tr_dev_label: "ID del Dispositivo (Opcional — desde la app LinguaKey)",
+        tr_btn_activate: "Activar App",
+        tr_btn_tg: "Obtener Clave por Telegram",
+        tr_checking: "Verificando clave de activación en el servidor...",
+        tr_err_empty: "Por favor, ingresa tu clave de activación primero.",
+        tr_err_format: "Formato inválido. Ejemplo: LK-XXXX-XXXX-XXXX-XXXX",
+        tr_err_not_found: "Clave no encontrada. Revisa el código o contáctanos en Telegram.",
+        tr_err_expired: "Esta clave de activación ha expirado.",
+        tr_err_revoked: "Esta clave de activación ha sido revocada.",
+        tr_err_limit: "Esta clave alcanzó el límite máximo de dispositivos.",
+        tr_err_net: "No se pudo conectar con el servidor de activación. Inténtalo de nuevo.",
+        tr_ok_verified: "¡Clave válida y activa! Abre LinguaKey en tu teléfono Android e ingrésala para activar.",
+        tr_ok_bound: "¡Dispositivo activado con éxito! Vuelve a abrir LinguaKey en tu teléfono." 
       }
     };
 
@@ -2036,6 +2221,7 @@
       if (retryLink) retryLink.href = LINGUAKEY_CONFIG.apkDownloadUrl;
       modalSub.textContent = I18N[currentLang].mod_sub;
       showToast(I18N[currentLang].toast_starting);
+      trackAnalyticsEvent('download_click', { app_version: LINGUAKEY_CONFIG.version });
       modal.classList.add("open");
       setTimeout(() => {
         window.location.href = LINGUAKEY_CONFIG.apkDownloadUrl;
@@ -2070,7 +2256,84 @@
     });
 
     const saved = localStorage.getItem("linguakey_site_lang");
+
+    function trackAnalyticsEvent(eventType, extra = {}) {
+      if (!LINGUAKEY_CONFIG.apiBaseUrl) return;
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const payload = JSON.stringify({
+          event_type: eventType,
+          utm_source: params.get("utm_source") || params.get("ref") || "",
+          referrer: document.referrer || "",
+          site_lang: currentLang,
+          app_version: extra.app_version || ""
+        });
+        const endpoint = LINGUAKEY_CONFIG.apiBaseUrl.replace(/\/+$/, "") + "/api/analytics/event";
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon(endpoint, new Blob([payload], { type: "application/json" }));
+        } else {
+          fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: payload, keepalive: true }).catch(() => {});
+        }
+      } catch (_) {}
+    }
+
+    async function handleWebsiteActivation() {
+      const keyInput = document.getElementById("licenseKeyInput");
+      const devInput = document.getElementById("deviceIdInput");
+      const resBox = document.getElementById("activationResult");
+      const btn = document.getElementById("activateKeyBtn");
+      const dict = I18N[currentLang];
+
+      const keyVal = (keyInput.value || "").trim().toUpperCase();
+      const devVal = (devInput.value || "").trim().toUpperCase();
+
+      if (!keyVal) {
+        resBox.className = "act-result err";
+        resBox.textContent = dict.tr_err_empty;
+        return;
+      }
+
+      btn.disabled = true;
+      resBox.className = "act-result info";
+      resBox.textContent = dict.tr_checking;
+
+      try {
+        const endpoint = LINGUAKEY_CONFIG.apiBaseUrl.replace(/\/+$/, "") + "/api/license/verify";
+        const body = { license_key: keyVal };
+        if (devVal) body.device_id = devVal;
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+        const data = await response.json();
+        if (response.ok && data.ok) {
+          resBox.className = "act-result ok";
+          resBox.textContent = devVal ? dict.tr_ok_bound : dict.tr_ok_verified;
+        } else {
+          const map = {
+            invalid_key_format: dict.tr_err_format,
+            key_not_found: dict.tr_err_not_found,
+            key_expired: dict.tr_err_expired,
+            key_revoked: dict.tr_err_revoked,
+            key_device_limit_reached: dict.tr_err_limit
+          };
+          resBox.className = "act-result err";
+          resBox.textContent = map[data.error] || dict.tr_err_not_found;
+        }
+      } catch (_) {
+        resBox.className = "act-result err";
+        resBox.textContent = dict.tr_err_net;
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    document.getElementById("activateKeyBtn").addEventListener("click", handleWebsiteActivation);
+    document.getElementById("telegramSupportBtn").href = LINGUAKEY_CONFIG.telegramBotUrl;
+
     applyLanguage(saved && I18N[saved] ? saved : "en");
+    trackAnalyticsEvent("page_view");
   </script>
 </body>
 </html>
