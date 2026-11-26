@@ -2269,11 +2269,14 @@
           app_version: extra.app_version || ""
         });
         const endpoint = LINGUAKEY_CONFIG.apiBaseUrl.replace(/\/+$/, "") + "/api/analytics/event";
-        if (navigator.sendBeacon) {
-          navigator.sendBeacon(endpoint, new Blob([payload], { type: "application/json" }));
-        } else {
-          fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: payload, keepalive: true }).catch(() => {});
-        }
+        fetch(endpoint, {
+          method: "POST",
+          mode: "cors",
+          credentials: "omit",
+          headers: { "Content-Type": "text/plain;charset=UTF-8" },
+          body: payload,
+          keepalive: true
+        }).catch(() => {});
       } catch (_) {}
     }
 
