@@ -266,83 +266,67 @@
     }
 
     .phone-frame {
-      width: 330px;
-      background: #08090C;
+      width: 344px;
+      background: #06070A;
       border-radius: 42px;
-      padding: 10px;
+      padding: 9px;
       box-shadow: var(--shadow-phone), inset 0 0 0 1.5px rgba(255, 255, 255, 0.14);
       direction: ltr;
       user-select: none;
     }
     .phone-screen {
-      background: #111215;
-      border-radius: 32px;
+      background: #111111;
+      border-radius: 33px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       color: #F3F4F6;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Arabic", sans-serif;
     }
     .ph-status {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 9px 18px 5px;
-      font-size: 10.5px;
-      font-weight: 600;
-      color: #E5E7EB;
-      background: #111215;
+      padding: 8px 16px 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #F3F4F6;
+      background: #0A0A0A;
     }
+    .ph-st-left { display: flex; align-items: center; gap: 5px; }
+    .ph-batt {
+      display: inline-flex; align-items: center; gap: 2px;
+      background: #22C55E; color: #052E16; font-size: 9px; font-weight: 800;
+      padding: 1px 5px; border-radius: 99px; line-height: 1.1;
+    }
+    .ph-st-net { font-size: 8.5px; color: #D1D5DB; font-weight: 600; }
     .ph-camera {
-      width: 11px;
-      height: 11px;
-      background: #000;
-      border-radius: 50%;
-      box-shadow: inset 0 0 2px rgba(255,255,255,0.2);
+      width: 10px; height: 10px; background: #000; border-radius: 50%;
+      box-shadow: inset 0 0 2px rgba(255,255,255,0.22);
     }
     .ph-chat-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 4px 12px 9px;
-      background: #111215;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 5px 12px 7px;
+      background: #111111;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
       gap: 6px;
     }
-    .ph-user {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .ph-top-icons {
+      display: flex; align-items: center; gap: 12px; color: #E5E7EB; font-size: 13px;
     }
-    .ph-avatar {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #6366F1, #3B82F6);
-      display: grid;
-      place-items: center;
-      font-size: 11px;
-      font-weight: 700;
-      color: #fff;
-      position: relative;
-      flex-shrink: 0;
+    .ph-user-right {
+      display: flex; align-items: center; gap: 7px; text-align: right;
     }
-    .ph-avatar-flag {
-      position: absolute;
-      right: -2px;
-      bottom: -2px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #111215;
-      display: grid;
-      place-items: center;
-      font-size: 8px;
-    }
-    .ph-uname { font-size: 12.5px; font-weight: 700; line-height: 1.1; }
+    .ph-uname { font-size: 13px; font-weight: 700; line-height: 1.1; color: #FFFFFF; }
     .ph-usub { font-size: 9.5px; color: #9CA3AF; }
+    .ph-back-chev { color: #E5E7EB; font-size: 16px; font-weight: 400; line-height: 1; }
 
     /* Floating Screen Translation Overlay Pill (exact LinguaKey style) */
+    .lk-float-wrap {
+      display: flex; justify-content: center; padding: 5px 8px 2px; background: #111111;
+    }
     .lk-float-pill {
       display: inline-flex;
       align-items: center;
@@ -350,199 +334,317 @@
       background: #181A20;
       border: 1px solid #2D313B;
       border-radius: 999px;
-      padding: 3px 8px;
+      padding: 3px 9px;
       font-size: 9.5px;
       font-weight: 600;
       color: #E5E7EB;
+      cursor: pointer;
     }
     .lk-float-badge {
       background: #1A3A63;
       color: #8AB4F8;
+      padding: 1px 6px;
       border-radius: 999px;
-      padding: 2px 7px;
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 700;
-      cursor: pointer;
-      transition: background 0.15s ease;
     }
     .lk-float-badge:hover { background: #234D82; }
 
     .ph-chat-body {
-      padding: 10px 12px 8px;
+      padding: 6px 10px 8px;
       display: flex;
       flex-direction: column;
-      gap: 7px;
-      min-height: 214px;
-      justify-content: flex-end;
+      gap: 6px;
+      height: 196px;
+      overflow-y: auto;
+      background: #111111;
+      position: relative;
+      scroll-behavior: smooth;
     }
+    .ph-chat-body::-webkit-scrollbar { width: 3px; }
+    .ph-chat-body::-webkit-scrollbar-thumb { background: #2A2D34; border-radius: 99px; }
     .ph-time {
       text-align: center;
-      font-size: 9.5px;
-      color: #7D8491;
+      font-size: 9px;
+      color: #7D818B;
       margin: 1px 0;
     }
     .ph-msg-row {
       display: flex;
       align-items: flex-end;
       gap: 6px;
+      width: 100%;
     }
+    /* Match real RTL Arabic app screenshot: Outgoing (purple) on LEFT, Incoming (María dark gray + avatar) on RIGHT */
     .ph-msg-row.out { justify-content: flex-start; }
     .ph-msg-row.in { justify-content: flex-end; }
     .ph-bubble {
       max-width: 78%;
-      padding: 8px 13px;
-      border-radius: 20px;
-      font-size: 11.8px;
+      padding: 7px 11px;
+      font-size: 11.5px;
       line-height: 1.38;
-      letter-spacing: -0.005em;
-      transition: all 0.22s ease;
+      border-radius: 15px;
+      word-break: break-word;
+      transition: background 0.2s ease, transform 0.15s ease;
     }
     .ph-bubble.in {
-      background: #23252A;
-      color: #F3F4F6;
+      background: #262628;
+      color: #F5F5F7;
+      border-bottom-right-radius: 5px;
+      text-align: left;
     }
+    .ph-bubble.in.rtl { text-align: right; direction: rtl; }
     .ph-bubble.out {
-      background: #2E2268;
+      background: #382D78;
       color: #FFFFFF;
+      border-bottom-left-radius: 5px;
+      text-align: left;
     }
-    .ph-bubble.rtl {
-      direction: rtl;
-      text-align: right;
+    .ph-bubble.out.rtl { text-align: right; direction: rtl; }
+    .ph-bubble.translated-glow {
+      box-shadow: inset 0 0 0 1px rgba(29, 107, 255, 0.45);
     }
     .ph-mini-av {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #6366F1, #3B82F6);
-      color: #fff;
-      font-size: 9px;
-      font-weight: 700;
+      background: linear-gradient(145deg, #D4A373, #6B4423);
+      flex-shrink: 0;
       display: grid;
       place-items: center;
-      flex-shrink: 0;
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #FFF;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.18);
     }
-    .ph-seen {
-      font-size: 9px;
-      color: #818CF8;
-      padding-left: 6px;
-      margin-top: -3px;
+    .ph-mini-flag {
+      position: absolute;
+      right: -3px;
+      bottom: -2px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #111111;
+      display: grid;
+      place-items: center;
+      font-size: 7.5px;
+      line-height: 1;
     }
 
-    /* App Message Composer Bar */
+    /* Chat Input Bar — Exact Match to image_a6daba.png */
     .ph-composer {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 6px 10px 7px;
-      background: #111215;
+      gap: 7px;
+      padding: 5px 10px 4px;
+      background: #111111;
+    }
+    .ph-mic-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #E5E7EB;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .ph-mic-btn.ready-send {
+      background: #1D6BFF;
+      color: #FFFFFF;
     }
     .ph-input-pill {
       flex: 1;
-      background: #1E2025;
-      border-radius: 999px;
-      padding: 6px 12px;
-      font-size: 10.5px;
-      color: #9CA3AF;
+      min-height: 30px;
+      background: #222225;
+      border-radius: 18px;
+      padding: 5px 12px;
+      font-size: 11.5px;
+      color: #8E8E93;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 6px;
+      cursor: text;
+      border: 1px solid transparent;
+      transition: border-color 0.15s ease;
     }
-    .ph-input-pill.typing { color: #F3F4F6; }
+    .ph-input-pill.has-translation {
+      color: #FFFFFF;
+      border-color: rgba(29, 107, 255, 0.55);
+      background: #1A2233;
+    }
+    .ph-input-pill.has-raw {
+      color: #FFFFFF;
+    }
+    .ph-out-text {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: right;
+      direction: auto;
+    }
+    .ph-out-text.ltr-out { text-align: left; direction: ltr; }
+    .ph-out-tag {
+      font-size: 8.5px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 99px;
+      background: #1D6BFF;
+      color: #FFFFFF;
+      flex-shrink: 0;
+      letter-spacing: 0.02em;
+    }
 
-    /* EXACT LinguaKey Top Smart Bar (matches real screenshots!) */
-    .lk-topbar {
-      background: #000000;
-      padding: 6px 8px 5px;
+    /* Chat App Bottom Action Icons Strip (exact row above LinguaKey in image_a6daba.png) */
+    .ph-app-strip {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      border-top: 1px solid #15171C;
+      justify-content: space-around;
+      padding: 4px 10px 6px;
+      background: #111111;
+      color: #D1D5DB;
+      border-bottom: 1px solid #1C1C1E;
+    }
+    .ph-app-ic {
+      width: 24px; height: 22px; display: grid; place-items: center;
+      opacity: 0.85; font-size: 12px; cursor: pointer;
+    }
+    .ph-app-ic:hover { opacity: 1; color: #FFFFFF; }
+
+    /* LinguaKey AMOLED Keyboard Top Bar (exact match to image_a6daba.png & input_view.xml) */
+    .lk-topbar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 8px 4px;
+      background: #08080A;
+      min-height: 38px;
     }
     .lk-side-pill {
-      width: 34px;
-      height: 28px;
+      width: 38px;
+      height: 30px;
       border-radius: 8px;
-      background: #1B1D22;
+      background: #232428;
       color: #E5E7EB;
       display: grid;
       place-items: center;
       flex-shrink: 0;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+      font-weight: 800;
     }
+    .lk-side-pill:active { transform: scale(0.94); }
     .lk-side-pill.active {
-      background: #1A73E8;
+      background: #1D6BFF;
       color: #FFFFFF;
+      box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.35);
+    }
+    .lk-center-slot {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .lk-center-icons {
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-evenly;
-      flex: 1;
-      padding: 0 8px;
-      color: #E5E7EB;
+      color: #A1A6B3;
     }
     .lk-icon-btn {
-      width: 28px;
-      height: 26px;
+      width: 30px;
+      height: 28px;
       border-radius: 7px;
       display: grid;
       place-items: center;
-      color: #E5E7EB;
+      cursor: pointer;
+      color: #B4B8C2;
+      transition: background 0.15s ease, color 0.15s ease;
     }
-    .lk-icon-btn.active {
+    .lk-icon-btn:hover, .lk-icon-btn.active {
+      background: #1E2026;
       color: #8AB4F8;
-      background: rgba(138, 180, 248, 0.14);
     }
-
-    /* Live Translation Strip */
-    .lk-live-bar {
-      background: #0B0D11;
-      border-top: 1px solid #1B1F27;
-      border-bottom: 1px solid #1B1F27;
-      padding: 6px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .lk-live-top {
+    .lk-source-wrap {
+      width: 100%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      font-size: 9.5px;
+      gap: 5px;
+      background: #141519;
+      border: 1px solid #262932;
+      border-radius: 8px;
+      padding: 2px 6px;
+      min-height: 30px;
     }
-    .lk-pair {
+    .lk-source-input {
+      flex: 1;
+      min-width: 0;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #FFFFFF;
+      font-size: 12px;
+      font-family: inherit;
+      padding: 2px 2px;
+      user-select: text;
+    }
+    .lk-source-input::placeholder { color: #6B7280; font-size: 10.5px; }
+    .lk-pair-mini {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-    }
-    .lk-chip {
-      background: #1C1E21;
-      border: 1px solid #32363B;
-      color: #E8EAED;
-      border-radius: 999px;
-      padding: 1.5px 8px;
+      gap: 3px;
+      background: #1E293B;
+      color: #93C5FD;
+      border: 1px solid #2D4369;
+      border-radius: 6px;
+      padding: 2px 5px;
       font-size: 9px;
-      font-weight: 700;
-    }
-    .lk-chip.tgt { border-color: #8AB4F8; color: #8AB4F8; }
-    .lk-alts {
-      display: flex;
-      gap: 5px;
-      overflow: hidden;
-    }
-    .lk-alt {
-      background: #161922;
-      border: 1px solid #282F3E;
-      color: #D1D5DB;
-      border-radius: 999px;
-      padding: 2px 8px;
-      font-size: 9px;
+      font-weight: 800;
+      cursor: pointer;
+      flex-shrink: 0;
       white-space: nowrap;
     }
+    .lk-pair-mini:hover { background: #263754; }
+    .lk-clear-x {
+      color: #9CA3AF; font-size: 11px; cursor: pointer; padding: 0 2px; display: none;
+    }
+    .lk-clear-x.show { display: inline; }
 
-    /* EXACT LinguaKey AMOLED Keyboard with Number Row + Sky-Blue Enter */
+    /* Compact Live Alternatives & Language Strip */
+    .lk-live-strip {
+      background: #08080A;
+      padding: 0 8px 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .lk-live-strip::-webkit-scrollbar { display: none; }
+    .lk-alt {
+      background: #181A20;
+      border: 1px solid #2B2F3A;
+      color: #D1D5DB;
+      font-size: 9.5px;
+      padding: 2px 7px;
+      border-radius: 99px;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .lk-alt:hover { border-color: #1D6BFF; color: #FFFFFF; }
+    .lk-alt.lang-chip { background: #141B29; border-color: #263B5E; color: #8AB4F8; font-weight: 700; }
+    .lk-alt.lang-chip.on { background: #1D6BFF; border-color: #1D6BFF; color: #FFFFFF; }
+
+    /* Exact AMOLED 5-Row Keyboard matching image_a6daba.png */
     .lk-kbd {
-      background: #000000;
-      padding: 4px 4px 6px;
+      background: #08080A;
+      padding: 2px 4px 7px;
       display: flex;
       flex-direction: column;
       gap: 5px;
@@ -554,49 +656,71 @@
     }
     .lk-k {
       flex: 1;
-      height: 29px;
-      background: #1D1F23;
+      height: 31px;
+      background: #1C1D20;
       border-radius: 6px;
-      display: grid;
-      place-items: center;
-      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
       font-weight: 500;
       color: #F3F4F6;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.08s ease, transform 0.06s ease;
     }
-    .lk-k.num { height: 24px; font-size: 10.5px; background: #191B1F; }
-    .lk-k.fn { background: #131518; color: #D1D5DB; flex: 1.3; font-size: 9.5px; }
-    .lk-k.space { flex: 4.1; background: #262930; color: #9CA3AF; font-size: 9.5px; }
-    .lk-k.enter { flex: 1.65; background: #8AB4F8; color: #0B0D12; border-radius: 14px; font-weight: 700; }
+    .lk-k:active { background: #363842; transform: scale(0.95); }
+    .lk-k-sub {
+      position: absolute;
+      top: 1px;
+      right: 2.5px;
+      font-size: 7px;
+      color: #717580;
+      font-weight: 600;
+      pointer-events: none;
+    }
+    .lk-k.num { height: 24px; font-size: 11px; background: #16171A; color: #E5E7EB; }
+    .lk-k.fn { background: #151619; color: #D1D5DB; flex: 1.3; font-size: 10px; font-weight: 600; }
+    .lk-k.bksp { flex: 1.5; background: #1C1D20; color: #E5E7EB; }
+    .lk-k.space { flex: 4.2; background: #26282E; color: #9CA3AF; font-size: 10px; font-weight: 500; }
+    .lk-k.enter {
+      flex: 1.75;
+      background: #8BB8F8;
+      color: #0B192C;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+    .lk-k.enter:active { background: #60A5FA; }
 
-    /* EXACT LinguaKey v1.3.0 In-Place Tools & Languages Hub */
+    /* In-Place Panel (Tools Hub / Shortcuts / AI / Clipboard / Emoji) */
     .lk-panel {
-      background: #000000;
-      padding: 7px 8px 8px;
-      height: 184px;
+      background: #08080A;
+      padding: 6px 8px 8px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 7px;
+      min-height: 174px;
     }
     .lk-p-head {
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
     }
     .lk-p-back {
-      background: #222427;
-      border: 1px solid #333840;
+      background: #1C1D22;
       color: #E8EAED;
-      border-radius: 8px;
-      padding: 4px 9px;
+      border: 1px solid #2E323C;
+      border-radius: 99px;
+      padding: 3px 9px;
       font-size: 9.5px;
       font-weight: 700;
+      cursor: pointer;
     }
     .lk-p-title {
-      flex: 1;
-      text-align: center;
       font-size: 10.5px;
       font-weight: 700;
-      color: #BDC1C6;
+      color: #8AB4F8;
     }
     .lk-lang-box {
       background: #13161B;
@@ -1266,6 +1390,95 @@
       }
       .btn { white-space: normal !important; text-align: center; }
     }
+
+    .sim-invite-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, rgba(26, 115, 232, 0.12), rgba(124, 58, 237, 0.12));
+      border: 1px solid rgba(26, 115, 232, 0.25);
+      color: var(--ink);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-align: center;
+      max-width: 330px;
+    }
+    .ph-composer-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #F3F4F6;
+      font-size: 11px;
+      width: 100%;
+      font-family: inherit;
+    }
+    .ph-composer-input::placeholder { color: #8B93A1; }
+    .ph-scan-overlay {
+      position: relative;
+      overflow: hidden;
+    }
+    .ph-scan-overlay.scanning::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(138, 180, 248, 0.22) 50%, transparent 100%);
+      animation: scanSweep 0.36s ease-out;
+      pointer-events: none;
+    }
+    @keyframes scanSweep {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(100%); }
+    }
+    .lk-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+      flex: 1;
+      align-content: start;
+      padding-top: 4px;
+    }
+    .lk-emoji-cell {
+      background: #15181E;
+      border-radius: 8px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .lk-emoji-cell:active { transform: scale(0.9); }
+    .lk-ai-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+      overflow-y: auto;
+    }
+    .lk-ai-opt {
+      background: #15181E;
+      border: 1px solid #2B3140;
+      border-radius: 10px;
+      padding: 7px 10px;
+      font-size: 10px;
+      color: #E5E7EB;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+    .lk-ai-opt:hover { border-color: #C58AF9; }
+    .lk-ai-tag {
+      font-size: 8.5px;
+      font-weight: 700;
+      color: #C58AF9;
+      background: rgba(197, 138, 249, 0.14);
+      padding: 2px 6px;
+      border-radius: 99px;
+      flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
@@ -1335,20 +1548,22 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               <span data-i18n="cta_download">Download APK (v1.3.0)</span>
             </button>
-            <a href="#install" class="btn btn-secondary" data-i18n="cta_install">How to install</a>
+            <a href="#live-simulator" class="btn btn-secondary" data-i18n="cta_try_sim">▶ Try Live Simulator</a>
+            <a href="https://is.gd/Lengkay" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="padding:11px 18px;" data-i18n="cta_full_sim">Full-Screen Demo ↗</a>
           </div>
           <div class="hero-meta">
             <span>✓ <span data-i18n="meta_android">Android 7.0+</span></span>
-            <span>✓ <span data-i18n="meta_size">81.87 MB (ML Kit Edition)</span></span>
+            <span>✓ <span data-i18n="meta_size">43.9 MB (ML Kit Edition)</span></span>
             <span>✓ <span data-i18n="meta_offline">On-device translation support</span></span>
           </div>
         </div>
 
         <!-- Pixel-Accurate Interactive LinguaKey v1.3.0 Phone -->
-        <div class="phone-stage">
+        <div class="phone-stage" id="live-simulator">
+          <div class="sim-invite-pill" data-i18n="sim_invite">✨ Interactive Demo — Tap buttons & keys below to test LinguaKey live!</div>
           <div class="showcase-tabs" role="tablist">
-            <button class="showcase-tab active" data-screen="screen" data-i18n="tab_screen">Screen Translate</button>
-            <button class="showcase-tab" data-screen="live" data-i18n="tab_live">Live Typing</button>
+            <button class="showcase-tab" data-screen="screen" data-i18n="tab_screen">Screen Translate</button>
+            <button class="showcase-tab active" data-screen="live" data-i18n="tab_live">Live Typing</button>
             <button class="showcase-tab" data-screen="tools" data-i18n="tab_tools">Tools Hub</button>
             <button class="showcase-tab" data-screen="shortcuts" data-i18n="tab_shortcuts">Shortcuts</button>
           </div>
@@ -1519,7 +1734,7 @@
             </p>
             <button class="btn btn-download-light js-download-trigger">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              <span data-i18n="dl_btn">Download APK — 81.87 MB</span>
+              <span data-i18n="dl_btn">Download APK — 43.9 MB</span>
             </button>
           </div>
 
@@ -1530,7 +1745,7 @@
             </div>
             <div class="spec-row">
               <span class="spec-label" data-i18n="spec_size_l">File Size</span>
-              <span class="spec-val ltr-val">81.87 MB</span>
+              <span class="spec-val ltr-val">43.9 MB</span>
             </div>
             <div class="spec-row">
               <span class="spec-label" data-i18n="spec_date_l">Last Updated</span>
@@ -1593,7 +1808,7 @@
           <div class="step-card">
             <div class="step-num">1</div>
             <h3 data-i18n="s1_t">Download the APK</h3>
-            <p data-i18n="s1_d">Tap the Download APK button above and wait until the 81.87 MB file finishes downloading.</p>
+            <p data-i18n="s1_d">Tap the Download APK button above and wait until the 43.9 MB file finishes downloading.</p>
           </div>
           <div class="step-card">
             <div class="step-num">2</div>
@@ -1645,7 +1860,7 @@
 
           <div class="faq-item">
             <button class="faq-q">
-              <span data-i18n="q3">Why is the download size 81.87 MB?</span>
+              <span data-i18n="q3">Why is the download size 43.9 MB?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-a" data-i18n="a3">
@@ -1717,7 +1932,7 @@
   <script>
     const LINGUAKEY_CONFIG = {
       version: "1.3.0",
-      fileSize: "81.87 MB",
+      fileSize: "43.9 MB",
       sha256: "c0bf4bf6df240e1969cb0afa53f2e5574f6866d50f620a4c4bd81bc358c066c5",
       apkDownloadUrl: "https://huggingface.co/datasets/linguakey-app/linguakey-apk/resolve/main/LinguaKey-v1.3.0.apk?download=true",
       telegramBotUrl: "https://t.me/LinguaKeySupportBot",
@@ -1748,8 +1963,11 @@
         hero_lead: "LinguaKey is a sleek AMOLED Android keyboard with native on-screen chat translation, live typing translation, an in-place Tools & Languages Hub, and built-in AI assistance.",
         cta_download: "Download APK (v1.3.0)",
         cta_install: "How to install",
+        cta_try_sim: "▶ Try Live Simulator",
+        cta_full_sim: "Full-Screen Demo ↗",
+        sim_invite: "✨ Try LinguaKey Live — Tap A+, 文A, ⚙ or type directly!",
         meta_android: "Android 7.0+",
-        meta_size: "81.87 MB (ML Kit Edition)",
+        meta_size: "43.9 MB (ML Kit Edition)",
         meta_offline: "On-device translation support",
         tab_screen: "Screen Translate",
         tab_live: "Live Typing",
@@ -1793,12 +2011,12 @@
         f6_d: "Includes on-device text recognition, language detection, and offline translation models for fast, private, everyday use.",
         dl_title: "Download LinguaKey for Android",
         dl_desc: "Get the official full ML Kit release directly. Safe, clean, and ready to install on any Android 7.0+ device.",
-        dl_btn: "Download APK — 81.87 MB",
+        dl_btn: "Download APK — 43.9 MB",
         spec_ver_l: "Version", spec_size_l: "File Size", spec_date_l: "Last Updated", spec_date_v: "November 25, 2026", spec_req_l: "Compatibility", spec_sha_l: "Verified SHA-256 Checksum", btn_copy: "Copy",
         inst_eyebrow: "Simple 1-Minute Setup",
         inst_title: "How to install LinguaKey on Android",
         inst_sub: "Because you are installing directly from the official website, Android will ask once for permission to install the file.",
-        s1_t: "Download the APK", s1_d: "Tap the Download APK button above and wait until the 81.87 MB file finishes downloading.",
+        s1_t: "Download the APK", s1_d: "Tap the Download APK button above and wait until the 43.9 MB file finishes downloading.",
         s2_t: "Open the file", s2_d: "Tap the downloaded file in your browser notifications or inside your phone's Downloads folder.",
         s3_t: "Allow & Install", s3_d: "If Android asks, tap Settings, enable \"Allow from this source\" for your browser, then tap Install.",
         s4_t: "Enable LinguaKey", s4_d: "Open the LinguaKey app, choose your preferred language, and follow the 2-tap activation screen.",
@@ -1807,7 +2025,7 @@
         a1: "Android always displays a standard security prompt for apps installed outside Google Play. Simply allow installation from your browser once, and verify the SHA-256 checksum shown on this page if you wish.",
         q2: "Which languages does LinguaKey support?",
         a2: "LinguaKey supports live translation and keyboard layouts for English, Arabic, Spanish, Korean, and Portuguese, automatically syncing your keyboard and translation pair with your chosen app language.",
-        q3: "Why is the download size 81.87 MB?",
+        q3: "Why is the download size 43.9 MB?",
         a3: "This full ML Kit edition bundles on-device text recognition, language identification, and offline translation libraries so screen translation works fast and reliably on your phone.",
         q4: "How do I update LinguaKey when a new version is released?",
         a4: "Just return to this page, download the latest APK, and install it directly over your current version — your settings and saved shortcuts will stay intact.",
@@ -1857,8 +2075,11 @@
         hero_lead: "LinguaKey لوحة مفاتيح AMOLED أنيقة لأندرويد تجمع ترجمة الشاشة الفورية، الترجمة المباشرة أثناء الكتابة، لوحة الأدوات واللغات المدمجة، والمساعد الذكي.",
         cta_download: "تحميل التطبيق APK (v1.3.0)",
         cta_install: "طريقة التثبيت",
+        cta_try_sim: "▶ جرّب المحاكي الآن",
+        cta_full_sim: "المحاكي الكامل ↗",
+        sim_invite: "✨ جرّب LinguaKey مباشرة — اضغط A+ أو 文A أو ⚙ أو اكتب الآن!",
         meta_android: "أندرويد 7.0 فما فوق",
-        meta_size: "81.87 MB (نسخة ML Kit الكاملة)",
+        meta_size: "43.9 MB (نسخة ML Kit الكاملة)",
         meta_offline: "دعم الترجمة على الجهاز",
         tab_screen: "ترجمة الشاشة",
         tab_live: "الترجمة الفورية",
@@ -1902,12 +2123,12 @@
         f6_d: "يضم نماذج التعرف على النصوص وتحديد اللغة والترجمة على الجهاز لأداء سريع وخصوصية أعلى.",
         dl_title: "حمّل LinguaKey لهواتف أندرويد",
         dl_desc: "احصل على النسخة الرسمية الكاملة مباشرة. ملف نظيف وآمن وجاهز للتثبيت على جميع هواتف Android 7.0 فما فوق.",
-        dl_btn: "تحميل APK — 81.87 MB",
+        dl_btn: "تحميل APK — 43.9 MB",
         spec_ver_l: "رقم الإصدار", spec_size_l: "حجم الملف", spec_date_l: "آخر تحديث", spec_date_v: "25 نوفمبر 2026", spec_req_l: "التوافق", spec_sha_l: "بصمة التحقق الأمني SHA-256", btn_copy: "نسخ",
         inst_eyebrow: "إعداد سريع خلال دقيقة",
         inst_title: "طريقة تثبيت LinguaKey على أندرويد",
         inst_sub: "لأنك تثبّت التطبيق مباشرة من الموقع الرسمي، سيطلب منك أندرويد الإذن لمرة واحدة فقط.",
-        s1_t: "حمّل ملف APK", s1_d: "اضغط على زر التحميل بالأعلى وانتظر حتى يكتمل تنزيل الملف (81.87 MB).",
+        s1_t: "حمّل ملف APK", s1_d: "اضغط على زر التحميل بالأعلى وانتظر حتى يكتمل تنزيل الملف (43.9 MB).",
         s2_t: "افتح الملف", s2_d: "اضغط على الملف من شريط الإشعارات أو من مجلد التنزيلات (Downloads) في هاتفك.",
         s3_t: "اسمح بالتثبيت", s3_d: "إذا ظهرت رسالة أمان، اضغط الإعدادات ثم فعّل «السماح من هذا المصدر» للمتصفح، ثم اضغط تثبيت.",
         s4_t: "فعّل LinguaKey", s4_d: "افتح التطبيق، اختر لغتك المفضلة، واتبع خطوتين سريعتين لتفعيل لوحة المفاتيح.",
@@ -1916,7 +2137,7 @@
         a1: "يعرض نظام أندرويد هذا التنبيه تلقائياً لأي تطبيق يُثبّت من خارج متجر Google Play. يكفي تفعيل السماح لمرة واحدة فقط، ويمكنك التحقق من بصمة SHA-256 المعروضة في هذه الصفحة.",
         q2: "ما هي اللغات التي يدعمها LinguaKey؟",
         a2: "يدعم LinguaKey لوحات المفاتيح والترجمة الفورية للعربية والإنجليزية والإسبانية والكورية والبرتغالية، مع مزامنة تلقائية للغات اللوحة والترجمة حسب لغة التطبيق المختارة.",
-        q3: "لماذا يبلغ حجم التطبيق 81.87 MB؟",
+        q3: "لماذا يبلغ حجم التطبيق 43.9 MB؟",
         a3: "لأن هذه النسخة الكاملة تضم محرك ML Kit للتعرف الذكي على النصوص وتحديد اللغة والترجمة على الجهاز لضمان سرعة واستقرار ترجمة الشاشة.",
         q4: "كيف أحدّث التطبيق عند صدور إصدار جديد؟",
         a4: "فقط عد إلى هذه الصفحة وحمّل الإصدار الأحدث وثبّته فوق النسخة الحالية دون حذفها، وستبقى جميع إعداداتك واختصاراتك محفوظة.",
@@ -1966,8 +2187,11 @@
         hero_lead: "LinguaKey es un teclado AMOLED para Android con traducción nativa en pantalla, traducción en vivo al escribir, panel integrado de herramientas y asistente de IA.",
         cta_download: "Descargar APK (v1.3.0)",
         cta_install: "Cómo instalar",
+        cta_try_sim: "▶ Probar Simulador",
+        cta_full_sim: "Demo Completa ↗",
+        sim_invite: "✨ Prueba LinguaKey en vivo — ¡Pulsa A+, 文A, ⚙ o escribe!",
         meta_android: "Android 7.0+",
-        meta_size: "81.87 MB (Edición ML Kit)",
+        meta_size: "43.9 MB (Edición ML Kit)",
         meta_offline: "Traducción en el dispositivo",
         tab_screen: "Traducir Pantalla",
         tab_live: "En Vivo",
@@ -2011,12 +2235,12 @@
         f6_d: "Incluye reconocimiento de texto, detección de idioma y modelos offline para un uso rápido y privado.",
         dl_title: "Descarga LinguaKey para Android",
         dl_desc: "Obtén la edición oficial completa de ML Kit directamente. Segura, limpia y lista para Android 7.0+.",
-        dl_btn: "Descargar APK — 81.87 MB",
+        dl_btn: "Descargar APK — 43.9 MB",
         spec_ver_l: "Versión", spec_size_l: "Tamaño", spec_date_l: "Última actualización", spec_date_v: "25 de noviembre de 2026", spec_req_l: "Compatibilidad", spec_sha_l: "Suma de verificación SHA-256", btn_copy: "Copiar",
         inst_eyebrow: "Configuración en 1 minuto",
         inst_title: "Cómo instalar LinguaKey en Android",
         inst_sub: "Al instalar directamente desde el sitio oficial, Android te pedirá permiso una sola vez.",
-        s1_t: "Descarga el APK", s1_d: "Pulsa el botón Descargar APK arriba y espera a que finalice el archivo de 81.87 MB.",
+        s1_t: "Descarga el APK", s1_d: "Pulsa el botón Descargar APK arriba y espera a que finalice el archivo de 43.9 MB.",
         s2_t: "Abre el archivo", s2_d: "Toca el archivo descargado en tus notificaciones o en la carpeta Descargas de tu teléfono.",
         s3_t: "Permite e instala", s3_d: "Si Android lo solicita, pulsa Ajustes, activa «Permitir desde esta fuente» y luego pulsa Instalar.",
         s4_t: "Activa LinguaKey", s4_d: "Abre LinguaKey, elige tu idioma y completa la activación del teclado en 2 pasos.",
@@ -2025,7 +2249,7 @@
         a1: "Android muestra un aviso estándar para cualquier app fuera de Google Play. Solo permite la instalación una vez y verifica el SHA-256 si lo deseas.",
         q2: "¿Qué idiomas admite LinguaKey?",
         a2: "LinguaKey admite teclados y traducción en vivo para inglés, árabe, español, coreano y portugués, sincronizando automáticamente los idiomas con tu configuración.",
-        q3: "¿Por qué pesa 81.87 MB el archivo?",
+        q3: "¿Por qué pesa 43.9 MB el archivo?",
         a3: "Esta edición completa incluye modelos ML Kit de reconocimiento de texto, detección de idioma y traducción en el dispositivo.",
         q4: "¿Cómo actualizo LinguaKey cuando salga una nueva versión?",
         a4: "Vuelve a esta página, descarga el nuevo APK e instálalo sobre la versión actual; tus ajustes y atajos se mantendrán.",
@@ -2065,77 +2289,463 @@
     };
 
     let currentLang = "en";
-    let currentScreen = "screen";
-    let screenTranslated = true;
-
-    function renderKeyboard(lang) {
-      const nums = ["1","2","3","4","5","6","7","8","9","0"];
-      const rows = lang === "ar"
-        ? [
-            ["ض","ص","ث","ق","ف","غ","ع","ه","خ","ح","ج"],
-            ["ش","س","ي","ب","ل","ا","ت","ن","م","ك","ط"],
-            ["ذ","ء","ؤ","ر","ى","ة","و","ز","ظ","د"]
-          ]
-        : [
-            ["Q","W","E","R","T","Y","U","I","O","P"],
-            ["A","S","D","F","G","H","J","K","L"],
-            ["Z","X","C","V","B","N","M"]
-          ];
-      const spaceLbl = lang === "ar" ? "العربية" : lang === "es" ? "Español" : "English";
-      return `
-        <div class="lk-kbd">
-          <div class="lk-row">${nums.map(n => `<div class="lk-k num">${n}</div>`).join("")}</div>
-          <div class="lk-row">${rows[0].map(k => `<div class="lk-k">${k}</div>`).join("")}</div>
-          <div class="lk-row">${rows[1].map(k => `<div class="lk-k">${k}</div>`).join("")}</div>
-          <div class="lk-row">
-            ${lang !== "ar" ? `<div class="lk-k fn" data-k-role="fn">⇧</div>` : ""}
-            ${rows[2].map(k => `<div class="lk-k">${k}</div>`).join("")}
-            <div class="lk-k fn" data-k-role="bksp">${SVG.bksp}</div>
-          </div>
-          <div class="lk-row">
-            <div class="lk-k fn" data-k-role="fn">?123</div>
-            <div class="lk-k fn">${lang === "ar" ? "،" : ","}</div>
-            <div class="lk-k fn" data-k-role="fn">${SVG.emoji}</div>
-            <div class="lk-k fn" data-k-role="fn">${SVG.globe}</div>
-            <div class="lk-k space" data-k-role="space">${spaceLbl}</div>
-            <div class="lk-k fn">.</div>
-            <div class="lk-k enter" data-k-role="enter">↵</div>
-          </div>
-        </div>`;
-    }
-
-
-    // Interactive LinguaKey Simulator State
+    let currentScreen = "live"; // Default to live real-feel interactive mode
+    let screenTranslated = false; // Toggle with A+ button to feel instant screen translation!
+    let liveTranslateOn = true; // Matches bright blue 文A button in image_a6daba.png!
+    let simKbdLang = "ar"; // Matches Arabic keyboard in image_a6daba.png (switchable via 🌐)
+    let simSymbolsMode = false;
     let simPair = { src: "AR", tgt: "EN" };
     let simDraft = "";
-    let simExtraMessages = [];
+    let simTranslatedText = "";
+    let simAlts = [];
+    let simTranslatingNow = false;
+    let simScanning = false;
+    let simReqSeq = 0;
+    let simDebounceTimer = null;
+    const simTransCache = new Map();
 
-    const SIM_PRESETS = {
-      en: [
-        { src: "See you at 5pm! ☕", tr: "¡Nos vemos a las 5pm! ☕" },
-        { src: "On my way now 🚗", tr: "Ya voy en camino 🚗" },
-        { src: "Thanks so much! 🫶", tr: "¡Muchas gracias! 🫶" }
-      ],
-      ar: [
-        { src: "أراك الساعة 5 للقهوة ☕", tr: "See you at 5pm for coffee ☕" },
-        { src: "أنا في الطريق الآن 🚗", tr: "I'm on my way now 🚗" },
-        { src: "شكراً جزيلاً لك 🫶", tr: "Thank you so much 🫶" }
-      ],
-      es: [
-        { src: "¡Nos vemos a las 5! ☕", tr: "See you at 5pm! ☕" },
-        { src: "Ya voy en camino 🚗", tr: "On my way now 🚗" },
-        { src: "¡Muchas gracias! 🫶", tr: "Thanks so much! 🫶" }
-      ]
+    // Real chat messages straight from the user's live screenshots (María 🇪🇸)
+    let simChat = [
+      {
+        side: "out",
+        orig: "What about u",
+        tr: { ar: "ماذا عنك؟", es: "¿Y tú?", en: "What about u", fr: "Et toi ?", tr: "Ya sen?" },
+        time: ""
+      },
+      {
+        side: "in",
+        orig: "My day has just started 😅, it's almost 11am",
+        tr: {
+          ar: "يومي بدأ للتو 😅، الساعة قاربت 11 صباحاً",
+          es: "Mi día acaba de empezar 😅, son casi las 11am",
+          en: "My day has just started 😅, it's almost 11am",
+          fr: "Ma journée vient de commencer 😅, il est presque 11h",
+          tr: "Günüm yeni başladı 😅, saat neredeyse 11"
+        },
+        divider: "أمس 17:55"
+      },
+      {
+        side: "in",
+        orig: "Sweet dreams 🫶",
+        tr: {
+          ar: "أحلام سعيدة 🫶",
+          es: "Dulces sueños 🫶",
+          en: "Sweet dreams 🫶",
+          fr: "Fais de beaux rêves 🫶",
+          tr: "Tatlı rüyalar 🫶"
+        },
+        divider: "أمس 19:06"
+      },
+      {
+        side: "out",
+        orig: "And you",
+        tr: { ar: "وأنتِ؟", es: "¿Y tú?", en: "And you", fr: "Et toi ?", tr: "Ya sen?" },
+        divider: "أمس 19:41"
+      },
+      {
+        side: "in",
+        orig: "I still have some time left, I'm in class 😂🥲",
+        tr: {
+          ar: "لا يزال لدي بعض الوقت، أنا في الصف 😂🥲",
+          es: "Todavía me queda algo de tiempo, estoy en clase 😂🥲",
+          en: "I still have some time left, I'm in class 😂🥲",
+          fr: "Il me reste encore du temps, je suis en cours 😂🥲",
+          tr: "Hâlâ biraz vaktim var, dersteyim 😂🥲"
+        },
+        divider: ""
+      }
+    ];
+
+    const AUTO_REPLIES = [
+      {
+        orig: "Haha sounds great! What are your plans for tonight? 😊",
+        tr: {
+          ar: "هاها يبدو رائعاً! ما خططك لهذه الليلة؟ 😊",
+          es: "¡Jaja suena genial! ¿Qué planes tienes para hoy? 😊",
+          en: "Haha sounds great! What are your plans for tonight? 😊",
+          fr: "Haha super ! Tu fais quoi ce soir ? 😊",
+          tr: "Haha harika! Bu akşam planın ne? 😊"
+        }
+      },
+      {
+        orig: "Really? Tell me more about it! 🫶",
+        tr: {
+          ar: "حقاً؟ أخبرني المزيد عن ذلك! 🫶",
+          es: "¿En serio? ¡Cuéntame más! 🫶",
+          en: "Really? Tell me more about it! 🫶",
+          fr: "Vraiment ? Raconte-moi plus ! 🫶",
+          tr: "Gerçekten mi? Bana daha fazla anlat! 🫶"
+        }
+      },
+      {
+        orig: "Awesome, see you at 5pm for coffee ☕✨",
+        tr: {
+          ar: "رائع، أراك الساعة 5 للقهوة ☕✨",
+          es: "¡Genial, nos vemos a las 5 para un café ☕✨",
+          en: "Awesome, see you at 5pm for coffee ☕✨",
+          fr: "Génial, on se voit à 17h pour un café ☕✨",
+          tr: "Harika, saat 5'te kahve için görüşürüz ☕✨"
+        }
+      }
+    ];
+    let autoReplyIdx = 0;
+
+    // Tier 1: Rich Instant 0ms Local Phrase Dictionary (Syrian/Levantine + MSA Arabic, EN, ES, FR, TR)
+    const PHRASE_DICT = [
+      { keys: ["مرحبا", "مرحباً", "اهلا", "أهلاً", "هلا", "السلام عليكم", "hello", "hi", "hey", "hola"], en: "Hello!", ar: "مرحباً!", es: "¡Hola!", fr: "Bonjour !", tr: "Merhaba!", alts: { en: ["Hey there!", "Hi!"], es: ["¡Hey!", "¡Buenas!"], ar: ["أهلاً!", "هلا!"] } },
+      { keys: ["مرحبا كيف حالك", "كيف حالك", "كيفك", "شلونك", "شو اخبارك", "شو أخبارك", "كيفك اليوم", "how are you", "how are you doing", "como estas", "¿cómo estás?"], en: "How are you doing?", ar: "كيف حالك؟", es: "¿Cómo estás?", fr: "Comment ça va ?", tr: "Nasılsın?", alts: { en: ["How's it going?", "How are you today?"], es: ["¿Qué tal?", "¿Cómo te va?"], ar: ["كيف أمورك؟", "شو أخبارك؟"] } },
+      { keys: ["صباح الخير", "صباح النور", "يسعد صباحك", "good morning", "morning", "buenos dias", "buenos días"], en: "Good morning ☀️", ar: "صباح الخير ☀️", es: "¡Buenos días! ☀️", fr: "Bonjour ☀️", tr: "Günaydın ☀️", alts: { en: ["Morning! ☀️", "Have a great morning"], es: ["¡Buen día! ☀️"] } },
+      { keys: ["مساء الخير", "مساء النور", "good evening", "buenas tardes"], en: "Good evening 🌆", ar: "مساء الخير 🌆", es: "¡Buenas tardes! 🌆", fr: "Bonsoir 🌆", tr: "İyi akşamlar 🌆", alts: { en: ["Evening!"], es: ["¡Buenas noches!"] } },
+      { keys: ["تصبح على خير", "أحلام سعيدة", "احلام سعيدة", "good night", "sweet dreams", "buenas noches", "dulces sueños"], en: "Sweet dreams 🫶", ar: "أحلام سعيدة 🫶", es: "Dulces sueños 🫶", fr: "Bonne nuit 🫶", tr: "İyi geceler 🫶", alts: { en: ["Good night 🌙", "Sleep well 🫶"], es: ["Buenas noches 🌙"] } },
+      { keys: ["أنا بخير", "انا بخير", "أنا منيح", "انا منيح", "الحمد لله", "تمام", "بخير شكرا", "i am fine", "i'm good", "im good", "estoy bien"], en: "I'm doing great, thanks!", ar: "أنا بخير، شكراً!", es: "¡Estoy muy bien, gracias!", fr: "Je vais très bien, merci !", tr: "İyiyim, teşekkürler!", alts: { en: ["All good!", "Doing well!"], es: ["Todo bien, gracias"] } },
+      { keys: ["شكراً", "شكرا", "شكراً جزيلاً", "شكرا جزيلا", "مشكور", "يعطيك العافية", "thank you", "thanks", "thanks a lot", "gracias", "muchas gracias"], en: "Thank you so much! 🙏", ar: "شكراً جزيلاً! 🙏", es: "¡Muchas gracias! 🙏", fr: "Merci beaucoup ! 🙏", tr: "Çok teşekkür ederim! 🙏", alts: { en: ["Thanks a lot! 🙏", "Really appreciate it!"], es: ["¡Mil gracias! 🙏"] } },
+      { keys: ["أنا في الطريق", "انا في الطريق", "أنا في الطريق الآن", "أنا بالطريق", "قربت أوصل", "on my way", "i'm on my way", "voy en camino", "ya voy en camino"], en: "I'm on my way now 🚗", ar: "أنا في الطريق الآن 🚗", es: "Ya voy en camino 🚗", fr: "J'arrive bientôt 🚗", tr: "Yoldayım 🚗", alts: { en: ["Almost there! 🚗", "Heading over now"], es: ["¡Ya casi llego! 🚗"] } },
+      { keys: ["أراك الساعة 5 للقهوة", "اراك الساعة 5 للقهوة", "نلتقي الساعة 5", "see you at 5pm for coffee", "see you at 5", "nos vemos a las 5"], en: "See you at 5pm for coffee ☕", ar: "أراك الساعة 5 للقهوة ☕", es: "Nos vemos a las 5 para un café ☕", fr: "On se voit à 17h pour un café ☕", tr: "Saat 5'te kahve için görüşürüz ☕", alts: { en: ["Coffee at 5pm? ☕", "Let's meet at 5 ☕"], es: ["¿Café a las 5? ☕"] } },
+      { keys: ["وينك", "أين أنت", "اين انت", "where are you", "donde estas", "¿dónde estás?"], en: "Where are you right now?", ar: "أين أنت الآن؟", es: "¿Dónde estás ahora?", fr: "Où es-tu ?", tr: "Neredesin?", alts: { en: ["Where you at?"], es: ["¿Dónde andas?"] } },
+      { keys: ["شو عم تعمل", "ماذا تفعل", "ماذا تفعل الآن", "what are you doing", "wyd", "que haces", "¿qué haces?"], en: "What are you doing right now?", ar: "ماذا تفعل الآن؟", es: "¿Qué estás haciendo ahora?", fr: "Tu fais quoi là ?", tr: "Ne yapıyorsun?", alts: { en: ["What are you up to?", "Wyd rn?"], es: ["¿En qué andas?"] } },
+      { keys: ["أحب هذا التطبيق", "احب هذا التطبيق", "التطبيق رائع", "i love this app", "me encanta esta app"], en: "I love this app! ✨", ar: "أحب هذا التطبيق! ✨", es: "¡Me encanta esta app! ✨", fr: "J'adore cette appli ! ✨", tr: "Bu uygulamayı çok sevdim! ✨", alts: { en: ["This app is amazing! ✨", "So fast and smooth!"] } },
+      { keys: ["اشتقتلك", "اشتقت لك", "i miss you", "te extraño"], en: "I miss you 🫶", ar: "اشتقت لك 🫶", es: "Te extraño 🫶", fr: "Tu me manques 🫶", tr: "Seni özledim 🫶", alts: { en: ["Miss you so much!"] } },
+      { keys: ["أراك غداً", "اراك غدا", "بشوفك بكرا", "see you tomorrow", "hasta mañana"], en: "See you tomorrow!", ar: "أراك غداً!", es: "¡Hasta mañana!", fr: "À demain !", tr: "Yarın görüşürüz!", alts: { en: ["Catch you tomorrow!"] } },
+      { keys: ["موافق", "حسناً", "حسنا", "ماشي", "تمام موافق", "sounds good", "ok", "okay", "vale", "de acuerdo"], en: "Sounds good!", ar: "موافق، رائع!", es: "¡Me parece bien!", fr: "Ça marche !", tr: "Harika, tamam!", alts: { en: ["Deal!", "Perfect!"] } },
+      { keys: ["انتظرني قليلاً", "انتظرني", "استناني", "wait for me", "esperame", "espérame"], en: "Wait for me a second!", ar: "انتظرني قليلاً!", es: "¡Espérame un segundo!", fr: "Attends-moi une seconde !", tr: "Beni biraz bekle!", alts: { en: ["Hold on a sec!"] } },
+      { keys: ["أنا مشغول الآن", "انا مشغول الان", "مشغول شوي", "i'm busy right now", "im busy", "estoy ocupado"], en: "I'm a bit busy right now, I'll text you soon", ar: "أنا مشغول قليلاً الآن، سأراسلك قريباً", es: "Estoy un poco ocupado ahora, te escribo pronto", fr: "Je suis occupé là, je t'écris bientôt", tr: "Şu an biraz meşgulüm, birazdan yazarım", alts: { en: ["Busy rn, brb!"] } }
+    ];
+
+    const WORD_DICT = {
+      "hello": { ar: "مرحباً", es: "Hola", fr: "Bonjour", tr: "Merhaba" },
+      "hi": { ar: "أهلاً", es: "Hola", fr: "Salut", tr: "Selam" },
+      "how": { ar: "كيف", es: "cómo", fr: "comment", tr: "nasıl" },
+      "are": { ar: "", es: "estás", fr: "es", tr: "" },
+      "you": { ar: "أنت", es: "tú", fr: "tu", tr: "sen" },
+      "good": { ar: "جيد", es: "bien", fr: "bien", tr: "iyi" },
+      "great": { ar: "رائع", es: "genial", fr: "super", tr: "harika" },
+      "thanks": { ar: "شكراً", es: "gracias", fr: "merci", tr: "teşekkürler" },
+      "thank": { ar: "شكراً", es: "gracias", fr: "merci", tr: "teşekkür" },
+      "morning": { ar: "صباح", es: "días", fr: "matin", tr: "sabah" },
+      "night": { ar: "مساء", es: "noches", fr: "nuit", tr: "gece" },
+      "yes": { ar: "نعم", es: "sí", fr: "oui", tr: "evet" },
+      "no": { ar: "لا", es: "no", fr: "non", tr: "hayır" },
+      "coffee": { ar: "قهوة", es: "café", fr: "café", tr: "kahve" },
+      "love": { ar: "أحب", es: "amo", fr: "aime", tr: "seviyorum" },
+      "please": { ar: "من فضلك", es: "por favor", fr: "s'il te plaît", tr: "lütfen" },
+      "sorry": { ar: "آسف", es: "perdón", fr: "désolé", tr: "özür dilerim" },
+      "wait": { ar: "انتظر", es: "espera", fr: "attends", tr: "bekle" },
+      "today": { ar: "اليوم", es: "hoy", fr: "aujourd'hui", tr: "bugün" },
+      "tomorrow": { ar: "غداً", es: "mañana", fr: "demain", tr: "yarın" },
+      "now": { ar: "الآن", es: "ahora", fr: "maintenant", tr: "şimdi" },
+      "مرحبا": { en: "Hello", es: "Hola", fr: "Bonjour", tr: "Merhaba" },
+      "مرحباً": { en: "Hello", es: "Hola", fr: "Bonjour", tr: "Merhaba" },
+      "اهلا": { en: "Hi", es: "Hola", fr: "Salut", tr: "Selam" },
+      "أهلاً": { en: "Hi", es: "Hola", fr: "Salut", tr: "Selam" },
+      "كيف": { en: "how", es: "cómo", fr: "comment", tr: "nasıl" },
+      "كيفك": { en: "how are you", es: "cómo estás", fr: "comment ça va", tr: "nasılsın" },
+      "حالك": { en: "are you", es: "estás", fr: "vas-tu", tr: "nasılsın" },
+      "انا": { en: "I", es: "yo", fr: "je", tr: "ben" },
+      "أنا": { en: "I", es: "yo", fr: "je", tr: "ben" },
+      "انت": { en: "you", es: "tú", fr: "tu", tr: "sen" },
+      "أنت": { en: "you", es: "tú", fr: "tu", tr: "sen" },
+      "بخير": { en: "fine", es: "bien", fr: "bien", tr: "iyiyim" },
+      "منيح": { en: "good", es: "bien", fr: "bien", tr: "iyiyim" },
+      "شكرا": { en: "thanks", es: "gracias", fr: "merci", tr: "teşekkürler" },
+      "شكراً": { en: "thanks", es: "gracias", fr: "merci", tr: "teşekkürler" },
+      "نعم": { en: "yes", es: "sí", fr: "oui", tr: "evet" },
+      "لا": { en: "no", es: "no", fr: "non", tr: "hayır" },
+      "تمام": { en: "great", es: "genial", fr: "super", tr: "harika" },
+      "قهوة": { en: "coffee", es: "café", fr: "café", tr: "kahve" },
+      "اليوم": { en: "today", es: "hoy", fr: "aujourd'hui", tr: "bugün" },
+      "غدا": { en: "tomorrow", es: "mañana", fr: "demain", tr: "yarın" },
+      "غداً": { en: "tomorrow", es: "mañana", fr: "demain", tr: "yarın" },
+      "بكرا": { en: "tomorrow", es: "mañana", fr: "demain", tr: "yarın" },
+      "الان": { en: "now", es: "ahora", fr: "maintenant", tr: "şimdi" },
+      "الآن": { en: "now", es: "ahora", fr: "maintenant", tr: "şimdi" },
+      "هلأ": { en: "now", es: "ahora", fr: "maintenant", tr: "şimdi" },
+      "وين": { en: "where", es: "dónde", fr: "où", tr: "nerede" },
+      "أين": { en: "where", es: "dónde", fr: "où", tr: "nerede" },
+      "شغل": { en: "work", es: "trabajo", fr: "travail", tr: "iş" },
+      "البيت": { en: "home", es: "casa", fr: "maison", tr: "ev" },
+      "الجامعة": { en: "university", es: "universidad", fr: "université", tr: "üniversite" },
+      "سعيد": { en: "happy", es: "feliz", fr: "heureux", tr: "mutlu" },
+      "مساء": { en: "evening", es: "tardes", fr: "soir", tr: "akşam" },
+      "صباح": { en: "morning", es: "días", fr: "matin", tr: "sabah" },
+      "الخير": { en: "good", es: "buenos", fr: "bon", tr: "iyi" },
+      "أحب": { en: "love", es: "amo", fr: "aime", tr: "seviyorum" },
+      "احب": { en: "love", es: "amo", fr: "aime", tr: "seviyorum" },
+      "hola": { en: "Hello", ar: "مرحباً", fr: "Bonjour", tr: "Merhaba" },
+      "gracias": { en: "Thank you", ar: "شكراً", fr: "Merci", tr: "Teşekkürler" }
     };
 
-    function simSendMessage(text) {
-      if (!text || !text.trim()) return;
-      simExtraMessages.push({ text: text.trim(), out: true });
-      if (simExtraMessages.length > 3) simExtraMessages.shift();
+    function normalizeForMatch(s) {
+      return (s || "").trim().toLowerCase()
+        .replace(/[؟?!.,،؛:]/g, "")
+        .replace(/[إأآا]/g, "ا")
+        .replace(/ة/g, "ه")
+        .replace(/ى/g, "ي")
+        .replace(/\s+/g, " ");
+    }
+
+    function autoDetectAndFixPair(text) {
+      const hasArabic = /[\u0600-\u06FF]/.test(text);
+      const hasLatin = /[A-Za-z]/.test(text);
+      if (hasArabic && simPair.src !== "AR") {
+        simPair.src = "AR";
+        if (simPair.tgt === "AR") simPair.tgt = "EN";
+      } else if (!hasArabic && hasLatin && simPair.src === "AR") {
+        simPair.src = "EN";
+        if (simPair.tgt === "EN") simPair.tgt = "AR";
+      }
+    }
+
+    function instantLocalTranslate(text, tgtCode) {
+      const clean = (text || "").trim();
+      const tgt = (tgtCode || "en").toLowerCase();
+      if (!clean) return { main: "", alts: [], exact: true };
+      const norm = normalizeForMatch(clean);
+
+      // 1. Exact phrase match
+      for (const p of PHRASE_DICT) {
+        if (p.keys.some(k => normalizeForMatch(k) === norm)) {
+          return { main: p[tgt] || p.en, alts: (p.alts && p.alts[tgt]) || [], exact: true };
+        }
+      }
+
+      // 2. Word-by-word instant preview while cloud API finishes
+      const words = clean.split(/\s+/);
+      let hits = 0;
+      const mapped = words.map(w => {
+        const k = w.toLowerCase().replace(/[؟?!.,،؛:]/g, "");
+        if (WORD_DICT[k] && WORD_DICT[k][tgt] !== undefined) {
+          hits++;
+          return WORD_DICT[k][tgt];
+        }
+        return w;
+      }).filter(Boolean).join(" ");
+
+      if (hits === words.length && hits > 0) {
+        return { main: mapped, alts: [], exact: true };
+      }
+      return { main: hits > 0 ? mapped : "", alts: [], exact: false };
+    }
+
+    async function cloudTranslateLive(text, srcCode, tgtCode) {
+      const cacheKey = `${srcCode}|${tgtCode}|${text}`;
+      if (simTransCache.has(cacheKey)) return simTransCache.get(cacheKey);
+
+      const sl = srcCode.toLowerCase();
+      const tl = tgtCode.toLowerCase();
+
+      // Provider 1: Google Translate public gtx endpoint (CORS-friendly, fast, accurate)
+      try {
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(sl)}&tl=${encodeURIComponent(tl)}&dt=t&q=${encodeURIComponent(text)}`;
+        const res = await fetch(url, { mode: "cors", credentials: "omit" });
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && Array.isArray(data[0])) {
+            const translated = data[0].map(seg => (Array.isArray(seg) ? seg[0] : "")).join("").trim();
+            if (translated) {
+              simTransCache.set(cacheKey, translated);
+              return translated;
+            }
+          }
+        }
+      } catch (_) {}
+
+      // Provider 2: MyMemory public translation API fallback
+      try {
+        const url2 = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${encodeURIComponent(sl)}|${encodeURIComponent(tl)}`;
+        const res2 = await fetch(url2, { mode: "cors", credentials: "omit" });
+        if (res2.ok) {
+          const d2 = await res2.json();
+          const t2 = d2 && d2.responseData && d2.responseData.translatedText;
+          if (t2 && !/MYMEMORY WARNING/i.test(t2)) {
+            simTransCache.set(cacheKey, t2.trim());
+            return t2.trim();
+          }
+        }
+      } catch (_) {}
+
+      return null;
+    }
+
+    function syncLiveOutputDOM() {
+      const pill = document.getElementById("simChatInputPill");
+      const outSpan = document.getElementById("simTranslatedOutput");
+      const outTag = document.getElementById("simOutTag");
+      const micBtn = document.getElementById("simSendIcon");
+      const clearX = document.getElementById("simClearX");
+      const pairBtn = document.getElementById("simPairMini");
+      const altsBar = document.getElementById("simLiveStrip");
+
+      if (pairBtn) pairBtn.textContent = `${simPair.src}⇄${simPair.tgt}`;
+      if (clearX) clearX.classList.toggle("show", simDraft.length > 0);
+
+      const isArUI = currentLang === "ar";
+      const placeholder = isArUI ? "إدخال الرسالة" : currentLang === "es" ? "Escribe un mensaje" : "Message";
+
+      if (pill && outSpan) {
+        if (!simDraft.trim()) {
+          pill.classList.remove("has-translation", "has-raw");
+          outSpan.classList.remove("ltr-out");
+          outSpan.textContent = placeholder;
+          if (outTag) outTag.style.display = "none";
+          if (micBtn) {
+            micBtn.classList.remove("ready-send");
+            micBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg>`;
+          }
+        } else if (liveTranslateOn) {
+          pill.classList.add("has-translation");
+          pill.classList.remove("has-raw");
+          const shown = simTranslatedText || (simTranslatingNow ? (isArUI ? "جاري الترجمة..." : "Translating...") : simDraft);
+          const isTgtArabic = simPair.tgt === "AR";
+          outSpan.classList.toggle("ltr-out", !isTgtArabic);
+          outSpan.textContent = shown;
+          if (outTag) {
+            outTag.style.display = "inline-block";
+            outTag.textContent = simTranslatingNow ? "•••" : `→ ${simPair.tgt}`;
+          }
+          if (micBtn) {
+            micBtn.classList.add("ready-send");
+            micBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>`;
+          }
+        } else {
+          pill.classList.remove("has-translation");
+          pill.classList.add("has-raw");
+          outSpan.classList.toggle("ltr-out", !/[\u0600-\u06FF]/.test(simDraft));
+          outSpan.textContent = simDraft;
+          if (outTag) outTag.style.display = "none";
+          if (micBtn) {
+            micBtn.classList.add("ready-send");
+            micBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>`;
+          }
+        }
+      }
+
+      if (altsBar) {
+        const pairs = [
+          { src: "AR", tgt: "EN", lbl: "AR→EN" },
+          { src: "AR", tgt: "ES", lbl: "AR→ES" },
+          { src: "AR", tgt: "FR", lbl: "AR→FR" },
+          { src: "AR", tgt: "TR", lbl: "AR→TR" },
+          { src: "EN", tgt: "AR", lbl: "EN→AR" }
+        ];
+        if (simAlts.length > 0 && simDraft.trim()) {
+          altsBar.innerHTML = simAlts.map(a => `<button type="button" class="lk-alt" data-alt-val="${a.replace(/"/g, "&quot;")}">✨ ${a}</button>`).join("");
+          altsBar.querySelectorAll("[data-alt-val]").forEach(b => {
+            b.addEventListener("click", () => simSendMessage(b.dataset.altVal));
+          });
+        } else {
+          altsBar.innerHTML = pairs.map(p => {
+            const on = simPair.src === p.src && simPair.tgt === p.tgt;
+            return `<button type="button" class="lk-alt lang-chip ${on ? "on" : ""}" data-set-pair="${p.src}:${p.tgt}">${p.lbl}</button>`;
+          }).join("");
+          altsBar.querySelectorAll("[data-set-pair]").forEach(b => {
+            b.addEventListener("click", () => {
+              const [s, t] = b.dataset.setPair.split(":");
+              simPair = { src: s, tgt: t };
+              if (s === "AR") simKbdLang = "ar";
+              else if (s === "ES") simKbdLang = "es";
+              else simKbdLang = "en";
+              triggerLiveTranslateUpdate(simDraft, true);
+              renderPhone();
+            });
+          });
+        }
+      }
+    }
+
+    function triggerLiveTranslateUpdate(text, immediateCloud = false) {
+      simDraft = text;
+      const clean = text.trim();
+      clearTimeout(simDebounceTimer);
+
+      if (!clean || !liveTranslateOn) {
+        simTranslatedText = "";
+        simAlts = [];
+        simTranslatingNow = false;
+        syncLiveOutputDOM();
+        return;
+      }
+
+      autoDetectAndFixPair(clean);
+      const local = instantLocalTranslate(clean, simPair.tgt);
+      simAlts = local.alts || [];
+
+      if (local.exact && local.main) {
+        simTranslatedText = local.main;
+        simTranslatingNow = false;
+        syncLiveOutputDOM();
+        return;
+      }
+
+      // Show partial local preview if available, then fetch real cloud translation
+      simTranslatedText = local.main || "";
+      simTranslatingNow = true;
+      syncLiveOutputDOM();
+
+      const seq = ++simReqSeq;
+      const runCloud = async () => {
+        const res = await cloudTranslateLive(clean, simPair.src, simPair.tgt);
+        if (seq !== simReqSeq) return;
+        simTranslatingNow = false;
+        if (res) {
+          simTranslatedText = res;
+        } else if (!simTranslatedText) {
+          simTranslatedText = local.main || clean;
+        }
+        syncLiveOutputDOM();
+      };
+
+      if (immediateCloud) {
+        runCloud();
+      } else {
+        simDebounceTimer = setTimeout(runCloud, 260);
+      }
+    }
+
+    function simSendMessage(explicitText) {
+      let toSend = (explicitText !== undefined && explicitText !== null)
+        ? String(explicitText).trim()
+        : (liveTranslateOn && simTranslatedText.trim() ? simTranslatedText.trim() : simDraft.trim());
+      if (!toSend) return;
+
+      const nowStr = new Date().toTimeString().slice(0, 5);
+      simChat.push({
+        side: "out",
+        orig: toSend,
+        tr: { ar: simDraft.trim() || toSend, en: toSend, es: toSend, fr: toSend, tr: toSend },
+        divider: ""
+      });
+      if (simChat.length > 8) simChat.shift();
+
       simDraft = "";
+      simTranslatedText = "";
+      simAlts = [];
+      simTranslatingNow = false;
       renderPhone();
       const body = document.querySelector(".ph-chat-body");
       if (body) body.scrollTop = body.scrollHeight;
+
+      // Realistic foreign reply from María so the user can test Screen Translate (A+) on it!
+      clearTimeout(window.__simReplyTimer);
+      window.__simReplyTimer = setTimeout(() => {
+        const rep = AUTO_REPLIES[autoReplyIdx % AUTO_REPLIES.length];
+        autoReplyIdx++;
+        simChat.push({ side: "in", orig: rep.orig, tr: rep.tr, divider: nowStr });
+        if (simChat.length > 8) simChat.shift();
+        renderPhone();
+        const b2 = document.querySelector(".ph-chat-body");
+        if (b2) b2.scrollTop = b2.scrollHeight;
+      }, 900);
+    }
+
+    function triggerScreenScanToggle() {
+      screenTranslated = !screenTranslated;
+      simScanning = true;
+      renderPhone();
+      setTimeout(() => {
+        simScanning = false;
+        const body = document.querySelector(".ph-chat-body");
+        if (body) body.classList.remove("scanning");
+      }, 360);
     }
 
     function renderSimQuickBar() {
@@ -2143,309 +2753,525 @@
       if (!bar) return;
       const isAr = currentLang === "ar";
       const isEs = currentLang === "es";
-      const labels = isAr
+      const chips = isAr
         ? [
-            { act: "toggleTrans", txt: "🌐 جرّب ترجمة الشاشة" },
-            { act: "liveDemo", txt: "⚡ جرّب إرسال رسالة مترجمة" },
-            { act: "openTools", txt: "⚙ افتح لوحة الأدوات" }
+            { act: "phrase", val: "مرحبا كيف حالك", txt: "💬 جرّب: مرحبا كيف حالك" },
+            { act: "phrase", val: "أراك الساعة 5 للقهوة", txt: "☕ جرّب: أراك الساعة 5 للقهوة" },
+            { act: "scan", txt: screenTranslated ? "👁 إظهار الرسائل الأصلية" : "🌐 ترجم الشاشة الآن (A+)" },
+            { act: "tools", txt: "⚙ الأدوات واللغات" }
           ]
         : isEs
         ? [
-            { act: "toggleTrans", txt: "🌐 Probar Traducción" },
-            { act: "liveDemo", txt: "⚡ Enviar mensaje traducido" },
-            { act: "openTools", txt: "⚙ Abrir Herramientas" }
+            { act: "phrase", val: "Hola, ¿cómo estás?", txt: "💬 Probar: ¿Cómo estás?" },
+            { act: "phrase", val: "Nos vemos a las 5 para un café", txt: "☕ Probar: Café a las 5" },
+            { act: "scan", txt: screenTranslated ? "👁 Ver Original" : "🌐 Traducir Pantalla (A+)" },
+            { act: "tools", txt: "⚙ Herramientas" }
           ]
         : [
-            { act: "toggleTrans", txt: "🌐 Toggle Screen Translate" },
-            { act: "liveDemo", txt: "⚡ Try Live Translated Reply" },
-            { act: "openTools", txt: "⚙ Open Tools Hub" }
+            { act: "phrase", val: "مرحبا كيف حالك", txt: "💬 Try Arabic: مرحبا كيف حالك" },
+            { act: "phrase", val: "See you at 5pm for coffee", txt: "☕ Try: Coffee at 5pm" },
+            { act: "scan", txt: screenTranslated ? "👁 Show Original" : "🌐 Translate Screen (A+)" },
+            { act: "tools", txt: "⚙ Tools Hub" }
           ];
-      bar.innerHTML = labels.map(l => `<button class="sim-quick-chip" data-sim-act="${l.act}">${l.txt}</button>`).join("");
-      bar.querySelectorAll(".sim-quick-chip").forEach(b => {
-        b.addEventListener("click", () => {
-          const act = b.dataset.simAct;
-          if (act === "toggleTrans") {
-            currentScreen = "screen";
-            screenTranslated = !screenTranslated;
-          } else if (act === "liveDemo") {
+
+      bar.innerHTML = chips.map((c, idx) => `<button type="button" class="sim-quick-chip" data-idx="${idx}">${c.txt}</button>`).join("");
+      bar.querySelectorAll(".sim-quick-chip").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const item = chips[Number(btn.dataset.idx)];
+          if (item.act === "scan") {
+            triggerScreenScanToggle();
+          } else if (item.act === "phrase") {
             currentScreen = "live";
-            const presets = SIM_PRESETS[currentLang] || SIM_PRESETS.en;
-            const pick = presets[simExtraMessages.length % presets.length];
-            simDraft = pick.tr;
-          } else if (act === "openTools") {
-            currentScreen = currentScreen === "tools" ? "screen" : "tools";
+            liveTranslateOn = true;
+            document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t.dataset.screen === "live"));
+            updateShowcaseCaption();
+            triggerLiveTranslateUpdate(item.val, true);
+            renderPhone();
+            const inp = document.getElementById("simSourceInput");
+            if (inp) { inp.focus(); }
+          } else if (item.act === "tools") {
+            currentScreen = currentScreen === "tools" ? "live" : "tools";
+            document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t.dataset.screen === currentScreen));
+            updateShowcaseCaption();
+            renderPhone();
           }
-          document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t.dataset.screen === currentScreen));
-          updateShowcaseCaption();
-          renderPhone();
         });
       });
     }
 
-    // Bind interactive clicks inside the rendered phone screen
-    function bindInteractivePhoneEvents() {
+    function renderKeyboard(lang) {
+      if (simSymbolsMode) {
+        const s1 = ["1","2","3","4","5","6","7","8","9","0"];
+        const s2 = ["@","#","$","_","&","-","+","(",")","/"];
+        const s3 = ["*","\"","'",":",";","!","?","،","."];
+        return `
+          <div class="lk-kbd">
+            <div class="lk-row">${s1.map(k => `<div class="lk-k num" data-k-role="char">${k}</div>`).join("")}</div>
+            <div class="lk-row">${s2.map(k => `<div class="lk-k" data-k-role="char">${k}</div>`).join("")}</div>
+            <div class="lk-row">${s3.map(k => `<div class="lk-k" data-k-role="char">${k}</div>`).join("")}<div class="lk-k bksp" data-k-role="bksp">${SVG.bksp}</div></div>
+            <div class="lk-row">
+              <div class="lk-k fn" data-k-role="sym">ABC</div>
+              <div class="lk-k fn" data-k-role="emoji">${SVG.emoji}</div>
+              <div class="lk-k fn" data-k-role="globe">${SVG.globe}</div>
+              <div class="lk-k space" data-k-role="space">${lang === "ar" ? "العربية" : lang === "es" ? "Español" : "English"}</div>
+              <div class="lk-k enter" data-k-role="enter">↵</div>
+            </div>
+          </div>`;
+      }
+
+      const nums = ["1","2","3","4","5","6","7","8","9","0"];
+      const arRow2 = ["ض","ص","ث","ق","ف","غ","ع","ه","خ","ح","ج"];
+      const arRow3 = [
+        { k:"ش", s:"@" }, { k:"س", s:"#" }, { k:"ي", s:"$" }, { k:"ب", s:"_" },
+        { k:"ل", s:"&" }, { k:"ا", s:"-" }, { k:"ت", s:"+" }, { k:"ن", s:"(" },
+        { k:"م", s:")" }, { k:"ك", s:"/" }, { k:"ط", s:"*" }
+      ];
+      const arRow4 = ["ذ","ء","ؤ","ر","ى","ة","و","ز","ظ","د"];
+
+      const enRow2 = ["q","w","e","r","t","y","u","i","o","p"];
+      const enRow3 = ["a","s","d","f","g","h","j","k","l"];
+      const enRow4 = ["z","x","c","v","b","n","m"];
+
+      const spaceLbl = lang === "ar" ? "العربية" : lang === "es" ? "Español" : "English";
+
+      if (lang === "ar") {
+        return `
+          <div class="lk-kbd">
+            <div class="lk-row">${nums.map(n => `<div class="lk-k num" data-k-role="char" data-k-val="${n}">${n}</div>`).join("")}</div>
+            <div class="lk-row">${arRow2.map(k => `<div class="lk-k" data-k-role="char" data-k-val="${k}">${k}</div>`).join("")}</div>
+            <div class="lk-row">${arRow3.map(o => `<div class="lk-k" data-k-role="char" data-k-val="${o.k}"><span class="lk-k-sub">${o.s}</span>${o.k}</div>`).join("")}</div>
+            <div class="lk-row">
+              ${arRow4.map(k => `<div class="lk-k" data-k-role="char" data-k-val="${k}">${k}</div>`).join("")}
+              <div class="lk-k bksp" data-k-role="bksp">${SVG.bksp}</div>
+            </div>
+            <div class="lk-row">
+              <div class="lk-k fn" data-k-role="sym">?123</div>
+              <div class="lk-k fn" data-k-role="char" data-k-val="،">،</div>
+              <div class="lk-k fn" data-k-role="emoji">${SVG.emoji}</div>
+              <div class="lk-k fn" data-k-role="globe">${SVG.globe}</div>
+              <div class="lk-k space" data-k-role="space">${spaceLbl}</div>
+              <div class="lk-k fn" data-k-role="char" data-k-val=".">.</div>
+              <div class="lk-k enter" data-k-role="enter">↵</div>
+            </div>
+          </div>`;
+      }
+
+      return `
+        <div class="lk-kbd">
+          <div class="lk-row">${nums.map(n => `<div class="lk-k num" data-k-role="char" data-k-val="${n}">${n}</div>`).join("")}</div>
+          <div class="lk-row">${enRow2.map(k => `<div class="lk-k" data-k-role="char" data-k-val="${k}">${k}</div>`).join("")}</div>
+          <div class="lk-row">${enRow3.map(k => `<div class="lk-k" data-k-role="char" data-k-val="${k}">${k}</div>`).join("")}</div>
+          <div class="lk-row">
+            <div class="lk-k fn" data-k-role="fn">⇧</div>
+            ${enRow4.map(k => `<div class="lk-k" data-k-role="char" data-k-val="${k}">${k}</div>`).join("")}
+            <div class="lk-k bksp" data-k-role="bksp">${SVG.bksp}</div>
+          </div>
+          <div class="lk-row">
+            <div class="lk-k fn" data-k-role="sym">?123</div>
+            <div class="lk-k fn" data-k-role="char" data-k-val=",">,</div>
+            <div class="lk-k fn" data-k-role="emoji">${SVG.emoji}</div>
+            <div class="lk-k fn" data-k-role="globe">${SVG.globe}</div>
+            <div class="lk-k space" data-k-role="space">${spaceLbl}</div>
+            <div class="lk-k fn" data-k-role="char" data-k-val=".">.</div>
+            <div class="lk-k enter" data-k-role="enter">↵</div>
+          </div>
+        </div>`;
+    }
+
+    function renderPhone() {
       const el = document.getElementById("phoneScreen");
       if (!el) return;
+      const isAr = currentLang === "ar";
+      const isEs = currentLang === "es";
 
-      // Top Smart Bar: Live Translate button (文A)
-      const btnLive = el.querySelector("[data-ph-act='live']");
-      if (btnLive) btnLive.addEventListener("click", () => {
-        currentScreen = currentScreen === "live" ? "screen" : "live";
-        document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t.dataset.screen === currentScreen));
-        updateShowcaseCaption();
-        renderPhone();
-      });
+      // Screen translation target language (AR when site is AR or keyboard is AR, else ES/AR)
+      const screenTgtKey = isAr ? "ar" : isEs ? "es" : "ar";
+      const pillTarget = "→ " + screenTgtKey.toUpperCase();
+      const pillState = screenTranslated
+        ? (isAr ? "تمت الترجمة" : isEs ? "Traducido" : "Translated")
+        : (isAr ? "الأصل" : "Original");
 
-      // Top Smart Bar: Screen Translate button (A+)
-      const btnScreen = el.querySelector("[data-ph-act='screen']");
-      if (btnScreen) btnScreen.addEventListener("click", () => {
-        currentScreen = "screen";
-        screenTranslated = !screenTranslated;
-        document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t.dataset.screen === "screen"));
-        updateShowcaseCaption();
-        renderPhone();
-      });
+      // Exact LinguaKey Top Bar matching image_a6daba.png & input_view.xml
+      const srcPlaceholder = simKbdLang === "ar"
+        ? "اكتب بالعربية للترجمة الفورية..."
+        : simKbdLang === "es"
+        ? "Escribe para traducir en vivo..."
+        : "Type here to translate live...";
 
-      // Top Smart Bar: Gear button (Tools Hub)
-      const btnTools = el.querySelector("[data-ph-act='tools']");
-      if (btnTools) btnTools.addEventListener("click", () => {
-        currentScreen = currentScreen === "tools" ? "screen" : "tools";
-        document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t.dataset.screen === currentScreen));
-        updateShowcaseCaption();
-        renderPhone();
-      });
+      const centerSlotHTML = liveTranslateOn
+        ? `<div class="lk-source-wrap">
+             <button type="button" class="lk-pair-mini" id="simPairMini" data-ph-act="swapPair" title="Swap Languages">${simPair.src}⇄${simPair.tgt}</button>
+             <input id="simSourceInput" class="lk-source-input" dir="auto" autocomplete="off" spellcheck="false" value="${simDraft.replace(/"/g, "&quot;")}" placeholder="${srcPlaceholder}" />
+             <span id="simClearX" class="lk-clear-x ${simDraft.length > 0 ? "show" : ""}" data-ph-act="clearDraft" title="Clear">✕</span>
+           </div>`
+        : `<div class="lk-center-icons">
+             <div class="lk-icon-btn ${currentScreen === "clipboard" ? "active" : ""}" data-ph-act="clipboard" title="Clipboard">${SVG.clip}</div>
+             <div class="lk-icon-btn ${currentScreen === "emoji" ? "active" : ""}" data-ph-act="emoji" title="Emoji">${SVG.emoji}</div>
+             <div class="lk-icon-btn ${currentScreen === "shortcuts" ? "active" : ""}" data-ph-act="shortcuts" title="Shortcuts">⚡</div>
+             <div class="lk-icon-btn ${currentScreen === "tools" ? "active" : ""}" data-ph-act="tools" title="Tools & Languages">${SVG.gear}</div>
+           </div>`;
 
-      // Back to keyboard pill inside panels
-      const btnBack = el.querySelector(".lk-p-back");
-      if (btnBack) btnBack.addEventListener("click", () => {
-        currentScreen = "screen";
-        document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t.dataset.screen === "screen"));
-        updateShowcaseCaption();
-        renderPhone();
-      });
+      const topBar = `
+        <div class="lk-topbar">
+          <div class="lk-side-pill ${liveTranslateOn ? "active" : ""}" data-ph-act="toggleLive" title="Live Typing Translation (文A)" style="font-size:12px;">文A</div>
+          <div class="lk-center-slot">${centerSlotHTML}</div>
+          <div class="lk-side-pill ${screenTranslated ? "active" : ""}" data-ph-act="screen" title="Screen Translate (A+)">
+            <svg width="18" height="15" viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="16" rx="4"/>
+              <text x="12" y="13.5" text-anchor="middle" fill="currentColor" stroke="none" font-size="9.5" font-weight="800" font-family="sans-serif">A+</text>
+            </svg>
+          </div>
+        </div>`;
 
-      // Swap Source <-> Target inside Tools Hub
-      const btnSwap = el.querySelector(".lk-l-swap");
-      if (btnSwap) btnSwap.addEventListener("click", () => {
-        const tmp = simPair.src; simPair.src = simPair.tgt; simPair.tgt = tmp;
-        renderPhone();
-      });
+      const liveStrip = liveTranslateOn && (currentScreen === "live" || currentScreen === "screen")
+        ? `<div class="lk-live-strip" id="simLiveStrip"></div>`
+        : "";
 
-      // Tool tiles inside Tools Hub
-      el.querySelectorAll(".lk-tile[data-tile-act]").forEach(tile => {
-        tile.addEventListener("click", () => {
-          const a = tile.dataset.tileAct;
-          if (a === "shortcuts") currentScreen = "shortcuts";
-          else if (a === "translate") currentScreen = "live";
-          else currentScreen = "screen";
+      const backLbl = isAr ? "⌨ العودة للوحة" : isEs ? "⌨ Teclado" : "⌨ Keyboard";
+      let lower = "";
+
+      if (currentScreen === "tools") {
+        lower = `
+          ${topBar}
+          <div class="lk-panel">
+            <div class="lk-p-head">
+              <span class="lk-p-back">${backLbl}</span>
+              <span class="lk-p-title">${isAr ? "الأدوات واللغات" : isEs ? "Herramientas e Idiomas" : "Tools & Languages"}</span>
+            </div>
+            <div class="lk-lang-box">
+              <div class="lk-l-from" style="cursor:pointer;" data-ph-act="cyclePair">${isAr ? "من: " + simPair.src : "From: " + simPair.src}</div>
+              <div class="lk-l-swap" style="cursor:pointer;" data-ph-act="swapPair">⇄</div>
+              <div class="lk-l-to" style="cursor:pointer;" data-ph-act="cyclePair">${isAr ? "إلى: " + simPair.tgt : "To: " + simPair.tgt}</div>
+            </div>
+            <div class="lk-grid-3x2">
+              <div class="lk-tile" data-tile-act="clipboard"><span style="color:#8AB4F8;font-size:13px;">📋</span><span class="lk-tile-lbl">${isAr ? "الحافظة" : "Clipboard"}</span></div>
+              <div class="lk-tile" data-tile-act="scan"><span style="color:#81C995;font-size:13px;">🌐</span><span class="lk-tile-lbl">${isAr ? "ترجمة الشاشة" : "Screen Scan"}</span></div>
+              <div class="lk-tile" data-tile-act="ai"><span style="color:#C58AF9;font-size:13px;">✨</span><span class="lk-tile-lbl">${isAr ? "المساعد الذكي" : "AI Copilot"}</span></div>
+              <div class="lk-tile" data-tile-act="shortcuts"><span style="color:#FDD663;font-size:13px;">⚡</span><span class="lk-tile-lbl">${isAr ? "الاختصارات" : "Shortcuts"}</span></div>
+              <div class="lk-tile" data-tile-act="emoji"><span style="color:#FF8BCB;font-size:13px;">😊</span><span class="lk-tile-lbl">${isAr ? "الإيموجي" : "Emoji"}</span></div>
+              <div class="lk-tile" data-tile-act="live"><span style="color:#78D9EC;font-size:13px;">⌨</span><span class="lk-tile-lbl">${isAr ? "الكيبورد" : "Keyboard"}</span></div>
+            </div>
+          </div>`;
+      } else if (currentScreen === "shortcuts") {
+        lower = `
+          ${topBar}
+          <div class="lk-panel">
+            <div class="lk-p-head">
+              <span class="lk-p-back">${backLbl}</span>
+              <span class="lk-p-title">${isAr ? "⚡ الاختصارات السريعة" : "⚡ Quick Shortcuts"}</span>
+            </div>
+            <div class="lk-sc-wrap">
+              <div class="lk-sc-grid">
+                <div class="lk-sc-item" data-sc-val="أراك الساعة 5 للقهوة"><span class="lk-sc-k">/coffee</span><span class="lk-sc-v">${isAr ? "أراك الساعة 5 للقهوة" : "Coffee at 5pm"}</span></div>
+                <div class="lk-sc-item" data-sc-val="أنا في الطريق الآن"><span class="lk-sc-k">/way</span><span class="lk-sc-v">${isAr ? "أنا في الطريق الآن" : "On my way now"}</span></div>
+                <div class="lk-sc-item" data-sc-val="شكراً جزيلاً لك"><span class="lk-sc-k">/thanks</span><span class="lk-sc-v">${isAr ? "شكراً جزيلاً لك" : "Thank you so much"}</span></div>
+                <div class="lk-sc-item" data-sc-val="أحلام سعيدة"><span class="lk-sc-k">/gn</span><span class="lk-sc-v">${isAr ? "أحلام سعيدة" : "Sweet dreams"}</span></div>
+              </div>
+              <span style="font-size:9px;color:#8AB4F8;text-align:center;">${isAr ? "اضغط على أي اختصار لترجمته فوراً" : "Tap any shortcut to live-translate"}</span>
+            </div>
+          </div>`;
+      } else if (currentScreen === "clipboard") {
+        lower = `
+          ${topBar}
+          <div class="lk-panel">
+            <div class="lk-p-head">
+              <span class="lk-p-back">${backLbl}</span>
+              <span class="lk-p-title">${isAr ? "📋 الحافظة الذكية" : "📋 Smart Clipboard"}</span>
+            </div>
+            <div class="lk-sc-wrap">
+              <div class="lk-sc-item" data-sc-val="مرحبا كيف حالك"><span class="lk-sc-k">PINNED</span><span class="lk-sc-v">مرحبا كيف حالك</span></div>
+              <div class="lk-sc-item" data-sc-val="أنا مشغول الآن"><span class="lk-sc-k">RECENT</span><span class="lk-sc-v">أنا مشغول الآن</span></div>
+              <div class="lk-sc-item" data-sc-val="أراك غداً"><span class="lk-sc-k">RECENT</span><span class="lk-sc-v">أراك غداً</span></div>
+            </div>
+          </div>`;
+      } else if (currentScreen === "ai") {
+        lower = `
+          ${topBar}
+          <div class="lk-panel">
+            <div class="lk-p-head">
+              <span class="lk-p-back">${backLbl}</span>
+              <span class="lk-p-title">${isAr ? "✨ ردود المساعد الذكي" : "✨ AI Copilot Replies"}</span>
+            </div>
+            <div class="lk-sc-wrap">
+              <div class="lk-sc-item" data-direct-send="Good luck in class! Text me when you finish 😊"><span class="lk-sc-k" style="color:#C58AF9;">FRIENDLY</span><span class="lk-sc-v">Good luck in class! Text me when you finish 😊</span></div>
+              <div class="lk-sc-item" data-direct-send="Take your time, we can talk later! 🫶"><span class="lk-sc-k" style="color:#81C995;">WARM</span><span class="lk-sc-v">Take your time, we can talk later! 🫶</span></div>
+              <div class="lk-sc-item" data-direct-send="No rush at all! Focus on your class 👍"><span class="lk-sc-k" style="color:#8AB4F8;">SHORT</span><span class="lk-sc-v">No rush at all! Focus on your class 👍</span></div>
+            </div>
+          </div>`;
+      } else if (currentScreen === "emoji") {
+        const ems = ["😂","🫶","😅","❤️","🔥","✨","☕","👍","😊","🙌","🚗","🎉","😍","🙏","😎","🇪🇸"];
+        lower = `
+          ${topBar}
+          <div class="lk-panel">
+            <div class="lk-p-head">
+              <span class="lk-p-back">${backLbl}</span>
+              <span class="lk-p-title">${isAr ? "😊 الإيموجي" : "😊 Emoji"}</span>
+            </div>
+            <div class="lk-emoji-grid">
+              ${ems.map(e => `<div class="lk-emoji-cell" data-em="${e}">${e}</div>`).join("")}
+            </div>
+          </div>`;
+      } else {
+        lower = `${topBar}${liveStrip}${renderKeyboard(simKbdLang)}`;
+      }
+
+      const chatHtml = simChat.map(m => {
+        const dividerHtml = m.divider ? `<div class="ph-time">${m.divider}</div>` : "";
+        const txt = (screenTranslated && m.side === "in" && m.tr && m.tr[screenTgtKey]) ? m.tr[screenTgtKey] : m.orig;
+        const isRtlText = /[\u0600-\u06FF]/.test(txt);
+        const glowCls = (screenTranslated && m.side === "in") ? " translated-glow" : "";
+        if (m.side === "in") {
+          return `${dividerHtml}
+            <div class="ph-msg-row in">
+              <div class="ph-bubble in${isRtlText ? " rtl" : ""}${glowCls}">${txt}</div>
+              <div class="ph-mini-av">M<span class="ph-mini-flag">🇪🇸</span></div>
+            </div>`;
+        }
+        return `${dividerHtml}
+          <div class="ph-msg-row out">
+            <div class="ph-bubble out${isRtlText ? " rtl" : ""}">${txt}</div>
+          </div>`;
+      }).join("");
+
+      const floatPillHtml = screenTranslated
+        ? `<div class="lk-float-wrap">
+             <span class="lk-float-pill" id="simToggleScreenBtn" title="Toggle Original / Translated">
+               <span>${pillState}</span>
+               <span class="lk-float-badge">${pillTarget}</span>
+               <span style="color:#9CA3AF;">↻</span>
+               <span style="color:#EF4444;">✕</span>
+             </span>
+           </div>`
+        : "";
+
+      el.innerHTML = `
+        <div class="ph-status">
+          <div class="ph-st-left">
+            <span class="ph-batt">⚡66</span>
+            <span class="ph-st-net">4G+ • 0.37</span>
+          </div>
+          <div class="ph-camera"></div>
+          <span>3:19</span>
+        </div>
+
+        <div class="ph-chat-top">
+          <div class="ph-top-icons">
+            <span>•••</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2z"/></svg>
+          </div>
+          <div class="ph-user-right">
+            <div>
+              <div class="ph-uname">María</div>
+              <div class="ph-usub">13:19</div>
+            </div>
+            <span class="ph-back-chev">›</span>
+          </div>
+        </div>
+
+        ${floatPillHtml}
+
+        <div class="ph-chat-body ${simScanning ? "scanning" : ""}" id="simChatBody">
+          ${chatHtml}
+        </div>
+
+        <div class="ph-composer">
+          <div class="ph-mic-btn" id="simSendIcon" title="Send"></div>
+          <div class="ph-input-pill" id="simChatInputPill" title="Live Translated Message Output">
+            <span class="ph-out-tag" id="simOutTag" style="display:none;">→ EN</span>
+            <span class="ph-out-text" id="simTranslatedOutput"></span>
+          </div>
+        </div>
+
+        <div class="ph-app-strip">
+          <div class="ph-app-ic" data-ph-act="ai" title="AI Replies">💬</div>
+          <div class="ph-app-ic" data-ph-act="toggleLive" title="Translate">文A</div>
+          <div class="ph-app-ic" data-ph-act="shortcuts" title="Shortcuts">🎁</div>
+          <div class="ph-app-ic" data-ph-act="emoji" title="Emoji">😊</div>
+          <div class="ph-app-ic" data-ph-act="clipboard" title="Clipboard">🖼️</div>
+          <div class="ph-app-ic" data-ph-act="tools" title="Tools">⊕</div>
+        </div>
+
+        ${lower}
+      `;
+
+      // Sync output pill & alternatives without destroying focus
+      syncLiveOutputDOM();
+
+      // Wire events
+      const tBtn = document.getElementById("simToggleScreenBtn");
+      if (tBtn) tBtn.addEventListener("click", triggerScreenScanToggle);
+
+      const chatInputPill = document.getElementById("simChatInputPill");
+      if (chatInputPill) {
+        chatInputPill.addEventListener("click", () => {
+          if (!liveTranslateOn) {
+            liveTranslateOn = true;
+            currentScreen = "live";
+            renderPhone();
+          }
+          const srcInp = document.getElementById("simSourceInput");
+          if (srcInp) srcInp.focus();
+        });
+      }
+
+      const srcInput = document.getElementById("simSourceInput");
+      if (srcInput) {
+        srcInput.addEventListener("input", e => {
+          triggerLiveTranslateUpdate(e.target.value, false);
+        });
+        srcInput.addEventListener("keydown", e => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            simSendMessage();
+          }
+        });
+      }
+
+      const sendIcon = document.getElementById("simSendIcon");
+      if (sendIcon) {
+        sendIcon.addEventListener("click", () => {
+          if (simDraft.trim()) {
+            simSendMessage();
+          } else {
+            const srcInp = document.getElementById("simSourceInput");
+            if (srcInp) srcInp.focus();
+          }
+        });
+      }
+
+      el.querySelectorAll("[data-ph-act]").forEach(btn => {
+        btn.addEventListener("click", e => {
+          e.stopPropagation();
+          const act = btn.dataset.phAct;
+          if (act === "screen") { triggerScreenScanToggle(); return; }
+          if (act === "toggleLive") {
+            liveTranslateOn = !liveTranslateOn;
+            currentScreen = "live";
+            if (liveTranslateOn && simDraft.trim()) triggerLiveTranslateUpdate(simDraft, true);
+            renderPhone();
+            const inp = document.getElementById("simSourceInput");
+            if (inp) inp.focus();
+            return;
+          }
+          if (act === "clearDraft") {
+            simDraft = "";
+            simTranslatedText = "";
+            simAlts = [];
+            renderPhone();
+            const inp = document.getElementById("simSourceInput");
+            if (inp) inp.focus();
+            return;
+          }
+          if (act === "swapPair") {
+            const tmp = simPair.src;
+            simPair.src = simPair.tgt;
+            simPair.tgt = tmp;
+            simKbdLang = simPair.src === "AR" ? "ar" : simPair.src === "ES" ? "es" : "en";
+            if (simDraft.trim()) triggerLiveTranslateUpdate(simDraft, true);
+            renderPhone();
+            return;
+          }
+          if (act === "cyclePair") {
+            const pairs = [{src:"AR",tgt:"EN"},{src:"AR",tgt:"ES"},{src:"AR",tgt:"FR"},{src:"AR",tgt:"TR"},{src:"EN",tgt:"AR"}];
+            const idx = pairs.findIndex(x => x.src === simPair.src && x.tgt === simPair.tgt);
+            simPair = pairs[(idx + 1) % pairs.length];
+            simKbdLang = simPair.src === "AR" ? "ar" : "en";
+            if (simDraft.trim()) triggerLiveTranslateUpdate(simDraft, true);
+            renderPhone();
+            return;
+          }
+          currentScreen = currentScreen === act ? "live" : act;
           document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t.dataset.screen === currentScreen));
           updateShowcaseCaption();
           renderPhone();
         });
       });
 
-      // Shortcut cards -> insert & send directly into chat!
-      el.querySelectorAll(".lk-sc-item[data-sc-val]").forEach(card => {
+      const backBtn = el.querySelector(".lk-p-back");
+      if (backBtn) backBtn.addEventListener("click", () => {
+        currentScreen = "live";
+        document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t.dataset.screen === "live"));
+        updateShowcaseCaption();
+        renderPhone();
+      });
+
+      el.querySelectorAll(".lk-tile[data-tile-act]").forEach(tile => {
+        tile.addEventListener("click", () => {
+          const a = tile.dataset.tileAct;
+          if (a === "scan") { triggerScreenScanToggle(); return; }
+          currentScreen = a;
+          document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t.dataset.screen === currentScreen));
+          updateShowcaseCaption();
+          renderPhone();
+        });
+      });
+
+      el.querySelectorAll("[data-sc-val]").forEach(card => {
         card.addEventListener("click", () => {
-          simSendMessage(card.dataset.scVal);
+          currentScreen = "live";
+          liveTranslateOn = true;
+          triggerLiveTranslateUpdate(card.dataset.scVal, true);
+          renderPhone();
         });
       });
 
-      // Alternative translation chips in Live mode -> tap to send!
-      el.querySelectorAll(".lk-alt").forEach(chip => {
-        chip.addEventListener("click", () => {
-          simSendMessage(chip.textContent);
+      el.querySelectorAll("[data-direct-send]").forEach(card => {
+        card.addEventListener("click", () => {
+          currentScreen = "live";
+          simSendMessage(card.dataset.directSend);
         });
       });
 
-      // Keyboard keys -> actually type into composer & press Enter to send!
+      el.querySelectorAll(".lk-emoji-cell").forEach(cell => {
+        cell.addEventListener("click", () => {
+          currentScreen = "live";
+          triggerLiveTranslateUpdate(simDraft + cell.dataset.em, false);
+          renderPhone();
+        });
+      });
+
       el.querySelectorAll(".lk-k").forEach(k => {
         k.addEventListener("click", () => {
           const role = k.dataset.kRole || "char";
           if (role === "enter") {
-            const presets = SIM_PRESETS[currentLang] || SIM_PRESETS.en;
-            const toSend = simDraft.trim() || presets[simExtraMessages.length % presets.length].tr;
-            simSendMessage(toSend);
+            simSendMessage();
           } else if (role === "bksp") {
-            simDraft = simDraft.slice(0, -1);
-            renderPhone();
+            const next = simDraft.slice(0, -1);
+            const inp = document.getElementById("simSourceInput");
+            if (inp) inp.value = next;
+            triggerLiveTranslateUpdate(next, false);
           } else if (role === "space") {
-            simDraft += " ";
+            const next = simDraft + " ";
+            const inp = document.getElementById("simSourceInput");
+            if (inp) inp.value = next;
+            triggerLiveTranslateUpdate(next, false);
+          } else if (role === "sym") {
+            simSymbolsMode = !simSymbolsMode;
+            renderPhone();
+          } else if (role === "emoji") {
+            currentScreen = "emoji";
+            renderPhone();
+          } else if (role === "globe") {
+            simKbdLang = simKbdLang === "ar" ? "en" : simKbdLang === "en" ? "es" : "ar";
+            simPair.src = simKbdLang.toUpperCase();
+            if (simPair.src === simPair.tgt) simPair.tgt = simPair.src === "AR" ? "EN" : "AR";
+            if (simDraft.trim()) triggerLiveTranslateUpdate(simDraft, true);
             renderPhone();
           } else if (role === "char") {
-            if (simDraft.length < 36) {
-              simDraft += k.textContent.toLowerCase();
+            const ch = k.dataset.kVal || k.textContent;
+            const next = simDraft + ch;
+            const inp = document.getElementById("simSourceInput");
+            if (inp) {
+              inp.value = next;
+              triggerLiveTranslateUpdate(next, false);
+            } else {
+              triggerLiveTranslateUpdate(next, false);
               renderPhone();
             }
           }
         });
       });
-    }
 
-    function renderPhone() {
-      const el = document.getElementById("phoneScreen");
-      const isAr = currentLang === "ar";
-      const isEs = currentLang === "es";
-
-      const m1 = screenTranslated
-        ? (isAr ? "يومي بدأ للتو 😅، الساعة قرابة 11 صباحاً" : isEs ? "Mi día acaba de empezar 😅, casi las 11am" : "My day has just started 😅, it's almost 11am")
-        : "My day has just started 😅, it's almost 11am";
-      const m2 = screenTranslated
-        ? (isAr ? "رائع! هل نلتقي للقهوة؟ ☕" : isEs ? "¡Genial! ¿Nos vemos para un café? ☕" : "Nice! Coffee later today? ☕")
-        : "Nice! Coffee later today? ☕";
-      const m3 = screenTranslated
-        ? (isAr ? "أحلام سعيدة 🫶" : isEs ? "Dulces sueños 🫶" : "Sweet dreams 🫶")
-        : "Sweet dreams 🫶";
-
-      const rtlCls = (screenTranslated && isAr) ? "rtl" : "";
-      const pillTarget = isAr ? "→ AR" : isEs ? "→ ES" : "→ EN";
-      const pillState = screenTranslated
-        ? (isAr ? "تمت الترجمة" : isEs ? "Traducido" : "Translated")
-        : (isAr ? "النص الأصلي" : isEs ? "Original" : "Original");
-
-      const topBar = `
-        <div class="lk-topbar">
-          <div class="lk-side-pill ${currentScreen === "live" ? "active" : ""}" data-ph-act="live" title="Live Translate" style="font-size:11px;font-weight:700;">文A</div>
-          <div class="lk-center-icons">
-            <div class="lk-icon-btn ${currentScreen === "tools" ? "active" : ""}" data-ph-act="tools" title="Tools Hub">${SVG.gear}</div>
-            <div class="lk-icon-btn">${SVG.img}</div>
-            <div class="lk-icon-btn">${SVG.emoji}</div>
-            <div class="lk-icon-btn">${SVG.clip}</div>
-          </div>
-          <div class="lk-side-pill ${currentScreen === "screen" ? "active" : ""}" data-ph-act="screen" title="Screen Translate" style="font-size:10px;font-weight:800;">A+</div>
-        </div>`;
-
-      let lower = "";
-      if (currentScreen === "screen") {
-        lower = topBar + renderKeyboard(currentLang);
-      } else if (currentScreen === "live") {
-        lower = `
-          ${topBar}
-          <div class="lk-live-bar">
-            <div class="lk-live-top">
-              <div class="lk-pair">
-                <span class="lk-chip">${isAr ? "AR" : isEs ? "ES" : "EN"}</span>
-                <span style="color:#8AB4F8;">⇄</span>
-                <span class="lk-chip tgt">${isAr ? "EN" : isEs ? "EN" : "ES"}</span>
-              </div>
-              <span style="color:#81C995;font-weight:700;">● Live</span>
-            </div>
-            <div class="lk-alts">
-              <span class="lk-alt">${isAr ? "I'll be there in 10 mins" : isEs ? "I'll be there in 10 mins" : "Llego en 10 minutos"}</span>
-              <span class="lk-alt">${isAr ? "On my way!" : isEs ? "On my way!" : "¡Ya voy saliendo!"}</span>
-            </div>
-          </div>
-          ${renderKeyboard(currentLang)}`;
-      } else if (currentScreen === "tools") {
-        const backLbl = isAr ? "العودة للوحة" : isEs ? "Teclado" : "Keyboard";
-        const hubTitle = isAr ? "الأدوات واللغات" : isEs ? "Herramientas" : "Tools & Languages";
-        const tiles = isAr
-          ? [["📋","الحافظة","#8AB4F8"],["🌐","الترجمة","#81C995"],["✨","المساعد الذكي","#C58AF9"],["⚡","الاختصارات","#FDD663"],["GIF","صور GIF","#FF8BCB"],["⚙","الإعدادات","#78D9EC"]]
-          : isEs
-          ? [["📋","Portapapeles","#8AB4F8"],["🌐","Traducir","#81C995"],["✨","Asistente IA","#C58AF9"],["⚡","Atajos","#FDD663"],["GIF","GIFs","#FF8BCB"],["⚙","Ajustes","#78D9EC"]]
-          : [["📋","Clipboard","#8AB4F8"],["🌐","Translate","#81C995"],["✨","AI Assistant","#C58AF9"],["⚡","Shortcuts","#FDD663"],["GIF","GIFs","#FF8BCB"],["⚙","Settings","#78D9EC"]];
-        lower = `
-          ${topBar}
-          <div class="lk-panel">
-            <div class="lk-p-head">
-              <div class="lk-p-back">⌨ ${backLbl}</div>
-              <div class="lk-p-title">${hubTitle}</div>
-            </div>
-            <div class="lk-lang-box">
-              <div class="lk-l-from">${isAr ? "من: " + simPair.src : isEs ? "De: " + simPair.src : "From: " + simPair.src}</div>
-              <div class="lk-l-swap">⇄</div>
-              <div class="lk-l-to">${isAr ? "إلى: " + simPair.tgt : isEs ? "A: " + simPair.tgt : "To: " + simPair.tgt}</div>
-            </div>
-            <div class="lk-grid-3x2">
-              ${tiles.map((t, idx) => `<div class="lk-tile" data-tile-act="${idx===3?'shortcuts':idx===1?'translate':'screen'}"><div style="color:${t[2]};font-size:13px;font-weight:800;">${t[0]}</div><div class="lk-tile-lbl">${t[1]}</div></div>`).join("")}
-            </div>
-          </div>`;
-      } else {
-        const backLbl = isAr ? "العودة للوحة" : isEs ? "Teclado" : "Keyboard";
-        const scTitle = isAr ? "الاختصارات السريعة" : isEs ? "Atajos Rápidos" : "Quick Shortcuts";
-        const items = isAr
-          ? [["/عنوان","شارع الروضة، دمشق"],["/وقت","متاح الساعة 5 مساءً"],["/شكر","شكراً جزيلاً لك!"],["/رابط","linguakey.app"],["/رد","سأتواصل معك قريباً"],["/أوك","تمام، تم الاستلام 👍"]]
-          : isEs
-          ? [["/dir","Av. Central 42"],["/hora","Libre a las 5pm"],["/gracias","¡Muchas gracias!"],["/link","linguakey.app"],["/luego","Te escribo pronto"],["/ok","Recibido 👍"]]
-          : [["/addr","42 Oak Street, Apt 4"],["/meet","Free at 5:00 PM"],["/ty","Thanks so much!"],["/link","linguakey.app"],["/brb","One sec, right back"],["/ok","Sounds great 👍"]];
-        lower = `
-          ${topBar}
-          <div class="lk-panel">
-            <div class="lk-p-head">
-              <div class="lk-p-back">⌨ ${backLbl}</div>
-              <div class="lk-p-title">${scTitle}</div>
-            </div>
-            <div class="lk-sc-wrap">
-              <div class="lk-sc-grid">
-                ${items.map(it => `<div class="lk-sc-item" data-sc-val="${it[1]}"><div class="lk-sc-k">${it[0]}</div><div class="lk-sc-v">${it[1]}</div></div>`).join("")}
-              </div>
-              <div class="lk-sc-bar"><div class="lk-sc-thumb"></div></div>
-            </div>
-          </div>`;
-      }
-
-      const composerText = simDraft ? simDraft : currentScreen === "live"
-        ? (isAr ? "أنا في الطريق إليك..." : isEs ? "Voy en camino..." : "On my way there...")
-        : (isAr ? "إدخال الرسالة" : isEs ? "Escribir mensaje" : "Message...");
-
-      el.innerHTML = `
-        <div class="ph-status">
-          <span>3:41</span>
-          <div class="ph-camera"></div>
-          <span>5G • 74%</span>
-        </div>
-        <div class="ph-chat-top">
-          <div class="ph-user">
-            <div class="ph-avatar">S<span class="ph-avatar-flag">🇪🇸</span></div>
-            <div>
-              <div class="ph-uname">Sofia</div>
-              <div class="ph-usub">15:30</div>
-            </div>
-          </div>
-          <div class="lk-float-pill">
-            <span>${pillState}</span>
-            <button class="lk-float-badge" id="toggleTransBtn">${pillTarget} ⇄</button>
-          </div>
-        </div>
-        <div class="ph-chat-body">
-          <div class="ph-time">10:25</div>
-          <div class="ph-msg-row in">
-            <div class="ph-bubble in ${rtlCls}">${m1}</div>
-            <div class="ph-mini-av">S</div>
-          </div>
-          <div class="ph-time">10:27</div>
-          <div class="ph-msg-row out">
-            <div class="ph-bubble out ${rtlCls}">${m2}</div>
-          </div>
-          <div class="ph-seen">✓✓</div>
-          <div class="ph-msg-row in">
-            <div class="ph-bubble in fresh ${rtlCls}">${m3}</div>
-            <div class="ph-mini-av">S</div>
-          </div>
-          ${simExtraMessages.map(em => `<div class="ph-msg-row out"><div class="ph-bubble out fresh">${em.text}</div></div>`).join("")}
-        </div>
-        <div class="ph-composer">
-          <div class="ph-input-pill ${(currentScreen === "live" || simDraft) ? "typing" : ""}">
-            <span>${composerText}</span>
-            <span style="opacity:0.65;">🎤</span>
-          </div>
-        </div>
-        ${lower}
-        <div class="ph-android-nav">
-          <div class="nav-sq"></div>
-          <div class="nav-ci"></div>
-          <div class="nav-dn">▼</div>
-        </div>
-      `;
-
-      const tBtn = document.getElementById("toggleTransBtn");
-      if (tBtn) {
-        tBtn.addEventListener("click", () => {
-          screenTranslated = !screenTranslated;
-          renderPhone();
-        });
-      }
-      bindInteractivePhoneEvents();
       renderSimQuickBar();
     }
 
