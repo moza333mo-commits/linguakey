@@ -1176,6 +1176,81 @@
     @media (max-width: 980px) {
       .trial-card { grid-template-columns: 1fr; padding: 28px 22px; }
     }
+
+    /* Bulletproof Mobile & RTL Overflow Prevention */
+    html, body { max-width: 100%; overflow-x: clip; }
+    .hero-grid > *, .download-wrap > *, .trial-card > *, .gallery-grid > *, .features-grid > *, .steps-grid > * {
+      min-width: 0;
+      max-width: 100%;
+    }
+    .apk-specs, .sha-box, .activation-box, .mini-device, .support-card {
+      min-width: 0;
+      max-width: 100%;
+    }
+    .spec-row { flex-wrap: wrap; }
+    .spec-val { text-align: end; word-break: break-word; }
+    .spec-val.ltr-val { direction: ltr; unicode-bidi: isolate; }
+    .sha-box { max-width: 100%; overflow: hidden; }
+    .sha-box span {
+      min-width: 0;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    /* Interactive Simulator Styles */
+    .lk-side-pill, .lk-icon-btn, .lk-k, .lk-l-swap, .lk-tile, .lk-sc-item, .lk-p-back, .lk-alt, .sim-quick-chip {
+      cursor: pointer;
+      transition: transform 0.1s ease, background 0.15s ease, opacity 0.15s ease;
+    }
+    .lk-k:active, .lk-tile:active, .lk-sc-item:active, .lk-side-pill:active, .lk-l-swap:active {
+      transform: scale(0.93);
+      opacity: 0.85;
+    }
+    .sim-hint-bar {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 330px;
+    }
+    .sim-quick-chip {
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      color: var(--ink-secondary);
+      border-radius: 999px;
+      padding: 5px 11px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .sim-quick-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .ph-chat-body {
+      max-height: 222px;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+    .ph-chat-body::-webkit-scrollbar { display: none; }
+    @keyframes scanPulse {
+      0% { opacity: 0.45; transform: scale(0.985); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .ph-bubble.fresh { animation: scanPulse 0.24s ease; }
+
+    @media (max-width: 600px) {
+      .container { padding: 0 16px; }
+      .download-wrap { padding: 28px 18px; border-radius: 24px; gap: 24px; }
+      .download-wrap h2 { font-size: 1.5rem; }
+      .apk-specs { padding: 16px 14px; }
+      .btn-download-light { width: 100%; padding: 14px 18px; font-size: 0.94rem; }
+      .trial-card { padding: 24px 16px; border-radius: 22px; gap: 22px; }
+      .activation-box { padding: 16px 14px; }
+      .support-card { padding: 24px 18px; }
+      .phone-frame { width: 100%; max-width: 324px; padding: 8px; border-radius: 36px; }
+    }
   </style>
 </head>
 <body>
@@ -1267,6 +1342,7 @@
             <div class="phone-screen" id="phoneScreen"></div>
           </div>
 
+          <div class="sim-hint-bar" id="simQuickBar" aria-label="Interactive Simulator Actions"></div>
           <p class="showcase-caption" id="showcaseCaption" data-i18n="cap_screen">
             Tap the top pill inside the preview to switch between Original and Translated chat bubbles with preserved emojis.
           </p>
@@ -1435,11 +1511,11 @@
           <div class="apk-specs">
             <div class="spec-row">
               <span class="spec-label" data-i18n="spec_ver_l">Version</span>
-              <span class="spec-val">1.3.0 (ML Kit Full)</span>
+              <span class="spec-val ltr-val">1.3.0 (ML Kit Full)</span>
             </div>
             <div class="spec-row">
               <span class="spec-label" data-i18n="spec_size_l">File Size</span>
-              <span class="spec-val">81.87 MB</span>
+              <span class="spec-val ltr-val">81.87 MB</span>
             </div>
             <div class="spec-row">
               <span class="spec-label" data-i18n="spec_date_l">Last Updated</span>
@@ -1447,7 +1523,7 @@
             </div>
             <div class="spec-row">
               <span class="spec-label" data-i18n="spec_req_l">Compatibility</span>
-              <span class="spec-val">Android 7.0+ (ARM64 / ARMv7 / x86_64)</span>
+              <span class="spec-val ltr-val">Android 7.0+ (ARM64 / ARMv7 / x86_64)</span>
             </div>
             <div>
               <div class="spec-label" style="font-size:0.8rem;margin-bottom:6px;" data-i18n="spec_sha_l">Verified SHA-256 Checksum</div>
@@ -1997,20 +2073,198 @@
           <div class="lk-row">${rows[0].map(k => `<div class="lk-k">${k}</div>`).join("")}</div>
           <div class="lk-row">${rows[1].map(k => `<div class="lk-k">${k}</div>`).join("")}</div>
           <div class="lk-row">
-            ${lang !== "ar" ? `<div class="lk-k fn">⇧</div>` : ""}
+            ${lang !== "ar" ? `<div class="lk-k fn" data-k-role="fn">⇧</div>` : ""}
             ${rows[2].map(k => `<div class="lk-k">${k}</div>`).join("")}
-            <div class="lk-k fn">${SVG.bksp}</div>
+            <div class="lk-k fn" data-k-role="bksp">${SVG.bksp}</div>
           </div>
           <div class="lk-row">
-            <div class="lk-k fn">?123</div>
+            <div class="lk-k fn" data-k-role="fn">?123</div>
             <div class="lk-k fn">${lang === "ar" ? "،" : ","}</div>
-            <div class="lk-k fn">${SVG.emoji}</div>
-            <div class="lk-k fn">${SVG.globe}</div>
-            <div class="lk-k space">${spaceLbl}</div>
+            <div class="lk-k fn" data-k-role="fn">${SVG.emoji}</div>
+            <div class="lk-k fn" data-k-role="fn">${SVG.globe}</div>
+            <div class="lk-k space" data-k-role="space">${spaceLbl}</div>
             <div class="lk-k fn">.</div>
-            <div class="lk-k enter">↵</div>
+            <div class="lk-k enter" data-k-role="enter">↵</div>
           </div>
         </div>`;
+    }
+
+
+    // Interactive LinguaKey Simulator State
+    let simPair = { src: "AR", tgt: "EN" };
+    let simDraft = "";
+    let simExtraMessages = [];
+
+    const SIM_PRESETS = {
+      en: [
+        { src: "See you at 5pm! ☕", tr: "¡Nos vemos a las 5pm! ☕" },
+        { src: "On my way now 🚗", tr: "Ya voy en camino 🚗" },
+        { src: "Thanks so much! 🫶", tr: "¡Muchas gracias! 🫶" }
+      ],
+      ar: [
+        { src: "أراك الساعة 5 للقهوة ☕", tr: "See you at 5pm for coffee ☕" },
+        { src: "أنا في الطريق الآن 🚗", tr: "I'm on my way now 🚗" },
+        { src: "شكراً جزيلاً لك 🫶", tr: "Thank you so much 🫶" }
+      ],
+      es: [
+        { src: "¡Nos vemos a las 5! ☕", tr: "See you at 5pm! ☕" },
+        { src: "Ya voy en camino 🚗", tr: "On my way now 🚗" },
+        { src: "¡Muchas gracias! 🫶", tr: "Thanks so much! 🫶" }
+      ]
+    };
+
+    function simSendMessage(text) {
+      if (!text || !text.trim()) return;
+      simExtraMessages.push({ text: text.trim(), out: true });
+      if (simExtraMessages.length > 3) simExtraMessages.shift();
+      simDraft = "";
+      renderPhone();
+      const body = document.querySelector(".ph-chat-body");
+      if (body) body.scrollTop = body.scrollHeight;
+    }
+
+    function renderSimQuickBar() {
+      const bar = document.getElementById("simQuickBar");
+      if (!bar) return;
+      const isAr = currentLang === "ar";
+      const isEs = currentLang === "es";
+      const labels = isAr
+        ? [
+            { act: "toggleTrans", txt: "🌐 جرّب ترجمة الشاشة" },
+            { act: "liveDemo", txt: "⚡ جرّب إرسال رسالة مترجمة" },
+            { act: "openTools", txt: "⚙ افتح لوحة الأدوات" }
+          ]
+        : isEs
+        ? [
+            { act: "toggleTrans", txt: "🌐 Probar Traducción" },
+            { act: "liveDemo", txt: "⚡ Enviar mensaje traducido" },
+            { act: "openTools", txt: "⚙ Abrir Herramientas" }
+          ]
+        : [
+            { act: "toggleTrans", txt: "🌐 Toggle Screen Translate" },
+            { act: "liveDemo", txt: "⚡ Try Live Translated Reply" },
+            { act: "openTools", txt: "⚙ Open Tools Hub" }
+          ];
+      bar.innerHTML = labels.map(l => `<button class="sim-quick-chip" data-sim-act="${l.act}">${l.txt}</button>`).join("");
+      bar.querySelectorAll(".sim-quick-chip").forEach(b => {
+        b.addEventListener("click", () => {
+          const act = b.dataset.simAct;
+          if (act === "toggleTrans") {
+            currentScreen = "screen";
+            screenTranslated = !screenTranslated;
+          } else if (act === "liveDemo") {
+            currentScreen = "live";
+            const presets = SIM_PRESETS[currentLang] || SIM_PRESETS.en;
+            const pick = presets[simExtraMessages.length % presets.length];
+            simDraft = pick.tr;
+          } else if (act === "openTools") {
+            currentScreen = currentScreen === "tools" ? "screen" : "tools";
+          }
+          document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t.dataset.screen === currentScreen));
+          updateShowcaseCaption();
+          renderPhone();
+        });
+      });
+    }
+
+    // Bind interactive clicks inside the rendered phone screen
+    function bindInteractivePhoneEvents() {
+      const el = document.getElementById("phoneScreen");
+      if (!el) return;
+
+      // Top Smart Bar: Live Translate button (文A)
+      const btnLive = el.querySelector("[data-ph-act='live']");
+      if (btnLive) btnLive.addEventListener("click", () => {
+        currentScreen = currentScreen === "live" ? "screen" : "live";
+        document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t.dataset.screen === currentScreen));
+        updateShowcaseCaption();
+        renderPhone();
+      });
+
+      // Top Smart Bar: Screen Translate button (A+)
+      const btnScreen = el.querySelector("[data-ph-act='screen']");
+      if (btnScreen) btnScreen.addEventListener("click", () => {
+        currentScreen = "screen";
+        screenTranslated = !screenTranslated;
+        document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t.dataset.screen === "screen"));
+        updateShowcaseCaption();
+        renderPhone();
+      });
+
+      // Top Smart Bar: Gear button (Tools Hub)
+      const btnTools = el.querySelector("[data-ph-act='tools']");
+      if (btnTools) btnTools.addEventListener("click", () => {
+        currentScreen = currentScreen === "tools" ? "screen" : "tools";
+        document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t.dataset.screen === currentScreen));
+        updateShowcaseCaption();
+        renderPhone();
+      });
+
+      // Back to keyboard pill inside panels
+      const btnBack = el.querySelector(".lk-p-back");
+      if (btnBack) btnBack.addEventListener("click", () => {
+        currentScreen = "screen";
+        document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t.dataset.screen === "screen"));
+        updateShowcaseCaption();
+        renderPhone();
+      });
+
+      // Swap Source <-> Target inside Tools Hub
+      const btnSwap = el.querySelector(".lk-l-swap");
+      if (btnSwap) btnSwap.addEventListener("click", () => {
+        const tmp = simPair.src; simPair.src = simPair.tgt; simPair.tgt = tmp;
+        renderPhone();
+      });
+
+      // Tool tiles inside Tools Hub
+      el.querySelectorAll(".lk-tile[data-tile-act]").forEach(tile => {
+        tile.addEventListener("click", () => {
+          const a = tile.dataset.tileAct;
+          if (a === "shortcuts") currentScreen = "shortcuts";
+          else if (a === "translate") currentScreen = "live";
+          else currentScreen = "screen";
+          document.querySelectorAll(".showcase-tab").forEach(t => t.classList.toggle("active", t.dataset.screen === currentScreen));
+          updateShowcaseCaption();
+          renderPhone();
+        });
+      });
+
+      // Shortcut cards -> insert & send directly into chat!
+      el.querySelectorAll(".lk-sc-item[data-sc-val]").forEach(card => {
+        card.addEventListener("click", () => {
+          simSendMessage(card.dataset.scVal);
+        });
+      });
+
+      // Alternative translation chips in Live mode -> tap to send!
+      el.querySelectorAll(".lk-alt").forEach(chip => {
+        chip.addEventListener("click", () => {
+          simSendMessage(chip.textContent);
+        });
+      });
+
+      // Keyboard keys -> actually type into composer & press Enter to send!
+      el.querySelectorAll(".lk-k").forEach(k => {
+        k.addEventListener("click", () => {
+          const role = k.dataset.kRole || "char";
+          if (role === "enter") {
+            const presets = SIM_PRESETS[currentLang] || SIM_PRESETS.en;
+            const toSend = simDraft.trim() || presets[simExtraMessages.length % presets.length].tr;
+            simSendMessage(toSend);
+          } else if (role === "bksp") {
+            simDraft = simDraft.slice(0, -1);
+            renderPhone();
+          } else if (role === "space") {
+            simDraft += " ";
+            renderPhone();
+          } else if (role === "char") {
+            if (simDraft.length < 36) {
+              simDraft += k.textContent.toLowerCase();
+              renderPhone();
+            }
+          }
+        });
+      });
     }
 
     function renderPhone() {
@@ -2036,14 +2290,14 @@
 
       const topBar = `
         <div class="lk-topbar">
-          <div class="lk-side-pill ${currentScreen === "live" ? "active" : ""}" style="font-size:11px;font-weight:700;">文A</div>
+          <div class="lk-side-pill ${currentScreen === "live" ? "active" : ""}" data-ph-act="live" title="Live Translate" style="font-size:11px;font-weight:700;">文A</div>
           <div class="lk-center-icons">
-            <div class="lk-icon-btn ${currentScreen === "tools" ? "active" : ""}">${SVG.gear}</div>
+            <div class="lk-icon-btn ${currentScreen === "tools" ? "active" : ""}" data-ph-act="tools" title="Tools Hub">${SVG.gear}</div>
             <div class="lk-icon-btn">${SVG.img}</div>
             <div class="lk-icon-btn">${SVG.emoji}</div>
             <div class="lk-icon-btn">${SVG.clip}</div>
           </div>
-          <div class="lk-side-pill ${currentScreen === "screen" ? "active" : ""}" style="font-size:10px;font-weight:800;">A+</div>
+          <div class="lk-side-pill ${currentScreen === "screen" ? "active" : ""}" data-ph-act="screen" title="Screen Translate" style="font-size:10px;font-weight:800;">A+</div>
         </div>`;
 
       let lower = "";
@@ -2083,12 +2337,12 @@
               <div class="lk-p-title">${hubTitle}</div>
             </div>
             <div class="lk-lang-box">
-              <div class="lk-l-from">${isAr ? "من: AR" : isEs ? "De: ES" : "From: EN"}</div>
+              <div class="lk-l-from">${isAr ? "من: " + simPair.src : isEs ? "De: " + simPair.src : "From: " + simPair.src}</div>
               <div class="lk-l-swap">⇄</div>
-              <div class="lk-l-to">${isAr ? "إلى: EN" : isEs ? "A: EN" : "To: ES"}</div>
+              <div class="lk-l-to">${isAr ? "إلى: " + simPair.tgt : isEs ? "A: " + simPair.tgt : "To: " + simPair.tgt}</div>
             </div>
             <div class="lk-grid-3x2">
-              ${tiles.map(t => `<div class="lk-tile"><div style="color:${t[2]};font-size:13px;font-weight:800;">${t[0]}</div><div class="lk-tile-lbl">${t[1]}</div></div>`).join("")}
+              ${tiles.map((t, idx) => `<div class="lk-tile" data-tile-act="${idx===3?'shortcuts':idx===1?'translate':'screen'}"><div style="color:${t[2]};font-size:13px;font-weight:800;">${t[0]}</div><div class="lk-tile-lbl">${t[1]}</div></div>`).join("")}
             </div>
           </div>`;
       } else {
@@ -2108,14 +2362,14 @@
             </div>
             <div class="lk-sc-wrap">
               <div class="lk-sc-grid">
-                ${items.map(it => `<div class="lk-sc-item"><div class="lk-sc-k">${it[0]}</div><div class="lk-sc-v">${it[1]}</div></div>`).join("")}
+                ${items.map(it => `<div class="lk-sc-item" data-sc-val="${it[1]}"><div class="lk-sc-k">${it[0]}</div><div class="lk-sc-v">${it[1]}</div></div>`).join("")}
               </div>
               <div class="lk-sc-bar"><div class="lk-sc-thumb"></div></div>
             </div>
           </div>`;
       }
 
-      const composerText = currentScreen === "live"
+      const composerText = simDraft ? simDraft : currentScreen === "live"
         ? (isAr ? "أنا في الطريق إليك..." : isEs ? "Voy en camino..." : "On my way there...")
         : (isAr ? "إدخال الرسالة" : isEs ? "Escribir mensaje" : "Message...");
 
@@ -2150,12 +2404,13 @@
           </div>
           <div class="ph-seen">✓✓</div>
           <div class="ph-msg-row in">
-            <div class="ph-bubble in ${rtlCls}">${m3}</div>
+            <div class="ph-bubble in fresh ${rtlCls}">${m3}</div>
             <div class="ph-mini-av">S</div>
           </div>
+          ${simExtraMessages.map(em => `<div class="ph-msg-row out"><div class="ph-bubble out fresh">${em.text}</div></div>`).join("")}
         </div>
         <div class="ph-composer">
-          <div class="ph-input-pill ${currentScreen === "live" ? "typing" : ""}">
+          <div class="ph-input-pill ${(currentScreen === "live" || simDraft) ? "typing" : ""}">
             <span>${composerText}</span>
             <span style="opacity:0.65;">🎤</span>
           </div>
@@ -2175,6 +2430,8 @@
           renderPhone();
         });
       }
+      bindInteractivePhoneEvents();
+      renderSimQuickBar();
     }
 
     function applyLanguage(lang) {
